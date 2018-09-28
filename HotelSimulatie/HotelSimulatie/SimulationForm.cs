@@ -15,6 +15,8 @@ namespace HotelSimulatie
         public SimulationForm(string fileLocation)
         {
             InitializeComponent();
+            ImportLayout import = new ImportLayout();
+            Hotel hotel = import.LayoutImport(fileLocation);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
