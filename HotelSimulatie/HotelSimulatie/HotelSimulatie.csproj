@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Cinema.cs" />
     <Compile Include="Classes\Hotel.cs" />
+    <Compile Include="Classes\Restaurant.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="ImportLayout.cs" />

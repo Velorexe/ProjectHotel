@@ -19,12 +19,60 @@ namespace HotelSimulatie
         {
             Hotel hotel = new Hotel();
             string layout = File.ReadAllText(filePath);
+
             List<TempLayout> rooms = new List<TempLayout>();
+            List<IArea> hotelRooms = new List<IArea>();
+
             rooms = JsonConvert.DeserializeObject<List<TempLayout>>(layout);
+
+            foreach(TempLayout tempRoom in rooms)
+            {
+                hotelRooms.Add(ConvertTempToRoom(tempRoom));
+            }
+            //Fill Hotel
+            //Set floors to have a list of IAreas
+            //Fill the positions
             return hotel;
         }
 
-        public int[] PullIntsFromString(string target)
+        private IArea ConvertTempToRoom(TempLayout tempRoom)
+        {
+            switch (tempRoom.AreaType)
+            {
+                case "Room":
+                    return new Room
+                    {
+                        AreaType = EAreaType.Room,
+                        Classification = PullIntsFromString(tempRoom.Classification)[0],
+                        PositionX = PullIntsFromString(tempRoom.Position)[0],
+                        PositionY = PullIntsFromString(tempRoom.Position)[1],
+                        SizeX = PullIntsFromString(tempRoom.Dimention)[0],
+                        SizeY = PullIntsFromString(tempRoom.Dimention)[1]
+                    };
+                case "Cinema":
+                    return new Cinema
+                    {
+                        AreaType = EAreaType.Cinema,
+                        PositionX = PullIntsFromString(tempRoom.Position)[0],
+                        PositionY = PullIntsFromString(tempRoom.Position)[1],
+                        SizeX = PullIntsFromString(tempRoom.Dimention)[0],
+                        SizeY = PullIntsFromString(tempRoom.Dimention)[1]
+                    };
+                case "Restaurant":
+                    return new Restaurant
+                    {
+                        AreaType = EAreaType.Restaurant,
+                        PositionX = PullIntsFromString(tempRoom.Position)[0],
+                        PositionY = PullIntsFromString(tempRoom.Position)[1],
+                        SizeX = PullIntsFromString(tempRoom.Dimention)[0],
+                        SizeY = PullIntsFromString(tempRoom.Dimention)[1],
+                        Capacity = tempRoom.Capacity
+                    };
+            }
+            return null;
+        }
+
+        private int[] PullIntsFromString(string target)
         {
             int[] result = new int[2];
             int index = 0;
@@ -32,7 +80,7 @@ namespace HotelSimulatie
             {
                 if (Char.IsDigit(letter))
                 {
-                    result[index] = Convert.ToInt32(letter);
+                    result[index] = letter - '0';
                     index++;
                 }
             }

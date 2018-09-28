@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulatie.Classes
+namespace HotelSimulatie
 {
-    class Room : IArea
+    public class Room : IArea
     {
         public EAreaType AreaType { get; set; } = EAreaType.Room;
+        public int Classification { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public int SizeX { get; set; }

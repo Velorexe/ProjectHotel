@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelSimulatie.Classes
+namespace HotelSimulatie
 {
-    class Restaurant : IArea
+    public class Restaurant : IArea
     {
         public EAreaType AreaType { get; set; } = EAreaType.Restaurant;
         public int PositionX { get; set; }
