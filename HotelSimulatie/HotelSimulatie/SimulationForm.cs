@@ -16,5 +16,10 @@ namespace HotelSimulatie
         {
             InitializeComponent();
         }
+
+        private void SimulationForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

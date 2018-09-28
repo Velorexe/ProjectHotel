@@ -18,7 +18,7 @@ namespace HotelSimulatie
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -39,6 +39,11 @@ namespace HotelSimulatie
                 //Give the file name with the simulation
                 //Perform the .layout to Hotel convertion
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
