@@ -27,18 +27,51 @@ namespace HotelSimulatie
 
             foreach(TempLayout tempRoom in rooms)
             {
-                hotelRooms.Add(ConvertTempToRoom(tempRoom));
+                hotelRooms.Add(ConvertTempToArea(tempRoom));
             }
+
+            int maxHeight = 0;
+            int maxWidth = 0;
+            foreach(IArea area in hotelRooms)
+            {
+                if(area.PositionY + area.Height > maxHeight)
+                {
+                    maxHeight = area.PositionY + area.Height;
+                }
+                if(area.PositionX + area.Width > maxWidth)
+                {
+                    maxWidth = area.PositionX + area.Width;
+                }
+            }
+
+            for (int i = 0; i < maxHeight + 1; i++)
+            {
+                hotel.Floors.Add(new Floor(i, maxWidth));
+            }
+
+            foreach(IArea area in hotelRooms)
+            {
+                hotel.Floors[area.PositionY].Areas[area.PositionX] = area;
+            }
+
             //Fill Hotel
             //Set floors to have a list of IAreas
             //Fill the positions
             return hotel;
         }
 
-        private IArea ConvertTempToRoom(TempLayout tempRoom)
+        /// <summary>
+        /// Converts a temporary room (TempLayout) to an IArea
+        /// </summary>
+        /// <param name="tempRoom">The temporary room layout that needs to be converted.</param>
+        /// <returns>An IArea that corresponds with the given TempLayout's AreaType</returns>
+        private IArea ConvertTempToArea(TempLayout tempRoom)
         {
             switch (tempRoom.AreaType)
             {
+                //Make this more simple
+                //Size, position and everything can be done in one method
+                //No need to use a switch case with such complexity everytime
                 case "Room":
                     return new Room
                     {
@@ -46,8 +79,8 @@ namespace HotelSimulatie
                         Classification = PullIntsFromString(tempRoom.Classification)[0],
                         PositionX = PullIntsFromString(tempRoom.Position)[0],
                         PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        SizeX = PullIntsFromString(tempRoom.Dimention)[0],
-                        SizeY = PullIntsFromString(tempRoom.Dimention)[1]
+                        Width = PullIntsFromString(tempRoom.Dimention)[0],
+                        Height = PullIntsFromString(tempRoom.Dimention)[1]
                     };
                 case "Cinema":
                     return new Cinema
@@ -55,8 +88,8 @@ namespace HotelSimulatie
                         AreaType = EAreaType.Cinema,
                         PositionX = PullIntsFromString(tempRoom.Position)[0],
                         PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        SizeX = PullIntsFromString(tempRoom.Dimention)[0],
-                        SizeY = PullIntsFromString(tempRoom.Dimention)[1]
+                        Width = PullIntsFromString(tempRoom.Dimention)[0],
+                        Height = PullIntsFromString(tempRoom.Dimention)[1]
                     };
                 case "Restaurant":
                     return new Restaurant
@@ -64,8 +97,8 @@ namespace HotelSimulatie
                         AreaType = EAreaType.Restaurant,
                         PositionX = PullIntsFromString(tempRoom.Position)[0],
                         PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        SizeX = PullIntsFromString(tempRoom.Dimention)[0],
-                        SizeY = PullIntsFromString(tempRoom.Dimention)[1],
+                        Width = PullIntsFromString(tempRoom.Dimention)[0],
+                        Height = PullIntsFromString(tempRoom.Dimention)[1],
                         Capacity = tempRoom.Capacity
                     };
             }

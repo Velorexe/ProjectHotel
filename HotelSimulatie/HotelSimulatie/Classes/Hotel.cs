@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    public class Hotel
+    class Hotel
     {
-        List<Floor> Floors = new List<Floor>();
-    }
-    class Floor
-    {
-        public int FloorHeight { get; set; }
-        public List<IArea> Rooms { get; set; }
+        public List<Floor> Floors = new List<Floor>();
     }
 }

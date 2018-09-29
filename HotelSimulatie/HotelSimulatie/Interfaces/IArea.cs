@@ -11,8 +11,8 @@ namespace HotelSimulatie
         EAreaType AreaType { get; set; }
         int PositionX { get; set; }
         int PositionY { get; set; }
-        int SizeX { get; set; }
-        int SizeY { get; set; }
+        int Width { get; set; }
+        int Height { get; set; }
         int Capacity { get; set; }
     }
 

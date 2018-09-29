@@ -40,20 +40,18 @@
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("Lucida Fax", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.titleLabel.Location = new System.Drawing.Point(331, 81);
-            this.titleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.titleLabel.Location = new System.Drawing.Point(432, 129);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(363, 76);
+            this.titleLabel.Size = new System.Drawing.Size(541, 115);
             this.titleLabel.TabIndex = 0;
             this.titleLabel.Text = "Sim-Hotel";
             // 
             // startButton
             // 
             this.startButton.Font = new System.Drawing.Font("Lucida Fax", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startButton.Location = new System.Drawing.Point(433, 259);
-            this.startButton.Margin = new System.Windows.Forms.Padding(2);
+            this.startButton.Location = new System.Drawing.Point(585, 396);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(133, 32);
+            this.startButton.Size = new System.Drawing.Size(200, 49);
             this.startButton.TabIndex = 1;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
@@ -62,10 +60,9 @@
             // exitButton
             // 
             this.exitButton.Font = new System.Drawing.Font("Lucida Fax", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.exitButton.Location = new System.Drawing.Point(436, 335);
-            this.exitButton.Margin = new System.Windows.Forms.Padding(2);
+            this.exitButton.Location = new System.Drawing.Point(585, 513);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(133, 32);
+            this.exitButton.Size = new System.Drawing.Size(200, 49);
             this.exitButton.TabIndex = 2;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -77,14 +74,13 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(913, 487);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.titleLabel);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Hotel Simulatie";
             this.Load += new System.EventHandler(this.MainForm_Load);

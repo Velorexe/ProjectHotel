@@ -11,8 +11,8 @@ namespace HotelSimulatie
         public EAreaType AreaType { get; set; } = EAreaType.Cinema;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public int SizeX { get; set; }
-        public int SizeY { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public int Capacity { get; set; } = 10;
     }
 }
