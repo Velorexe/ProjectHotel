@@ -22,6 +22,8 @@ namespace HotelSimulatie
         Restaurant,
         Fitness,
         Reception,
-        Room
+        Room,
+        Staircase,
+        ElevatorShaft
     }
 }

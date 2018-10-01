@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
+using System.Drawing;
 
 namespace HotelSimulatie
 {
@@ -44,9 +45,9 @@ namespace HotelSimulatie
                 }
             }
 
-            for (int i = 0; i < maxHeight + 1; i++)
+            for (int i = 0; i < maxHeight; i++)
             {
-                hotel.Floors.Add(new Floor(i, maxWidth));
+                hotel.Floors.Add(new Floor(i, maxWidth + 1));
             }
 
             foreach(IArea area in hotelRooms)
@@ -54,9 +55,15 @@ namespace HotelSimulatie
                 hotel.Floors[area.PositionY].Areas[area.PositionX] = area;
             }
 
-            //Fill Hotel
-            //Set floors to have a list of IAreas
-            //Fill the positions
+            for (int i = 0; i < hotel.Floors.Count; i++)
+            {
+                hotel.Floors[i].Areas[0] = new ElevatorShaft();
+                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase();
+            }
+
+            //Fill the 0 positions of floors with elevator and staircases
+            //On the first floor there should be one reception tile (reception class needs to be created)
+        
             return hotel;
         }
 

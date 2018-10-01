@@ -15,5 +15,6 @@ namespace HotelSimulatie
         public int Width { get; set; }
         public int Height { get; set; }
         public int Capacity { get; set; } = 1;
+        //public Customer Owner { get; set; } = null;
     }
 }
