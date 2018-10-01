@@ -17,6 +17,9 @@ namespace HotelSimulatie
             InitializeComponent();
             ImportLayout import = new ImportLayout();
             Hotel hotel = import.LayoutImport(fileLocation);
+
+            Bitmap bitmap = new Bitmap("C:/Users/Gebruiker/Pictures/cookie.jpg");
+            Draw.DrawTemplate(bitmap, 40, 60, BackgroundLayer);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
