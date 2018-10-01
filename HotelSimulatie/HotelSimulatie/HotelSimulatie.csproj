@@ -54,6 +54,7 @@
     <Compile Include="Classes\Hotel.cs" />
     <Compile Include="Classes\Restaurant.cs" />
     <Compile Include="Classes\Floor.cs" />
+    <Compile Include="Draw.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="ImportLayout.cs" />
@@ -83,6 +84,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SimulationForm.resx">
+      <DependentUpon>SimulationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
