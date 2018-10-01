@@ -56,11 +56,8 @@
     <Compile Include="Classes\Reception.cs" />
     <Compile Include="Classes\Restaurant.cs" />
     <Compile Include="Classes\Floor.cs" />
-<<<<<<< HEAD
     <Compile Include="Classes\Staircase.cs" />
-=======
     <Compile Include="Draw.cs" />
->>>>>>> 9688b6ec7212ff815d6ccac611ce9cb5e4872492
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="ImportLayout.cs" />
