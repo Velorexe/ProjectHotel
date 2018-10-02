@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
@@ -57,18 +58,34 @@ namespace HotelSimulatie
 
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
-                hotel.Floors[i].Areas[0] = new ElevatorShaft();
-                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase();
+                hotel.Floors[i].Areas[0] = new ElevatorShaft() { PositionX = 0, PositionY = i};
+                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase() { PositionX = hotel.Floors[i].Areas.Count() - 1, PositionY = i};
             }
 
-<<<<<<< HEAD
-            //On the first floor there should be one reception tile (reception class needs to be created)
-=======
             hotel.Floors.Reverse();
             hotel.Floors = MoveItemInList(hotel.Floors, hotel.Floors.Count - 1, 0);
 
             hotel.Floors[0].Areas[1] = new Reception();
->>>>>>> e659ccf6e6b4c8923872881b95db9e9b76ab2082
+
+            for (int i = 0; i < hotel.Floors.Count; i++)
+            {
+                for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
+                {
+                    if(hotel.Floors[i].Areas[j] is null)
+                    {
+                        hotel.Floors[i].Areas[j] = 
+                        new Room
+                        {
+                            AreaType = EAreaType.Room,
+                            Classification = 1,
+                            PositionX = j,
+                            PositionY = i,
+                            Width = 1,
+                            Height = 1
+                        };
+                    }
+                }
+            }
         
             return hotel;
         }
@@ -147,6 +164,7 @@ namespace HotelSimulatie
         {
             int[] result = new int[2];
             target = target.Replace(" ", "");
+            target = Regex.Replace(target, "[A-Za-z ]", "");
             string[] tempArray = target.Split(',');
             for (int i = 0; i < tempArray.Length; i++)
             {

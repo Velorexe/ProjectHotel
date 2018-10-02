@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Reception : HotelEvents.HotelEventListener
+    class Reception : IArea, HotelEvents.HotelEventListener
     {
         public EAreaType AreaType { get; set; } = EAreaType.Reception;
         public int Capacity { get; set; } = 0;
@@ -14,6 +15,7 @@ namespace HotelSimulatie
         public int Width { get; set; } = 1;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+        public Bitmap Sprite { get; set; } = HotelSimulatie.Properties.Resources.Reception;
 
         public void Notify(HotelEvents.HotelEvent hotelEvent)
         {

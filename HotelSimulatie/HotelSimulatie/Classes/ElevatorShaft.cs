@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace HotelSimulatie
 {
@@ -15,5 +16,6 @@ namespace HotelSimulatie
         public int PositionY { get; set; }
         public int Capacity { get; set; } = 0;
         public bool ElevatorOnPosition { get; set; } = false;
+        public Bitmap Sprite { get; set; } = HotelSimulatie.Properties.Resources.Elevator_Shaft;
     }
 }

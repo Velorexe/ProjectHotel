@@ -87,6 +87,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SimulationForm.resx">
       <DependentUpon>SimulationForm.cs</DependentUpon>
@@ -104,6 +105,40 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cinema.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elevator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elevator_Shaft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gym.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reception.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Restaurant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Room.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RoomDoor.png" />
+    <Content Include="Resources\Staircase.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
