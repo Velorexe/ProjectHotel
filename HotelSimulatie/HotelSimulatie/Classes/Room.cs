@@ -17,6 +17,6 @@ namespace HotelSimulatie
         public int Height { get; set; }
         public int Capacity { get; set; } = 1;
         //public Customer Owner { get; set; } = null;
-        public Bitmap Sprite { get; set; } = Sprites.Room;
+        public Bitmap Sprite { get; set; } = HotelSimulatie.Properties.Resources.RoomDoor;
     }
 }

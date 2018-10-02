@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
@@ -57,8 +58,8 @@ namespace HotelSimulatie
 
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
-                hotel.Floors[i].Areas[0] = new ElevatorShaft();
-                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase();
+                hotel.Floors[i].Areas[0] = new ElevatorShaft() { PositionX = 0, PositionY = i};
+                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase() { PositionX = hotel.Floors[i].Areas.Count() - 1, PositionY = i};
             }
 
             hotel.Floors.Reverse();
@@ -66,6 +67,28 @@ namespace HotelSimulatie
 
             hotel.Floors[0].Areas[1] = new Reception();
 
+<<<<<<< HEAD
+=======
+            for (int i = 0; i < hotel.Floors.Count; i++)
+            {
+                for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
+                {
+                    if(hotel.Floors[i].Areas[j] is null)
+                    {
+                        hotel.Floors[i].Areas[j] = 
+                        new Room
+                        {
+                            AreaType = EAreaType.Room,
+                            Classification = 1,
+                            PositionX = j,
+                            PositionY = i,
+                            Width = 1,
+                            Height = 1
+                        };
+                    }
+                }
+            }
+>>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
         
             return hotel;
         }
@@ -144,6 +167,7 @@ namespace HotelSimulatie
         {
             int[] result = new int[2];
             target = target.Replace(" ", "");
+            target = Regex.Replace(target, "[A-Za-z ]", "");
             string[] tempArray = target.Split(',');
             for (int i = 0; i < tempArray.Length; i++)
             {

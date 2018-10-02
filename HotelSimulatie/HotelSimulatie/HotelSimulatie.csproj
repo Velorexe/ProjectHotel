@@ -91,6 +91,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SimulationForm.resx">
       <DependentUpon>SimulationForm.cs</DependentUpon>
@@ -114,6 +115,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <None Include="Resources\Cinema.png" />
+  </ItemGroup>
+  <ItemGroup>
+>>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
     <None Include="Resources\Door.png" />
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +133,12 @@
     <None Include="Resources\Gym.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <None Include="Resources\Pool.png" />
+  </ItemGroup>
+  <ItemGroup>
+>>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
     <None Include="Resources\Reception.png" />
   </ItemGroup>
   <ItemGroup>
@@ -138,10 +151,15 @@
     <None Include="Resources\star.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <None Include="Resources\Cinema.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Staircase.png" />
+=======
+    <None Include="Resources\RoomDoor.png" />
+    <Content Include="Resources\Staircase.png" />
+>>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
