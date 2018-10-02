@@ -61,10 +61,27 @@ namespace HotelSimulatie
                 hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase();
             }
 
-            //Fill the 0 positions of floors with elevator and staircases
-            //On the first floor there should be one reception tile (reception class needs to be created)
+            hotel.Floors.Reverse();
+            hotel.Floors = MoveItemInList(hotel.Floors, hotel.Floors.Count - 1, 0);
+
+            hotel.Floors[0].Areas[1] = new Reception();
         
             return hotel;
+        }
+
+        /// <summary>
+        /// Moves an item in a given list from one place to the other.
+        /// </summary>
+        /// <param name="List">The list where the Items need to be changed.</param>
+        /// <param name="oldIndex">The index of the Object that needs to be moved.</param>
+        /// <param name="newIndex">The new index where the old Object needs to be moved.</param>
+        /// <returns>The given list with the Object moved.</returns>
+        private List<Floor> MoveItemInList(List<Floor> List, int oldIndex, int newIndex)
+        {
+            Floor tempFloor = List[oldIndex];
+            List.RemoveAt(oldIndex);
+            List.Insert(newIndex, tempFloor);
+            return List;
         }
 
         /// <summary>
@@ -86,8 +103,8 @@ namespace HotelSimulatie
                         Classification = PullIntsFromString(tempRoom.Classification)[0],
                         PositionX = PullIntsFromString(tempRoom.Position)[0],
                         PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimention)[0],
-                        Height = PullIntsFromString(tempRoom.Dimention)[1]
+                        Width = PullIntsFromString(tempRoom.Dimension)[0],
+                        Height = PullIntsFromString(tempRoom.Dimension)[1]
                     };
                 case "Cinema":
                     return new Cinema
@@ -95,8 +112,8 @@ namespace HotelSimulatie
                         AreaType = EAreaType.Cinema,
                         PositionX = PullIntsFromString(tempRoom.Position)[0],
                         PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimention)[0],
-                        Height = PullIntsFromString(tempRoom.Dimention)[1]
+                        Width = PullIntsFromString(tempRoom.Dimension)[0],
+                        Height = PullIntsFromString(tempRoom.Dimension)[1]
                     };
                 case "Restaurant":
                     return new Restaurant
@@ -104,8 +121,18 @@ namespace HotelSimulatie
                         AreaType = EAreaType.Restaurant,
                         PositionX = PullIntsFromString(tempRoom.Position)[0],
                         PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimention)[0],
-                        Height = PullIntsFromString(tempRoom.Dimention)[1],
+                        Width = PullIntsFromString(tempRoom.Dimension)[0],
+                        Height = PullIntsFromString(tempRoom.Dimension)[1],
+                        Capacity = tempRoom.Capacity
+                    };
+                case "Fitness":
+                    return new Fitness
+                    {
+                        AreaType = EAreaType.Fitness,
+                        PositionX = PullIntsFromString(tempRoom.Position)[0],
+                        PositionY = PullIntsFromString(tempRoom.Position)[1],
+                        Width = PullIntsFromString(tempRoom.Dimension)[0],
+                        Height = PullIntsFromString(tempRoom.Dimension)[1],
                         Capacity = tempRoom.Capacity
                     };
             }
@@ -115,14 +142,11 @@ namespace HotelSimulatie
         private int[] PullIntsFromString(string target)
         {
             int[] result = new int[2];
-            int index = 0;
-            foreach (char letter in target)
+            target = target.Replace(" ", "");
+            string[] tempArray = target.Split(',');
+            for (int i = 0; i < tempArray.Length; i++)
             {
-                if (Char.IsDigit(letter))
-                {
-                    result[index] = letter - '0';
-                    index++;
-                }
+                result[i] = Convert.ToInt32(tempArray[i]);
             }
             return result;
         }
@@ -132,7 +156,7 @@ namespace HotelSimulatie
             public string AreaType { get; set; }
             public int Capacity { get; set; }
             public string Position { get; set; }
-            public string Dimention { get; set; }
+            public string Dimension { get; set; }
             public string Classification { get; set; }
         }
     }
