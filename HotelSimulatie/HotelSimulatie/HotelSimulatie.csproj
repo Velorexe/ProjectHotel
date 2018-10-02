@@ -58,7 +58,6 @@
     <Compile Include="Classes\Floor.cs" />
     <Compile Include="Classes\Staircase.cs" />
     <Compile Include="Draw.cs" />
-    <Compile Include="Classes\Fitness.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="ImportLayout.cs" />
@@ -76,6 +75,11 @@
     <Compile Include="SimulationForm.Designer.cs">
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sprites.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sprites.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,6 +95,10 @@
     <EmbeddedResource Include="SimulationForm.resx">
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sprites.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sprites.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -104,6 +112,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elevator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Elevator_Shaft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gym.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reception.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Restaurant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Room.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cinema.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Staircase.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

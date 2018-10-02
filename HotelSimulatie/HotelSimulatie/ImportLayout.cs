@@ -61,14 +61,11 @@ namespace HotelSimulatie
                 hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase();
             }
 
-<<<<<<< HEAD
-            //On the first floor there should be one reception tile (reception class needs to be created)
-=======
             hotel.Floors.Reverse();
             hotel.Floors = MoveItemInList(hotel.Floors, hotel.Floors.Count - 1, 0);
 
             hotel.Floors[0].Areas[1] = new Reception();
->>>>>>> e659ccf6e6b4c8923872881b95db9e9b76ab2082
+
         
             return hotel;
         }
