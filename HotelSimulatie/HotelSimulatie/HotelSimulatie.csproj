@@ -58,6 +58,7 @@
     <Compile Include="Classes\Floor.cs" />
     <Compile Include="Classes\Staircase.cs" />
     <Compile Include="Draw.cs" />
+    <Compile Include="Classes\Fitness.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="ImportLayout.cs" />
