@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace HotelSimulatie
 {
@@ -14,5 +15,6 @@ namespace HotelSimulatie
         public int Width { get; set; }
         public int Height { get; set; }
         public int Capacity { get; set; }
+        public Bitmap Sprite { get; set; } = Sprites.Restaurant;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace HotelSimulatie
 {
@@ -14,6 +15,7 @@ namespace HotelSimulatie
         int Width { get; set; }
         int Height { get; set; }
         int Capacity { get; set; }
+        Bitmap Sprite { get; set; }
     }
 
     public enum EAreaType

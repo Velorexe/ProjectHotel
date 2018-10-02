@@ -61,7 +61,6 @@ namespace HotelSimulatie
                 hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase();
             }
 
-            //Fill the 0 positions of floors with elevator and staircases
             //On the first floor there should be one reception tile (reception class needs to be created)
         
             return hotel;

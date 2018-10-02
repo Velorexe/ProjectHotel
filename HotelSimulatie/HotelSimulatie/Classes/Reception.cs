@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Reception : IArea, HotelEvents.HotelEventListener
+    class Reception : HotelEvents.HotelEventListener
     {
         public void Notify(HotelEvents.HotelEvent hotelEvent)
         {

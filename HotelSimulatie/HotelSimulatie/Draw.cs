@@ -16,7 +16,6 @@ namespace HotelSimulatie
             using (Graphics e = Graphics.FromImage(template))
             {
                 e.DrawImage(template, x, y);
-                
             }
         }
     }
