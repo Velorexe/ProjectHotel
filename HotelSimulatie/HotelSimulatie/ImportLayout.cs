@@ -67,8 +67,7 @@ namespace HotelSimulatie
 
             hotel.Floors[0].Areas[1] = new Reception();
 
-<<<<<<< HEAD
-=======
+
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
                 for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
@@ -88,8 +87,7 @@ namespace HotelSimulatie
                     }
                 }
             }
->>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
-        
+         
             return hotel;
         }
 

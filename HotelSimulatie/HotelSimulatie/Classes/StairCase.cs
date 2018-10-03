@@ -14,7 +14,6 @@ namespace HotelSimulatie
         public int Height { get; set; } = 1;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public int Capacity { get; set; }
-        public Bitmap Sprite { get; set; } = HotelSimulatie.Properties.Resources.Staircase;
+        public Bitmap Sprite { get; set; } = Sprites.Staircase;
     }
 }

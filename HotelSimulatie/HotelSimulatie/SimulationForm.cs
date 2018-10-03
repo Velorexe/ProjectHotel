@@ -36,7 +36,7 @@ namespace HotelSimulatie
                     {
                         if (hotel.Floors[i].Areas[j] is null)
                         {
-                            g.DrawImage(HotelSimulatie.Properties.Resources.Room, hotel.Floors[i].Areas[j].PositionX * 60, hotel.Floors[i].Areas[j].PositionY * 55, 55, 60);
+                            g.DrawImage(Sprites.Room, hotel.Floors[i].Areas[j].PositionX * 60, hotel.Floors[i].Areas[j].PositionY * 55, 55, 60);
                         }
                         else
                         {
@@ -51,6 +51,11 @@ namespace HotelSimulatie
         private void button1_Click(object sender, EventArgs e)
         {
             DrawBackground(MainHotel);
+        }
+
+        private void BackgroundLayer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

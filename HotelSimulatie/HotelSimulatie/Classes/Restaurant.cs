@@ -15,6 +15,6 @@ namespace HotelSimulatie
         public int Width { get; set; }
         public int Height { get; set; }
         public int Capacity { get; set; }
-        public Bitmap Sprite { get; set; } = HotelSimulatie.Properties.Resources.Restaurant;
+        public Bitmap Sprite { get; set; } = Sprites.Restaurant;
     }
 }
