@@ -66,6 +66,10 @@ namespace HotelSimulatie
 
             hotel.Floors[hotel.Floors.Count - 1].Areas[1] = new Reception() { PositionY = hotel.Floors.Count - 1 };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d93113528cd78a1edecde47f2fe80ea178b3cd1
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
                 for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
@@ -76,7 +80,11 @@ namespace HotelSimulatie
                     }
                 }
             }
+<<<<<<< HEAD
 
+=======
+         
+>>>>>>> 8d93113528cd78a1edecde47f2fe80ea178b3cd1
             return hotel;
         }
 

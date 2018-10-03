@@ -53,7 +53,10 @@
     <Compile Include="Classes\Cinema.cs" />
     <Compile Include="Classes\ElevatorShaft.cs" />
     <Compile Include="Classes\Fitness.cs" />
+<<<<<<< HEAD
     <Compile Include="Classes\Hallway.cs" />
+=======
+>>>>>>> 8d93113528cd78a1edecde47f2fe80ea178b3cd1
     <Compile Include="Classes\Hotel.cs" />
     <Compile Include="Classes\Reception.cs" />
     <Compile Include="Classes\Restaurant.cs" />
@@ -150,9 +153,15 @@
     <None Include="Resources\Cinema.png" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <None Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />
     <Content Include="Resources\Staircase.png" />
+=======
+    <None Include="Resources\RoomDoor.png" />
+    <None Include="Resources\Staircase.bmp" />
+    <None Include="Resources\Staircase.png" />
+>>>>>>> 8d93113528cd78a1edecde47f2fe80ea178b3cd1
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

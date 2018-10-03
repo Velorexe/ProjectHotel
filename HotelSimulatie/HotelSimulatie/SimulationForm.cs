@@ -71,7 +71,11 @@ namespace HotelSimulatie
                     {
                         if (hotel.Floors[i].Areas[j] is null)
                         {
+<<<<<<< HEAD
                             g.DrawImage(HotelSimulatie.Properties.Resources.Room, j * 60, i* 55, 60, 55);
+=======
+                            g.DrawImage(Sprites.Room, hotel.Floors[i].Areas[j].PositionX * 60, hotel.Floors[i].Areas[j].PositionY * 55, 55, 60);
+>>>>>>> 8d93113528cd78a1edecde47f2fe80ea178b3cd1
                         }
                         else
                         {
@@ -87,6 +91,11 @@ namespace HotelSimulatie
         private void WireFrameButton_Click(object sender, EventArgs e)
         {
             DrawWireFrame(MainHotel);
+        }
+
+        private void BackgroundLayer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
