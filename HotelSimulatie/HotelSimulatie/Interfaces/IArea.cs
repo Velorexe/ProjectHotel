@@ -26,6 +26,7 @@ namespace HotelSimulatie
         Reception,
         Room,
         Staircase,
-        ElevatorShaft
+        ElevatorShaft,
+        Hallway
     }
 }

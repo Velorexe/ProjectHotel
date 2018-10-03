@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="Classes\Cinema.cs" />
     <Compile Include="Classes\ElevatorShaft.cs" />
+    <Compile Include="Classes\Fitness.cs" />
+    <Compile Include="Classes\Hallway.cs" />
     <Compile Include="Classes\Hotel.cs" />
     <Compile Include="Classes\Reception.cs" />
     <Compile Include="Classes\Restaurant.cs" />
@@ -115,12 +117,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <None Include="Resources\Cinema.png" />
   </ItemGroup>
   <ItemGroup>
->>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
     <None Include="Resources\Door.png" />
   </ItemGroup>
   <ItemGroup>
@@ -133,12 +132,9 @@
     <None Include="Resources\Gym.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <None Include="Resources\Pool.png" />
   </ItemGroup>
   <ItemGroup>
->>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
     <None Include="Resources\Reception.png" />
   </ItemGroup>
   <ItemGroup>
@@ -151,15 +147,12 @@
     <None Include="Resources\star.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <None Include="Resources\Cinema.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Staircase.png" />
-=======
     <None Include="Resources\RoomDoor.png" />
     <Content Include="Resources\Staircase.png" />
->>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

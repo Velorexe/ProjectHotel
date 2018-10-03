@@ -62,34 +62,21 @@ namespace HotelSimulatie
                 hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase() { PositionX = hotel.Floors[i].Areas.Count() - 1, PositionY = i};
             }
 
-            hotel.Floors.Reverse();
-            hotel.Floors = MoveItemInList(hotel.Floors, hotel.Floors.Count - 1, 0);
+            hotel.Floors = MoveItemInList(hotel.Floors, 0, hotel.Floors.Count - 1);
 
-            hotel.Floors[0].Areas[1] = new Reception();
+            hotel.Floors[hotel.Floors.Count - 1].Areas[1] = new Reception() { PositionY = hotel.Floors.Count - 1 };
 
-<<<<<<< HEAD
-=======
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
                 for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
                 {
                     if(hotel.Floors[i].Areas[j] is null)
                     {
-                        hotel.Floors[i].Areas[j] = 
-                        new Room
-                        {
-                            AreaType = EAreaType.Room,
-                            Classification = 1,
-                            PositionX = j,
-                            PositionY = i,
-                            Width = 1,
-                            Height = 1
-                        };
+                        hotel.Floors[i].Areas[j] = new Hallway() { PositionX = j, PositionY = i };
                     }
                 }
             }
->>>>>>> bdd1359c0e44072f727e5527c6eb9a3248e47f3f
-        
+
             return hotel;
         }
 
