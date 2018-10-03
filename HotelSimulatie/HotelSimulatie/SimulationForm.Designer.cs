@@ -57,7 +57,6 @@
             this.BackgroundLayer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.BackgroundLayer.TabIndex = 0;
             this.BackgroundLayer.TabStop = false;
-            this.BackgroundLayer.Click += new System.EventHandler(this.BackgroundLayer_Click);
             // 
             // SimulationForm
             // 
