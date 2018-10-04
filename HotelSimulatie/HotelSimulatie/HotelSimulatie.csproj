@@ -50,20 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Cinema.cs" />
-    <Compile Include="Classes\Elevator.cs" />
-    <Compile Include="Classes\ElevatorShaft.cs" />
-    <Compile Include="Classes\Fitness.cs" />
-    <Compile Include="Classes\Hallway.cs" />
-    <Compile Include="Classes\Hotel.cs" />
-    <Compile Include="Classes\Reception.cs" />
-    <Compile Include="Classes\Restaurant.cs" />
-    <Compile Include="Classes\Floor.cs" />
-    <Compile Include="Classes\Staircase.cs" />
+    <Compile Include="Classes\Areas\Cinema.cs" />
+    <Compile Include="Classes\Areas\Elevator.cs" />
+    <Compile Include="Classes\Areas\ElevatorShaft.cs" />
+    <Compile Include="Classes\Areas\Fitness.cs" />
+    <Compile Include="Classes\Areas\Hallway.cs" />
+    <Compile Include="Classes\Areas\Hotel.cs" />
+    <Compile Include="Classes\Areas\Reception.cs" />
+    <Compile Include="Classes\Areas\Restaurant.cs" />
+    <Compile Include="Classes\Areas\Floor.cs" />
+    <Compile Include="Classes\Areas\Staircase.cs" />
+    <Compile Include="Classes\Human\Customer.cs" />
     <Compile Include="Draw.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
+    <Compile Include="Interfaces\Human.cs" />
     <Compile Include="Interfaces\IArea.cs" />
-    <Compile Include="Classes\Room.cs" />
+    <Compile Include="Classes\Areas\Room.cs" />
     <Compile Include="ImportLayout.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -154,6 +156,7 @@
   <ItemGroup>
     <None Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />
+    <Content Include="Resources\ReceptionBar.png" />
     <Content Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />
     <None Include="Resources\Staircase.png" />

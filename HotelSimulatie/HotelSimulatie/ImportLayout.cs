@@ -27,20 +27,29 @@ namespace HotelSimulatie
 
             rooms = JsonConvert.DeserializeObject<List<TempLayout>>(layout);
 
-            foreach(TempLayout tempRoom in rooms)
+            RoomFactory Factory = new RoomFactory();
+            foreach (TempLayout tempRoom in rooms)
             {
-                hotelRooms.Add(ConvertTempToArea(tempRoom));
+                hotelRooms.Add(Factory.Create
+                    (
+                    tempRoom.AreaType, tempRoom.Capacity,
+                    PullIntsFromString(tempRoom.Classification)[0],
+                    PullIntsFromString(tempRoom.Position)[0],
+                    PullIntsFromString(tempRoom.Position)[1],
+                    PullIntsFromString(tempRoom.Dimension)[0],
+                    PullIntsFromString(tempRoom.Dimension)[1])
+                    );
             }
 
             int maxHeight = 0;
             int maxWidth = 0;
-            foreach(IArea area in hotelRooms)
+            foreach (IArea area in hotelRooms)
             {
-                if(area.PositionY + area.Height > maxHeight)
+                if (area.PositionY + area.Height > maxHeight)
                 {
                     maxHeight = area.PositionY + area.Height;
                 }
-                if(area.PositionX + area.Width > maxWidth)
+                if (area.PositionX + area.Width > maxWidth)
                 {
                     maxWidth = area.PositionX + area.Width;
                 }
@@ -51,15 +60,15 @@ namespace HotelSimulatie
                 hotel.Floors.Add(new Floor(i, maxWidth + 1));
             }
 
-            foreach(IArea area in hotelRooms)
+            foreach (IArea area in hotelRooms)
             {
                 hotel.Floors[area.PositionY].Areas[area.PositionX] = area;
             }
 
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
-                hotel.Floors[i].Areas[0] = new ElevatorShaft() { PositionX = 0, PositionY = i};
-                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase() { PositionX = hotel.Floors[i].Areas.Count() - 1, PositionY = i};
+                hotel.Floors[i].Areas[0] = new ElevatorShaft() { PositionX = 0, PositionY = i };
+                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Count() - 1] = new Staircase() { PositionX = hotel.Floors[i].Areas.Count() - 1, PositionY = i };
             }
 
             hotel.Floors = MoveItemInList(hotel.Floors, 0, hotel.Floors.Count - 1);
@@ -70,20 +79,16 @@ namespace HotelSimulatie
             {
                 for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
                 {
-                    if(i == hotel.Floors.Count - 1 && hotel.Floors[i].Areas[j] is null)
+                    if (i == hotel.Floors.Count - 1 && hotel.Floors[i].Areas[j] is null)
                     {
-                        hotel.Floors[i].Areas[j] = new Hallway() { PositionX = j, PositionY = i , Sprite = Sprites.Reception};
+                        hotel.Floors[i].Areas[j] = new Hallway() { PositionX = j, PositionY = i, Sprite = Sprites.Reception };
                     }
-                    else if(hotel.Floors[i].Areas[j] is null)
+                    else if (hotel.Floors[i].Areas[j] is null)
                     {
                         hotel.Floors[i].Areas[j] = new Hallway() { PositionX = j, PositionY = i };
                     }
                 }
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> e4b1564f7e66fbd0e5b941708e3afc0d40e4afd9
             return hotel;
         }
 
@@ -102,63 +107,12 @@ namespace HotelSimulatie
             return List;
         }
 
-        /// <summary>
-        /// Converts a temporary room (TempLayout) to an IArea
-        /// </summary>
-        /// <param name="tempRoom">The temporary room layout that needs to be converted.</param>
-        /// <returns>An IArea that corresponds with the given TempLayout's AreaType</returns>
-        private IArea ConvertTempToArea(TempLayout tempRoom)
-        {
-            switch (tempRoom.AreaType)
-            {
-                //Make this more simple
-                //Size, position and everything can be done in one method
-                //No need to use a switch case with such complexity everytime
-                case "Room":
-                    return new Room
-                    {
-                        AreaType = EAreaType.Room,
-                        Classification = PullIntsFromString(tempRoom.Classification)[0],
-                        PositionX = PullIntsFromString(tempRoom.Position)[0],
-                        PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimension)[0],
-                        Height = PullIntsFromString(tempRoom.Dimension)[1]
-                    };
-                case "Cinema":
-                    return new Cinema
-                    {
-                        AreaType = EAreaType.Cinema,
-                        PositionX = PullIntsFromString(tempRoom.Position)[0],
-                        PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimension)[0],
-                        Height = PullIntsFromString(tempRoom.Dimension)[1]
-                    };
-                case "Restaurant":
-                    return new Restaurant
-                    {
-                        AreaType = EAreaType.Restaurant,
-                        PositionX = PullIntsFromString(tempRoom.Position)[0],
-                        PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimension)[0],
-                        Height = PullIntsFromString(tempRoom.Dimension)[1],
-                        Capacity = tempRoom.Capacity
-                    };
-                case "Fitness":
-                    return new Fitness
-                    {
-                        AreaType = EAreaType.Fitness,
-                        PositionX = PullIntsFromString(tempRoom.Position)[0],
-                        PositionY = PullIntsFromString(tempRoom.Position)[1],
-                        Width = PullIntsFromString(tempRoom.Dimension)[0],
-                        Height = PullIntsFromString(tempRoom.Dimension)[1],
-                        Capacity = tempRoom.Capacity
-                    };
-            }
-            return null;    
-        }
-
         private int[] PullIntsFromString(string target)
         {
+            if(target is null)
+            {
+                return new int[] { 0, 0 };
+            }
             int[] result = new int[2];
             target = target.Replace(" ", "");
             target = Regex.Replace(target, "[A-Za-z ]", "");

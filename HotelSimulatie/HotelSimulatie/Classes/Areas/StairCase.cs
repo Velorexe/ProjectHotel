@@ -7,24 +7,22 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class ElevatorShaft : IArea
+    class Staircase : IArea
     {
-        public EAreaType AreaType { get; set; } = EAreaType.ElevatorShaft;
-        public int Height { get; set; } = 1;
+        public EAreaType AreaType { get; set; } = EAreaType.Staircase;
         public int Width { get; set; } = 1;
+        public int Height { get; set; } = 1;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public bool ElevatorOnPosition { get; set; } = false;
-        public Bitmap Sprite { get; set; } = Sprites.Elevator_Shaft;
+        public Bitmap Sprite { get; set; } = Sprites.Staircase;
 
-        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height, Bitmap sprite)
+        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
             this.AreaType = areaType;
             this.PositionX = positionX;
             this.PositionY = positionY;
             this.Width = width;
             this.Height = height;
-            this.Sprite = sprite;
         }
     }
 }
