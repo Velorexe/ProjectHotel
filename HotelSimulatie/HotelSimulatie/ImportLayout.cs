@@ -80,10 +80,6 @@ namespace HotelSimulatie
                     }
                 }
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> e4b1564f7e66fbd0e5b941708e3afc0d40e4afd9
             return hotel;
         }
 
