@@ -15,6 +15,7 @@ namespace HotelSimulatie
         private Bitmap _Buffer = new Bitmap(1000, 1000);
         private Bitmap _Wireframe = new Bitmap(1000, 1000);
         private bool WireframeEnabled = false;
+
         Hotel MainHotel { get; set; }
         public SimulationForm(string fileLocation)
         {
@@ -69,6 +70,7 @@ namespace HotelSimulatie
                 {
                     using (Graphics g = Graphics.FromImage(_Buffer))
                     {
+<<<<<<< HEAD
                         if (hotel.Floors[i].Areas[j] is null)
                         {
                             g.DrawImage(HotelSimulatie.Properties.Resources.Room, j * 60, i* 55, 60, 55);
@@ -78,6 +80,9 @@ namespace HotelSimulatie
                         {
                             g.DrawImage(hotel.Floors[i].Areas[j].Sprite, j * 60, i * 55, 60, 55);
                         }
+=======
+                        g.DrawImage(hotel.Floors[i].Areas[j].Sprite, j * 60, i * 55, 60, 55);
+>>>>>>> e4b1564f7e66fbd0e5b941708e3afc0d40e4afd9
                     }
                 }
             }
@@ -88,11 +93,6 @@ namespace HotelSimulatie
         private void WireFrameButton_Click(object sender, EventArgs e)
         {
             DrawWireFrame(MainHotel);
-        }
-
-        private void BackgroundLayer_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

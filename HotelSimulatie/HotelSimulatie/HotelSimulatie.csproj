@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Cinema.cs" />
+    <Compile Include="Classes\Elevator.cs" />
     <Compile Include="Classes\ElevatorShaft.cs" />
     <Compile Include="Classes\Fitness.cs" />
     <Compile Include="Classes\Hallway.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Classes\Floor.cs" />
     <Compile Include="Classes\Staircase.cs" />
     <Compile Include="Draw.cs" />
+    <Compile Include="Factories\RoomFactory.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="ImportLayout.cs" />

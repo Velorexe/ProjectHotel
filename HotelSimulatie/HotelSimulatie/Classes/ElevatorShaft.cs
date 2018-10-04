@@ -16,5 +16,15 @@ namespace HotelSimulatie
         public int PositionY { get; set; }
         public bool ElevatorOnPosition { get; set; } = false;
         public Bitmap Sprite { get; set; } = Sprites.Elevator_Shaft;
+
+        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height, Bitmap sprite)
+        {
+            this.AreaType = areaType;
+            this.PositionX = positionX;
+            this.PositionY = positionY;
+            this.Width = width;
+            this.Height = height;
+            this.Sprite = sprite;
+        }
     }
 }

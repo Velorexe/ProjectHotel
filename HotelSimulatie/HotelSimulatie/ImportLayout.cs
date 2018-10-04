@@ -63,19 +63,27 @@ namespace HotelSimulatie
             }
 
             hotel.Floors = MoveItemInList(hotel.Floors, 0, hotel.Floors.Count - 1);
-
             hotel.Floors[hotel.Floors.Count - 1].Areas[1] = new Reception() { PositionY = hotel.Floors.Count - 1 };
+            hotel.Floors[hotel.Floors.Count - 1].Areas[0] = new Elevator() { PositionY = hotel.Floors.Count - 1 };
 
             for (int i = 0; i < hotel.Floors.Count; i++)
             {
                 for (int j = 0; j < hotel.Floors[i].Areas.Count(); j++)
                 {
-                    if(hotel.Floors[i].Areas[j] is null)
+                    if(i == hotel.Floors.Count - 1 && hotel.Floors[i].Areas[j] is null)
+                    {
+                        hotel.Floors[i].Areas[j] = new Hallway() { PositionX = j, PositionY = i , Sprite = Sprites.Reception};
+                    }
+                    else if(hotel.Floors[i].Areas[j] is null)
                     {
                         hotel.Floors[i].Areas[j] = new Hallway() { PositionX = j, PositionY = i };
                     }
                 }
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e4b1564f7e66fbd0e5b941708e3afc0d40e4afd9
             return hotel;
         }
 
@@ -146,7 +154,7 @@ namespace HotelSimulatie
                         Capacity = tempRoom.Capacity
                     };
             }
-            return null;
+            return null;    
         }
 
         private int[] PullIntsFromString(string target)

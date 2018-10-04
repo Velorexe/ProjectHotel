@@ -15,6 +15,8 @@ namespace HotelSimulatie
         int Width { get; set; }
         int Height { get; set; }
         Bitmap Sprite { get; set; }
+
+        void Create(EAreaType areaType, int capacity , int classification, int positionX, int positionY, int width, int height, Bitmap sprite);
     }
 
     public enum EAreaType
@@ -26,6 +28,7 @@ namespace HotelSimulatie
         Room,
         Staircase,
         ElevatorShaft,
-        Hallway
+        Hallway,
+        Elevator
     }
 }
