@@ -12,8 +12,8 @@ namespace HotelSimulatie
 {
     public partial class SimulationForm : Form
     {
-        private Bitmap _Buffer = new Bitmap(1000, 1000);
-        private Bitmap _Wireframe = new Bitmap(1000, 1000);
+        private Bitmap _Buffer { get; set; }
+        private Bitmap _Wireframe { get; set; }
         private bool WireframeEnabled = false;
 
         Hotel MainHotel { get; set; }
@@ -22,7 +22,11 @@ namespace HotelSimulatie
             InitializeComponent();
             ImportLayout import = new ImportLayout();
             MainHotel = import.LayoutImport(fileLocation);
+            _Buffer = new Bitmap(MainHotel.Floors[0].Areas.Count() * 60, MainHotel.Floors.Count * 55);
+            _Wireframe = new Bitmap(MainHotel.Floors[0].Areas.Count() * 60, MainHotel.Floors.Count * 55);
             DrawBackground(MainHotel);
+            HotelEvents.HotelEventManager.Start();
+            HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -54,6 +58,7 @@ namespace HotelSimulatie
                     g.DrawImage(_Wireframe, 0, 0, _Buffer.Width, _Buffer.Height);
                 }
                 BackgroundLayer.Image = _Wireframe;
+                BackgroundLayer.Size = _Buffer.Size;
             }
             else
             {
@@ -90,6 +95,11 @@ namespace HotelSimulatie
         private void WireFrameButton_Click(object sender, EventArgs e)
         {
             DrawWireFrame(MainHotel);
+        }
+
+        private void HteFactor_ValueChanged(object sender, EventArgs e)
+        {
+            HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
         }
     }
 }

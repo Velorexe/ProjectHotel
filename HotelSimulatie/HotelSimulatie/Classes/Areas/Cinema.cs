@@ -7,17 +7,17 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Fitness : IArea
+    public class Cinema : IArea
     {
-        public EAreaType AreaType { get; set; } = EAreaType.Fitness;
-        public int Capacity { get; set; }
+        public EAreaType AreaType { get; set; } = EAreaType.Cinema;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public int Height { get; set; } = 1;
-        public int Width { get; set; } = 1;
-        public Bitmap Sprite { get; set; } = HotelSimulatie.Properties.Resources.Gym;
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Capacity { get; set; } = 10;
+        public Bitmap Sprite { get; set; } = Sprites.Cinema;
 
-        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height, Bitmap sprite)
+        public void Create(EAreaType areaType, int capacity,int classification, int positionX, int positionY, int width, int height)
         {
             this.AreaType = areaType;
             this.Capacity = capacity;
@@ -25,7 +25,6 @@ namespace HotelSimulatie
             this.PositionY = positionY;
             this.Width = width;
             this.Height = height;
-            this.Sprite = sprite;
         }
     }
 }
