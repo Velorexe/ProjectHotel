@@ -71,6 +71,11 @@ namespace HotelSimulatie
                     using (Graphics g = Graphics.FromImage(_Buffer))
                     {
                         g.DrawImage(hotel.Floors[i].Areas[j].Sprite, j * 60, i * 55, 60, 55);
+                        if(hotel.Floors[i].Areas[j].GetType() == typeof(Room))
+                        {
+                            Room tempRoom = (Room)hotel.Floors[i].Areas[j];
+                            g.DrawString(tempRoom.Classification.ToString() + "⋆", this.Font, Brushes.Black, (float)(j * 60), (float)(i * 55));
+                        }
                     }
                 }
             }
