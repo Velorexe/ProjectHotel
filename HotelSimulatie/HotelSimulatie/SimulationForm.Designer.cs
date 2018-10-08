@@ -41,7 +41,7 @@
             // WireFrameButton
             // 
             this.WireFrameButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.WireFrameButton.Location = new System.Drawing.Point(1352, 12);
+            this.WireFrameButton.Location = new System.Drawing.Point(1190, 12);
             this.WireFrameButton.Margin = new System.Windows.Forms.Padding(2);
             this.WireFrameButton.Name = "WireFrameButton";
             this.WireFrameButton.Size = new System.Drawing.Size(113, 25);
@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1532, 682);
+            this.ClientSize = new System.Drawing.Size(1370, 682);
             this.Controls.Add(this.HteFactor);
             this.Controls.Add(this.EventDebug);
             this.Controls.Add(this.WireFrameButton);

@@ -15,15 +15,9 @@ namespace HotelSimulatie
         public int Width { get; set; } = 1;
         public int PositionX { get; set; } = 1;
         public int PositionY { get; set; }
-<<<<<<< HEAD:HotelSimulatie/HotelSimulatie/Classes/Reception.cs
-        public Bitmap Sprite { get; set; } = Sprites.Reception;
-
-        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height, Bitmap sprite)
-=======
         public Bitmap Sprite { get; set; } = Sprites.ReceptionBar;
 
         public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
->>>>>>> 061aedc796ed28d504ed9f7377a1437a86c0f4da:HotelSimulatie/HotelSimulatie/Classes/Areas/Reception.cs
         {
             this.AreaType = areaType;
             this.PositionX = positionX;
