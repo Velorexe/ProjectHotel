@@ -63,6 +63,7 @@
     <Compile Include="Classes\Areas\Restaurant.cs" />
     <Compile Include="Classes\Areas\Floor.cs" />
     <Compile Include="Classes\Areas\Staircase.cs" />
+    <Compile Include="Classes\Debug\DummyEvent.cs" />
     <Compile Include="Classes\Human\Customer.cs" />
     <Compile Include="Draw.cs" />
     <Compile Include="Factories\RoomFactory.cs" />

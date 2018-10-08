@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace HotelSimulatie
 {
-    public partial class SimulationForm : Form
+    public partial class SimulationForm : Form, HotelEvents.HotelEventListener
     {
         private Bitmap _Buffer { get; set; }
         private Bitmap _Wireframe { get; set; }
@@ -27,6 +27,7 @@ namespace HotelSimulatie
             DrawBackground(MainHotel);
             HotelEvents.HotelEventManager.Start();
             HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
+            HotelEvents.HotelEventManager.Register(this);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -49,6 +50,11 @@ namespace HotelSimulatie
                             if (hotel.Floors[i].Areas[j].AreaType != EAreaType.Hallway)
                             {
                                 g.DrawRectangle(new Pen(Color.Red), j * 60, i * 55, hotel.Floors[i].Areas[j].Width * 60, hotel.Floors[i].Areas[j].Height * 55);
+                                if (hotel.Floors[i].Areas[j].GetType() == typeof(Room))
+                                {
+                                    Room tempRoom = (Room)hotel.Floors[i].Areas[j];
+                                    g.DrawString(tempRoom.Classification.ToString() + "⋆", this.Font, Brushes.Black, (float)(j * 60), (float)(i * 55));
+                                }
                             }
                         }
                     }
@@ -100,6 +106,26 @@ namespace HotelSimulatie
         private void HteFactor_ValueChanged(object sender, EventArgs e)
         {
             HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
+        }
+
+        private void DebugCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DebugCheckBox.Checked)
+            {
+                DebugGroup.Visible = true;
+            }
+            else
+            {
+                DebugGroup.Visible = false;
+            }
+        }
+
+        public void Notify(HotelEvents.HotelEvent HotelEvent)
+        {
+            if (DebugCheckBox.Checked)
+            {
+                MessageBox.Show(HotelEvent.EventType.ToString() + " : " + HotelEvent.Message + " @ " + HotelEvent.Time);
+            }
         }
     }
 }
