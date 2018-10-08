@@ -113,6 +113,16 @@ namespace HotelSimulatie {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ReceptionBar {
+            get {
+                object obj = ResourceManager.GetObject("ReceptionBar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Restaurant {
             get {
                 object obj = ResourceManager.GetObject("Restaurant", resourceCulture);
