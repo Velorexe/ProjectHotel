@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
@@ -49,8 +50,48 @@ namespace HotelSimulatie
         {
             if(hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
             {
-                this.Customers.Add(HumanFactory.CreateHuman(EHumanType.Customer));
+                List<Room> AvaiableRooms = new List<Room>();
+                int Classification = PullIntsFromString(hotelEvent.Message);
+
+                Customer NewCustomer = (Customer)HumanFactory.CreateHuman(EHumanType.Customer);
+
+                for (int i = 0; i < Rooms.Count; i++)
+                {
+                    if(Classification == 0 && Rooms[i].RoomOwner is null && Rooms[i].RoomOwner is null)
+                    {
+                        AvaiableRooms.Add(Rooms[i]);
+                    }
+                    else if(Rooms[i].Classification == Classification && Rooms[i].RoomOwner is null)
+                    {
+                        AvaiableRooms.Add(Rooms[i]);
+                    }
+                }
+
+                Random r = new Random();
+                int RandomNumber;
+                for (int i = 0; i < AvaiableRooms.Count; i++)
+                {
+                    RandomNumber = r.Next(0, AvaiableRooms.Count - 1);
+                    NewCustomer.AssignedRoom = AvaiableRooms[RandomNumber];
+                    AvaiableRooms[RandomNumber].RoomOwner = NewCustomer;
+                }
+
+                if (NewCustomer.AssignedRoom != null)
+                    this.Customers.Add(NewCustomer);
             }
+        }
+
+        private int PullIntsFromString(string target)
+        {
+            int result = 0;
+            target = target.Replace(" ", "");
+            target = Regex.Replace(target, "[A-Za-z ]", "");
+            string[] tempArray = target.Split(',');
+            for (int i = 0; i < tempArray.Length; i++)
+            {
+                result = Convert.ToInt32(tempArray[i]);
+            }
+            return result;
         }
     }
 }

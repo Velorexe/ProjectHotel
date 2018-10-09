@@ -30,17 +30,17 @@ namespace HotelSimulatie
 
             if(humanType == EHumanType.Cleaner)
             {
-                return FNames[r.Next(0, FNames.Length)];
+                return FNames[r.Next(0, FNames.Length - 1)];
             }
             else if (humanType == EHumanType.Customer)
             {
                 if(r.Next(0,2) == 0)
                 {
-                    return MNames[r.Next(0, FNames.Length)];
+                    return MNames[r.Next(0, FNames.Length - 1)];
                 }
                 else
                 {
-                    return FNames[r.Next(0, MNames.Length)];
+                    return FNames[r.Next(0, MNames.Length - 1)];
                 }
             }
             else

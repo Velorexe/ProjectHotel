@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    interface IHuman
+    public interface IHuman
     {
         string Name { get; set; }
         int PositionX { get; set; }
