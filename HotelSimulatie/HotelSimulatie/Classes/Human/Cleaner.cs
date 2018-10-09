@@ -7,13 +7,12 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Customer : IHuman
+    class Cleaner : IHuman
     {
         public string Name { get; set; }
-        public int PositionX { get; set; } = 1;
-        public int PositionY { get; set; } = 0;
-        public Bitmap Sprite { get; set; }
-
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
+        public Bitmap Sprite { get; set; } // = Sprites.Cleaner
         public IHuman Create(string Name)
         {
             this.Name = Name;

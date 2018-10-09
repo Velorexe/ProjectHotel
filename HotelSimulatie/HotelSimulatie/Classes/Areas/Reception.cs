@@ -17,6 +17,10 @@ namespace HotelSimulatie
         public int PositionY { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.ReceptionBar;
 
+        public List<Room> Rooms = new List<Room>();
+        public List<IHuman> Customers = new List<IHuman>();
+        public List<IHuman> Cleaners = new List<IHuman>();
+
         public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
             this.AreaType = areaType;
@@ -27,9 +31,26 @@ namespace HotelSimulatie
             HotelEvents.HotelEventManager.Register(this);
         }
 
+        public void AddAllRooms(Hotel hotel)
+        {
+            for (int i = 0; i < hotel.Floors.Length; i++)
+            {
+                for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
+                {
+                    if(hotel.Floors[i].Areas[j].AreaType == EAreaType.Room)
+                    {
+                        this.Rooms.Add((Room)hotel.Floors[i].Areas[j]);
+                    }
+                }
+            }
+        }
+
         public void Notify(HotelEvents.HotelEvent hotelEvent)
         {
-            MessageBox.Show("GOT NOTIFICATION");
+            if(hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
+            {
+                this.Customers.Add(HumanFactory.CreateHuman(EHumanType.Customer));
+            }
         }
     }
 }

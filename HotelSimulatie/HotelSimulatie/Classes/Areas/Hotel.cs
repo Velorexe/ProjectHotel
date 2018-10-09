@@ -8,6 +8,7 @@ namespace HotelSimulatie
 {
     class Hotel
     {
-        public List<Floor> Floors = new List<Floor>();
+        public Floor[] Floors { get; set; }
+        public Reception Reception { get; set; }
     }
 }

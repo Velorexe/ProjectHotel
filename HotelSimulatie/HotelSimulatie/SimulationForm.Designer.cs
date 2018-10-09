@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.WireFrameButton = new System.Windows.Forms.Button();
             this.BackgroundLayer = new System.Windows.Forms.PictureBox();
             this.EventDebug = new System.Windows.Forms.RichTextBox();
@@ -35,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DebugGroup = new System.Windows.Forms.GroupBox();
             this.DebugCheckBox = new System.Windows.Forms.CheckBox();
+            this.TimerHTE = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundLayer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HteFactor)).BeginInit();
             this.DebugGroup.SuspendLayout();
@@ -60,7 +62,7 @@
             this.BackgroundLayer.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundLayer.Location = new System.Drawing.Point(12, 12);
             this.BackgroundLayer.Name = "BackgroundLayer";
-            this.BackgroundLayer.Size = new System.Drawing.Size(1102, 536);
+            this.BackgroundLayer.Size = new System.Drawing.Size(1102, 639);
             this.BackgroundLayer.TabIndex = 0;
             this.BackgroundLayer.TabStop = false;
             // 
@@ -123,6 +125,10 @@
             this.DebugCheckBox.UseVisualStyleBackColor = true;
             this.DebugCheckBox.CheckedChanged += new System.EventHandler(this.DebugCheckBox_CheckedChanged);
             // 
+            // TimerHTE
+            // 
+            this.TimerHTE.Tick += new System.EventHandler(this.TimerHTE_Tick);
+            // 
             // SimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,5 +158,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox DebugGroup;
         private System.Windows.Forms.CheckBox DebugCheckBox;
+        private System.Windows.Forms.Timer TimerHTE;
     }
 }
