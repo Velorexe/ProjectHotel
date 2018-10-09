@@ -68,7 +68,7 @@
     <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Classes\Output\DummyEvent.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
-    <Compile Include="Interfaces\Human.cs" />
+    <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Areas\Room.cs" />
     <Compile Include="ImportLayout.cs" />

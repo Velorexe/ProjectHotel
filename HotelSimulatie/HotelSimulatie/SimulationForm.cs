@@ -29,6 +29,8 @@ namespace HotelSimulatie
             DrawBackground(MainHotel);
             HotelEvents.HotelEventManager.Start();
             HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
+            TimerHTE.Interval = (int)HteFactor.Value;
+            TimerHTE.Start();
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -70,7 +72,7 @@ namespace HotelSimulatie
             {
                 using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
                 {
-                    g.DrawImage(hotel.Reception.Customers[i].Sprite, hotel.Reception.Customers[i].PositionX * 60, (hotel.Floors.Count() - 1 - hotel.Reception.Customers[i].PositionY));
+                    g.DrawImage(hotel.Reception.Customers[i].Sprite, hotel.Reception.Customers[i].PositionX * 60, (hotel.Floors.Count() - 1 - hotel.Reception.Customers[i].PositionY) * 55 + (55 - hotel.Reception.Customers[i].Sprite.Height));
                 }
                 BackgroundLayer.Image = _BackgroundBuffer;
                 BackgroundLayer.Size = _BackgroundBuffer.Size;
