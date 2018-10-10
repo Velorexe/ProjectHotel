@@ -7,11 +7,19 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    interface IHuman
+    public interface IHuman
     {
         string Name { get; set; }
+        int PositionX { get; set; }
+        int PositionY { get; set; }
         Bitmap Sprite { get; set; }
 
-        void Create(string Name);
+        IHuman Create(string Name);
+
+    }
+    public enum EHumanType
+    {
+        Cleaner,
+        Customer
     }
 }

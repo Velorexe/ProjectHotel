@@ -73,6 +73,16 @@ namespace HotelSimulatie {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Customer {
+            get {
+                object obj = ResourceManager.GetObject("Customer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Elevator {
             get {
                 object obj = ResourceManager.GetObject("Elevator", resourceCulture);
@@ -96,6 +106,16 @@ namespace HotelSimulatie {
         internal static System.Drawing.Bitmap Gym {
             get {
                 object obj = ResourceManager.GetObject("Gym", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Maid {
+            get {
+                object obj = ResourceManager.GetObject("Maid", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

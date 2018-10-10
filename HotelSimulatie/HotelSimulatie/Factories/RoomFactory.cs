@@ -7,9 +7,9 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class RoomFactory
+    static class RoomFactory
     {
-        public IArea Create(string areaType, int capacity,int classification, int positionX, int positionY, int width, int height)
+        public static IArea Create(string areaType, int capacity,int classification, int positionX, int positionY, int width, int height)
         {
             EAreaType AreaType = StringToAreaType(areaType);
             switch (AreaType)
@@ -53,7 +53,7 @@ namespace HotelSimulatie
             }
             return null;
         }
-        private EAreaType StringToAreaType(string parseString)
+        private static EAreaType StringToAreaType(string parseString)
         {
             EAreaType result = new EAreaType();
             result = (EAreaType)Enum.Parse(typeof(EAreaType), parseString);

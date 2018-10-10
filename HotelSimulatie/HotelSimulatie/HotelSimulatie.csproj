@@ -63,11 +63,11 @@
     <Compile Include="Classes\Areas\Restaurant.cs" />
     <Compile Include="Classes\Areas\Floor.cs" />
     <Compile Include="Classes\Areas\Staircase.cs" />
-    <Compile Include="Classes\Debug\DummyEvent.cs" />
+    <Compile Include="Classes\Human\Cleaner.cs" />
     <Compile Include="Classes\Human\Customer.cs" />
-    <Compile Include="Draw.cs" />
+    <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
-    <Compile Include="Interfaces\Human.cs" />
+    <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Areas\Room.cs" />
     <Compile Include="ImportLayout.cs" />
@@ -160,6 +160,8 @@
   <ItemGroup>
     <None Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />
+    <None Include="Resources\MarvAndHarry.png" />
+    <None Include="Resources\Maid.png" />
     <Content Include="Resources\ReceptionBar.png" />
     <Content Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />
