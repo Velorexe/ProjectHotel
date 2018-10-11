@@ -58,7 +58,7 @@ namespace HotelSimulatie
 
                 for (int i = 0; i < Rooms.Count; i++)
                 {
-                    if(Classification == 0 && Rooms[i].RoomOwner is null && Rooms[i].RoomOwner is null)
+                    if(Classification == 0 && Rooms[i].RoomOwner is null)
                     {
                         AvaiableRooms.Add(Rooms[i]);
                     }

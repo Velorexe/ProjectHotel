@@ -49,11 +49,11 @@ namespace HotelSimulatie
 
         private void DrawBackground(Hotel hotel)
         {
-            for (int i = 0; i < hotel.Floors.Length; i++)
+            using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
             {
-                for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
+                for (int i = 0; i < hotel.Floors.Length; i++)
                 {
-                    using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
+                    for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
                     {
                         g.DrawImage(hotel.Floors[i].Areas[j].Sprite, j * 60, (hotel.Floors.Length - 1 - i) * 55, 60, 55);
                         if (hotel.Floors[i].Areas[j].AreaType == EAreaType.Room)
@@ -64,6 +64,7 @@ namespace HotelSimulatie
                     }
                 }
             }
+            DrawFacilities(hotel);
             BackgroundLayer.Image = _BackgroundBuffer;
             BackgroundLayer.Size = _BackgroundBuffer.Size;
         }
@@ -87,6 +88,29 @@ namespace HotelSimulatie
             }
         }
 
+
+        private void DrawFacilities(Hotel hotel)
+        {
+            using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
+            {
+                for (int i = 0; i < hotel.Floors.Length; i++)
+                {
+                    for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
+                    {
+                        if (hotel.Floors[i].Areas[j].AreaType != EAreaType.Room && hotel.Floors[i].Areas[j].AreaType != EAreaType.Hallway)
+                        {
+                            for (int k = 0; k < hotel.Floors[i].Areas[j].Width; k++)
+                            {
+                                for (int m = 0; m < hotel.Floors[i].Areas[j].Height; m++)
+                                {
+                                    g.DrawImage(hotel.Floors[i].Areas[j].Sprite, (j + k) * 60, (hotel.Floors.Length - 1 - i - m) * 55, 60, 55);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
@@ -130,7 +154,7 @@ namespace HotelSimulatie
                         {
                             if (hotel.Floors[i].Areas[j].AreaType != EAreaType.Hallway)
                             {
-                                g.DrawRectangle(new Pen(Color.Red), j * 60, (hotel.Floors.Length - 1 - i - (hotel.Floors[i].Areas[j].Height - 1)) * 55, hotel.Floors[i].Areas[j].Width * 60, hotel.Floors[i].Areas[j].Height * 55);
+                                g.DrawRectangle(new Pen(Color.Red, 5), j * 60, (hotel.Floors.Length - 1 - i - (hotel.Floors[i].Areas[j].Height - 1)) * 55, hotel.Floors[i].Areas[j].Width * 60, hotel.Floors[i].Areas[j].Height * 55);
                             }
                         }
                     }
