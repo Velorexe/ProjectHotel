@@ -68,7 +68,6 @@
     <Compile Include="Classes\System\Settings.cs" />
     <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
-    <Compile Include="Pathfinding\Branch.cs" />
     <Compile Include="Pathfinding\ElevatorShaftNode.cs" />
     <Compile Include="Pathfinding\Graph.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
