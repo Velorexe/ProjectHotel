@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Hotel
+    class Branch
     {
-        public Floor[] Floors { get; set; }
-        public Reception Reception { get; set; }
-        public Settings Settings { get; set; }
+        public int Distance { get; set; }
+
+        public Node LeftNode { get; set; }
+        public Node RightNode { get; set; }
     }
 }

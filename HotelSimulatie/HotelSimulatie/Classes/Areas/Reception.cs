@@ -17,6 +17,7 @@ namespace HotelSimulatie
         public int PositionX { get; set; } = 1;
         public int PositionY { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.ReceptionBar;
+        public Node Node { get; set; }
 
         public List<Room> Rooms = new List<Room>();
         public List<IHuman> Customers = new List<IHuman>();

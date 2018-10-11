@@ -19,17 +19,25 @@ namespace HotelSimulatie
         private bool WireframeEnabled = false;
 
         Hotel MainHotel { get; set; }
-        public SimulationForm(string fileLocation)
+        public SimulationForm(string fileLocation, Settings settings)
         {
             InitializeComponent();
+
             ImportLayout import = new ImportLayout();
             MainHotel = import.LayoutImport(fileLocation);
+            MainHotel.Settings = settings;
+
+            Graph.CreateGraph(MainHotel);
+
             _BackgroundBuffer = new Bitmap(MainHotel.Floors[0].Areas.Length * 60 + 1, MainHotel.Floors.Length * 55 + 1);
             _ForegroundBuffer = new Bitmap(MainHotel.Floors[0].Areas.Length * 60 + 1, MainHotel.Floors.Length * 55 + 1);
             _Wireframe = new Bitmap(MainHotel.Floors[0].Areas.Length * 60 + 1, MainHotel.Floors.Length * 55 + 1);
+
             DrawBackground(MainHotel);
+
             HotelEvents.HotelEventManager.Start();
             HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
+
             TimerHTE.Interval = (int)HteFactor.Value;
             TimerHTE.Start();
         }
@@ -49,7 +57,7 @@ namespace HotelSimulatie
                     for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
                     {
                         g.DrawImage(hotel.Floors[i].Areas[j].Sprite, j * 60, (hotel.Floors.Length - 1 - i) * 55, 60, 55);
-                        if (hotel.Floors[i].Areas[j].GetType() == typeof(Room))
+                        if (hotel.Floors[i].Areas[j].AreaType == EAreaType.Room)
                         {
                             Room tempRoom = (Room)hotel.Floors[i].Areas[j];
                             g.DrawString(tempRoom.Classification.ToString() + "⋆", this.Font, Brushes.Black, (j * 60), (hotel.Floors.Length - 1 - i) * 55);

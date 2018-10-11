@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Elevator : IArea
+    class Elevator
     {
         public EAreaType AreaType { get; set; } = EAreaType.Elevator;
         public int PositionX { get; set; } = 0;
@@ -15,6 +15,7 @@ namespace HotelSimulatie
         public int Width { get; set; } = 1;
         public int Height { get; set; } = 1;
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
+        public Node Node { get; set; }
 
         public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {

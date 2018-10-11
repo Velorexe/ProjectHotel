@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    public class Restaurant : IArea
+    class Restaurant : IArea
     {
         public EAreaType AreaType { get; set; } = EAreaType.Restaurant;
         public int PositionX { get; set; }
@@ -16,6 +16,7 @@ namespace HotelSimulatie
         public int Height { get; set; }
         public int Capacity { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.Restaurant;
+        public Node Node { get; set; }
 
         public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {

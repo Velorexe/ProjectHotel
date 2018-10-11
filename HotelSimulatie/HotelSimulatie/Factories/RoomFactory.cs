@@ -22,10 +22,6 @@ namespace HotelSimulatie
                     Cinema tempCinema = new Cinema();
                     tempCinema.Create(AreaType, capacity, classification, positionX, positionY, width, height);
                     return tempCinema;
-                case EAreaType.Elevator:
-                    Elevator tempElevator = new Elevator();
-                    tempElevator.Create(AreaType, capacity, classification, positionX, positionY, width, height);
-                    return tempElevator;
                 case EAreaType.ElevatorShaft:
                     ElevatorShaft tempElevatorShaft = new ElevatorShaft();
                     tempElevatorShaft.Create(AreaType, capacity, classification, positionX, positionY, width, height);

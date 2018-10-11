@@ -15,6 +15,7 @@ namespace HotelSimulatie
         int Width { get; set; }
         int Height { get; set; }
         Bitmap Sprite { get; set; }
+        Node Node { get; set; }
 
         void Create(EAreaType areaType, int capacity , int classification, int positionX, int positionY, int width, int height);
     }
