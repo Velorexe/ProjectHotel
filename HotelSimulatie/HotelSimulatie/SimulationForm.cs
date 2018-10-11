@@ -15,6 +15,7 @@ namespace HotelSimulatie
         private Bitmap _BackgroundBuffer { get; set; }
         private Bitmap _ForegroundBuffer { get; set; }
         private Bitmap _Wireframe { get; set; }
+
         private bool WireframeEnabled = false;
 
         Hotel MainHotel { get; set; }
