@@ -84,4 +84,10 @@ namespace HotelSimulatie
             }
         }
     }
+
+    class Path
+    {
+        Queue<Node> Route = new Queue<Node>();
+        int Length = 0;
+    }
 }
