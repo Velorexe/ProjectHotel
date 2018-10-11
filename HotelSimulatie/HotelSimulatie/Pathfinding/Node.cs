@@ -9,6 +9,7 @@ namespace HotelSimulatie
     class Node
     {
         public IArea Area { get; set; }
+        public int Floor { get; set; }
 
         public Node LeftNode { get; set; }
         public Node RightNode { get; set; }

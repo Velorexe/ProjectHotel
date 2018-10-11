@@ -9,6 +9,7 @@ namespace HotelSimulatie
     class ElevatorShaftNode : Node
     {
         public ElevatorShaft ElevatorShaft { get; set; }
+        public new int Floor { get; set; }
 
         public new Node RightNode { get; set; }
         public ElevatorShaftNode UpperElevatorShaft { get; set; }

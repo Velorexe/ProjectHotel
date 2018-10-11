@@ -9,6 +9,7 @@ namespace HotelSimulatie
     class StairNode : Node
     {
         public Staircase StairCase { get; set; }
+        public new int Floor { get; set; }
 
         public new Node LeftNode { get; set; }
         public StairNode UpperConnectedStair { get; set; }
