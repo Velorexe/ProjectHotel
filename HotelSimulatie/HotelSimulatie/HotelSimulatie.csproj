@@ -65,8 +65,12 @@
     <Compile Include="Classes\Areas\Staircase.cs" />
     <Compile Include="Classes\Human\Cleaner.cs" />
     <Compile Include="Classes\Human\Customer.cs" />
+    <Compile Include="Classes\System\Settings.cs" />
     <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
+    <Compile Include="Pathfinding\Branch.cs" />
+    <Compile Include="Pathfinding\ElevatorShaftNode.cs" />
+    <Compile Include="Pathfinding\Graph.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IArea.cs" />
     <Compile Include="Classes\Areas\Room.cs" />
@@ -77,6 +81,8 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pathfinding\Node.cs" />
+    <Compile Include="Pathfinding\StairNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulationForm.cs">

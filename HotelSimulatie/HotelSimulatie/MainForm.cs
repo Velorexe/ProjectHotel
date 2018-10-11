@@ -31,7 +31,7 @@ namespace HotelSimulatie
 
             if(layoutFile == DialogResult.OK)
             {
-                SimulationForm form = new SimulationForm(openFileDialog.FileName);
+                SimulationForm form = new SimulationForm(openFileDialog.FileName, new Settings());
                 form.Show();
                 this.Hide();
                 //Perform the .layout to Hotel convertion

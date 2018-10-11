@@ -15,6 +15,7 @@ namespace HotelSimulatie
         public int Width { get; set; } = 1;
         public int Height { get; set; } = 1;
         public Bitmap Sprite { get; set; } = Sprites.Room;
+        public Node Node { get; set; }
 
         public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
