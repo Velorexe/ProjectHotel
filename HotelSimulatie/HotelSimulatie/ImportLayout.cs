@@ -17,9 +17,8 @@ namespace HotelSimulatie
         /// </summary>
         /// <param name="filePath">The file path (string) of the .layout file.</param>
         /// <returns>Returns a Hotel class</returns>
-        public Hotel LayoutImport(string filePath)
+        public void LayoutImport(string filePath)
         {
-            Hotel hotel = new Hotel();
             string layout = File.ReadAllText(filePath);
 
             List<TempLayout> rooms = new List<TempLayout>();
@@ -50,36 +49,34 @@ namespace HotelSimulatie
                     maxHeight = area.PositionY + area.Height;
             }
 
-            hotel.Floors = new Floor[maxHeight];
-            for (int i = 0; i < hotel.Floors.Length; i++)
+            Hotel.Floors = new Floor[maxHeight];
+            for (int i = 0; i < Hotel.Floors.Length; i++)
             {
-                hotel.Floors[i] = new Floor(i, maxWidth + 1);
+                Hotel.Floors[i] = new Floor(i, maxWidth + 1);
             }
             foreach(IArea area in hotelRooms)
             {
-                hotel.Floors[area.PositionY].Areas[area.PositionX] = area;
+                Hotel.Floors[area.PositionY].Areas[area.PositionX] = area;
             }
-            for (int i = 0; i < hotel.Floors.Length; i++)
+            for (int i = 0; i < Hotel.Floors.Length; i++)
             {
-                hotel.Floors[i].Areas[0] = RoomFactory.Create("ElevatorShaft", 0, 0, 0, i, 1, 1);
-                hotel.Floors[i].Areas[hotel.Floors[i].Areas.Length - 1] = RoomFactory.Create("Staircase", 0, 0, hotel.Floors[i].Areas.Length - 1, i, 1, 1);
+                Hotel.Floors[i].Areas[0] = RoomFactory.Create("ElevatorShaft", 0, 0, 0, i, 1, 1);
+                Hotel.Floors[i].Areas[Hotel.Floors[i].Areas.Length - 1] = RoomFactory.Create("Staircase", 0, 0, Hotel.Floors[i].Areas.Length - 1, i, 1, 1);
                 if (i == 0)
-                    hotel.Floors[i].Areas[1] = RoomFactory.Create("Reception", 0, 0, 1, 0, 1, 1);
-                for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
+                    Hotel.Floors[i].Areas[1] = RoomFactory.Create("Reception", 0, 0, 1, 0, 1, 1);
+                for (int j = 0; j < Hotel.Floors[i].Areas.Length; j++)
                 {
-                    if (hotel.Floors[i].Areas[j] is null && i == 0)
+                    if (Hotel.Floors[i].Areas[j] is null && i == 0)
                     {
-                        hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
-                        hotel.Floors[i].Areas[j].Sprite = Sprites.Reception;
+                        Hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
+                        Hotel.Floors[i].Areas[j].Sprite = Sprites.Reception;
                     }
-                    else if(hotel.Floors[i].Areas[j] is null)
-                        hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
+                    else if(Hotel.Floors[i].Areas[j] is null)
+                        Hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
                 }
             }
-            hotel.Reception = (Reception)hotel.Floors[0].Areas[1];
-            hotel.Reception.AddAllRooms(hotel);
-
-            return hotel;
+            Hotel.Reception = (Reception)Hotel.Floors[0].Areas[1];
+            Hotel.Reception.AddAllRooms();
         }
 
         /// <summary>

@@ -15,15 +15,8 @@ namespace HotelSimulatie
         public int Width { get; set; } = 1;
         public int Height { get; set; } = 1;
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
-        public Node Node { get; set; }
 
-        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
-        {
-            this.AreaType = areaType;
-            this.PositionX = positionX;
-            this.PositionY = positionY;
-            this.Width = width;
-            this.Height = height;
-        }
+        //'U' for UP, 'D' for DOWN
+        public char Direction { get; set; } = 'U';
     }
 }

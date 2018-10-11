@@ -123,6 +123,7 @@
             this.DebugCheckBox.TabIndex = 7;
             this.DebugCheckBox.Text = "Enable Debug";
             this.DebugCheckBox.UseVisualStyleBackColor = true;
+            this.DebugCheckBox.Visible = false;
             this.DebugCheckBox.CheckedChanged += new System.EventHandler(this.DebugCheckBox_CheckedChanged);
             // 
             // TimerHTE

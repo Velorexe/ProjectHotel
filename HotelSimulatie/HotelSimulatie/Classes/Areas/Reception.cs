@@ -20,7 +20,7 @@ namespace HotelSimulatie
         public Node Node { get; set; }
 
         public List<Room> Rooms = new List<Room>();
-        public List<IHuman> Customers = new List<IHuman>();
+        public List<Customer> Customers = new List<Customer>();
         public List<IHuman> Cleaners = new List<IHuman>();
 
         public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
@@ -33,15 +33,15 @@ namespace HotelSimulatie
             HotelEvents.HotelEventManager.Register(this);
         }
 
-        public void AddAllRooms(Hotel hotel)
+        public void AddAllRooms()
         {
-            for (int i = 0; i < hotel.Floors.Length; i++)
+            for (int i = 0; i < Hotel.Floors.Length; i++)
             {
-                for (int j = 0; j < hotel.Floors[i].Areas.Length; j++)
+                for (int j = 0; j < Hotel.Floors[i].Areas.Length; j++)
                 {
-                    if(hotel.Floors[i].Areas[j].AreaType == EAreaType.Room)
+                    if (Hotel.Floors[i].Areas[j].AreaType == EAreaType.Room)
                     {
-                        this.Rooms.Add((Room)hotel.Floors[i].Areas[j]);
+                        this.Rooms.Add((Room)Hotel.Floors[i].Areas[j]);
                     }
                 }
             }
@@ -49,7 +49,7 @@ namespace HotelSimulatie
 
         public void Notify(HotelEvents.HotelEvent hotelEvent)
         {
-            if(hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
+            if (hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
             {
                 List<Room> AvaiableRooms = new List<Room>();
                 int Classification = PullIntsFromString(hotelEvent.Message);
@@ -58,20 +58,20 @@ namespace HotelSimulatie
 
                 for (int i = 0; i < Rooms.Count; i++)
                 {
-                    if(Classification == 0 && Rooms[i].RoomOwner is null)
+                    if (Classification == 0 && Rooms[i].RoomOwner is null)
                     {
                         AvaiableRooms.Add(Rooms[i]);
                     }
-                    else if(Rooms[i].Classification == Classification && Rooms[i].RoomOwner is null)
+                    else if (Rooms[i].Classification == Classification && Rooms[i].RoomOwner is null)
                     {
                         AvaiableRooms.Add(Rooms[i]);
                     }
                 }
 
-                Random r = new Random();
-                int RandomNumber;
-                for (int i = 0; i < AvaiableRooms.Count; i++)
+                if (AvaiableRooms.Count != 0)
                 {
+                    Random r = new Random();
+                    int RandomNumber;
                     RandomNumber = r.Next(0, AvaiableRooms.Count - 1);
                     NewCustomer.AssignedRoom = AvaiableRooms[RandomNumber];
                     AvaiableRooms[RandomNumber].RoomOwner = NewCustomer;
@@ -79,6 +79,10 @@ namespace HotelSimulatie
 
                 if (NewCustomer.AssignedRoom != null)
                     this.Customers.Add(NewCustomer);
+                if (NewCustomer.AssignedRoom != null)
+                {
+                    NewCustomer.MoveToLocation(this, NewCustomer.AssignedRoom);
+                }
             }
         }
 

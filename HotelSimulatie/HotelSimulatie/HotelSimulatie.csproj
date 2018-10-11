@@ -68,7 +68,6 @@
     <Compile Include="Classes\System\Settings.cs" />
     <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
-    <Compile Include="Pathfinding\ElevatorShaftNode.cs" />
     <Compile Include="Pathfinding\Graph.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IArea.cs" />
@@ -81,7 +80,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Pathfinding\Node.cs" />
-    <Compile Include="Pathfinding\StairNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulationForm.cs">
@@ -167,6 +165,7 @@
     <None Include="Resources\RoomDoor.png" />
     <None Include="Resources\MarvAndHarry.png" />
     <None Include="Resources\Maid.png" />
+    <None Include="Resources\Occupied.png" />
     <Content Include="Resources\ReceptionBar.png" />
     <Content Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />

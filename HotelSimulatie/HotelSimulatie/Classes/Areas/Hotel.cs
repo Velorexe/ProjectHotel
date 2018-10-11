@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Hotel
+    static class Hotel
     {
-        public Floor[] Floors { get; set; }
-        public Reception Reception { get; set; }
-        public Settings Settings { get; set; }
+        public static Floor[] Floors { get; set; }
+        public static Reception Reception { get; set; }
+        public static Settings Settings { get; set; }
     }
 }

@@ -29,18 +29,22 @@ namespace HotelSimulatie
             openFileDialog.Filter = "Hotel Layout|*.layout";
             DialogResult layoutFile = openFileDialog.ShowDialog();
 
-            if(layoutFile == DialogResult.OK)
+            if (layoutFile == DialogResult.OK)
             {
-                SimulationForm form = new SimulationForm(openFileDialog.FileName, new Settings());
-                form.Show();
-                this.Hide();
-                //Perform the .layout to Hotel convertion
+                SettingsGroup.Visible = true;
             }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void StartSimulationButton_Click(object sender, EventArgs e)
+        {
+            SimulationForm form = new SimulationForm(openFileDialog.FileName, new Settings());
+            form.Show();
+            this.Hide();
         }
     }
 }
