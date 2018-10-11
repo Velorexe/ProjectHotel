@@ -12,7 +12,7 @@ namespace HotelSimulatie
         public string Name { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public Bitmap Sprite { get; set; } // = Sprites.Cleaner
+        public Bitmap Sprite { get; set; } = Sprites.Maid;
         public IHuman Create(string Name)
         {
             this.Name = Name;

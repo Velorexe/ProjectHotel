@@ -63,7 +63,9 @@
     <Compile Include="Classes\Areas\Restaurant.cs" />
     <Compile Include="Classes\Areas\Floor.cs" />
     <Compile Include="Classes\Areas\Staircase.cs" />
+    <Compile Include="Classes\Human\Cleaner.cs" />
     <Compile Include="Classes\Human\Customer.cs" />
+    <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IArea.cs" />
