@@ -17,6 +17,7 @@ namespace HotelSimulatie
         private Bitmap _Wireframe { get; set; }
 
         private bool WireframeEnabled = false;
+        private bool Paused = false;
 
         public SimulationForm(string fileLocation, Settings settings)
         {
@@ -36,9 +37,9 @@ namespace HotelSimulatie
             DrawBackground();
 
             HotelEvents.HotelEventManager.Start();
-            HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
+            HotelEvents.HotelEventManager.HTE_Factor = (float)HTEFactor.Value;
 
-            TimerHTE.Interval = (int)HteFactor.Value * 1000;
+            TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
             TimerHTE.Start();
         }
 
@@ -146,7 +147,9 @@ namespace HotelSimulatie
 
         private void HteFactor_ValueChanged(object sender, EventArgs e)
         {
-            HotelEvents.HotelEventManager.HTE_Factor = (float)HteFactor.Value;
+            HotelEvents.HotelEventManager.HTE_Factor = (float)HTEFactor.Value;
+            Hotel.Settings.HTEFactor = (int)HTEFactor.Value;
+            TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
         }
 
         private void DebugCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -194,5 +197,28 @@ namespace HotelSimulatie
         }
 
         #endregion
+
+        private void StaircaseTime_ValueChanged(object sender, EventArgs e)
+        {
+            Hotel.Settings.StairCase = (int)StaircaseTime.Value;
+        }
+
+        private void PauseButton_Click(object sender, EventArgs e)
+        {
+            if (Paused)
+            {
+                Paused = false;
+                HotelEvents.HotelEventManager.Start();
+                TimerHTE.Start();
+                PauseButton.Text = "Pause";
+            }
+            else
+            {
+                Paused = true;
+                HotelEvents.HotelEventManager.Pauze();
+                TimerHTE.Stop();
+                PauseButton.Text = "Resume";
+            }
+        }
     }
 }

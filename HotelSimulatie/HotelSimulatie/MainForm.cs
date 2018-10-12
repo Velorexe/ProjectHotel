@@ -40,9 +40,10 @@ namespace HotelSimulatie
 
         }
 
-        private void StartSimulationButton_Click(object sender, EventArgs e)
+        private void StartSimulation_Click(object sender, EventArgs e)
         {
-            SimulationForm form = new SimulationForm(openFileDialog.FileName, new Settings());
+            Settings configSettings = new Settings() { HTEFactor = (int)HTEFactor.Value, StairCase = (int)StaircaseTime.Value };
+            SimulationForm form = new SimulationForm(openFileDialog.FileName, configSettings);
             form.Show();
             this.Hide();
         }
