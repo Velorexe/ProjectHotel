@@ -37,7 +37,10 @@ namespace HotelSimulatie
             DrawBackground();
 
             HotelEvents.HotelEventManager.Start();
-            HotelEvents.HotelEventManager.HTE_Factor = (float)HTEFactor.Value;
+            HotelEvents.HotelEventManager.HTE_Factor = Hotel.Settings.HTEFactor;
+
+            //WAIT BEFORE LOADING ALL THE DATA IN
+            //BEFORE STARTING THE SIMULATION
 
             TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
             TimerHTE.Start();
