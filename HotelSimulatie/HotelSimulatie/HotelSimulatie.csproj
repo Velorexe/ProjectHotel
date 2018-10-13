@@ -61,7 +61,7 @@
     <Compile Include="Classes\Areas\ElevatorShaft.cs" />
     <Compile Include="Classes\Areas\Fitness.cs" />
     <Compile Include="Classes\Areas\Hallway.cs" />
-    <Compile Include="Classes\Areas\Hotel.cs" />
+    <Compile Include="Classes\Entities\Hotel.cs" />
     <Compile Include="Classes\Areas\Reception.cs" />
     <Compile Include="Classes\Areas\Restaurant.cs" />
     <Compile Include="Classes\Areas\Floor.cs" />

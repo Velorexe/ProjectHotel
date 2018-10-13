@@ -75,6 +75,7 @@ namespace HotelSimulatie
                         Hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
                 }
             }
+            Hotel.Elevator = new Elevator() { PositionX = 0, PositionY = 0 };
             Hotel.Reception = (Reception)Hotel.Floors[0].Areas[1];
             Hotel.Reception.AddAllRooms();
         }

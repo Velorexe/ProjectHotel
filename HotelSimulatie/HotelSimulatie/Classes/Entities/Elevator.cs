@@ -9,11 +9,8 @@ namespace HotelSimulatie
 {
     class Elevator
     {
-        public EAreaType AreaType { get; set; } = EAreaType.Elevator;
         public int PositionX { get; set; } = 0;
-        public int PositionY { get; set; }
-        public int Width { get; set; } = 1;
-        public int Height { get; set; } = 1;
+        public int PositionY { get; set; } 
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
 
         //ELEVATOR FUNCTION
@@ -45,12 +42,14 @@ namespace HotelSimulatie
             //Goes UP
             if(Floor > this.Floor)
             {
-                
+                this.Up.Add(Graph.SearchElevatorShaft(Floor));
+                UpdateList('U', this.Floor, Up);
             }
             //Goes DOWN
             else
             {
-
+                this.Down.Add(Graph.SearchElevatorShaft(Floor));
+                UpdateList('D', this.Floor, Down);
             }
         }
 

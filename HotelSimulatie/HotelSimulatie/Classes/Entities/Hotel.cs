@@ -11,5 +11,6 @@ namespace HotelSimulatie
         public static Floor[] Floors { get; set; }
         public static Reception Reception { get; set; }
         public static Settings Settings { get; set; }
+        public static Elevator Elevator { get; set; }
     }
 }

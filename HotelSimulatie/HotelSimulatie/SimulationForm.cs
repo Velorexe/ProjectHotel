@@ -39,16 +39,17 @@ namespace HotelSimulatie
             HotelEvents.HotelEventManager.Start();
             HotelEvents.HotelEventManager.HTE_Factor = Hotel.Settings.HTEFactor;
 
-<<<<<<< HEAD
             //WAIT BEFORE LOADING ALL THE DATA IN
             //BEFORE STARTING THE SIMULATION
-=======
             HTEFactor.Value = Hotel.Settings.HTEFactor;
             StaircaseTime.Value = Hotel.Settings.StairCase;
->>>>>>> 51ad9073a49f3ae14f92425d8165385691c88508
 
             TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
             TimerHTE.Start();
+
+            DrawForeground();
+            char t = Hotel.Elevator.GetElevatorInfo().Item1;
+            int i = Hotel.Elevator.GetElevatorInfo().Item2;
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -81,12 +82,12 @@ namespace HotelSimulatie
         private void DrawForeground()
         {
             //What should be drawn on the foreground:
-            //Elevator
             //Cleaners
             _ForegroundBuffer.Dispose();
             DrawBackground();
             using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
             {
+                g.DrawImage(Hotel.Elevator.Sprite, Hotel.Elevator.PositionX * 60, (Hotel.Floors.Count() - 1 - Hotel.Elevator.PositionY) * 55);
                 for (int i = 0; i < Hotel.Floors.Length; i++)
                 {
                     for (int j = 0; j < Hotel.Floors[i].Areas.Length; j++)
