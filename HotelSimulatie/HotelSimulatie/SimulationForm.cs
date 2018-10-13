@@ -39,8 +39,13 @@ namespace HotelSimulatie
             HotelEvents.HotelEventManager.Start();
             HotelEvents.HotelEventManager.HTE_Factor = Hotel.Settings.HTEFactor;
 
+<<<<<<< HEAD
             //WAIT BEFORE LOADING ALL THE DATA IN
             //BEFORE STARTING THE SIMULATION
+=======
+            HTEFactor.Value = Hotel.Settings.HTEFactor;
+            StaircaseTime.Value = Hotel.Settings.StairCase;
+>>>>>>> 51ad9073a49f3ae14f92425d8165385691c88508
 
             TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
             TimerHTE.Start();
