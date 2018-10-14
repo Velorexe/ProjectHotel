@@ -14,7 +14,6 @@ namespace HotelSimulatie
         public int Width { get; set; } = 1;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public bool ElevatorOnPosition { get; set; } = false;
         public Bitmap Sprite { get; set; } = Sprites.Elevator_Shaft;
         public Node Node { get; set; }
 

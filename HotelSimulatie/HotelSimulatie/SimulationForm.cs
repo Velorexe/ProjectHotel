@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace HotelSimulatie
 {
-    public partial class SimulationForm : Form
+    public partial class SimulationForm : Form, ISimulationForm
     {
         private Bitmap _BackgroundBuffer { get; set; }
         private Bitmap _ForegroundBuffer { get; set; }
         private Bitmap _Wireframe { get; set; }
+
+        private ReceptionScreen ReceptionScreen { get; set; }
 
         private bool WireframeEnabled = false;
         private bool Paused = false;
@@ -37,19 +39,25 @@ namespace HotelSimulatie
             DrawBackground();
 
             HotelEvents.HotelEventManager.Start();
-            HotelEvents.HotelEventManager.HTE_Factor = Hotel.Settings.HTEFactor;
+            HotelEvents.HotelEventManager.HTE_Factor = (float)Hotel.Settings.HTEFactor;
 
             //WAIT BEFORE LOADING ALL THE DATA IN
             //BEFORE STARTING THE SIMULATION
-            HTEFactor.Value = Hotel.Settings.HTEFactor;
-            StaircaseTime.Value = Hotel.Settings.StairCase;
 
-            TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
+            TimerHTE.Interval = (int)(1000 / Hotel.Settings.HTEFactor);
             TimerHTE.Start();
 
             DrawForeground();
+
             char t = Hotel.Elevator.GetElevatorInfo().Item1;
             int i = Hotel.Elevator.GetElevatorInfo().Item2;
+
+            Hotel.Elevator.RequestElevator(4, 3);
+            Hotel.Elevator.RequestElevator(1, 6);
+            Hotel.Elevator.RequestElevator(1, 1);
+            Hotel.Elevator.RequestElevator(-1, 5);
+            Hotel.Elevator.RequestElevator(8, 3);
+            Hotel.Elevator.RequestElevator(6, 9);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -140,6 +148,7 @@ namespace HotelSimulatie
 
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
+            Hotel.Elevator.Move();
             foreach (Customer human in Hotel.Reception.Customers)
             {
                 human.Move();
@@ -152,13 +161,6 @@ namespace HotelSimulatie
         private void WireFrameButton_Click(object sender, EventArgs e)
         {
             DrawWireFrame();
-        }
-
-        private void HteFactor_ValueChanged(object sender, EventArgs e)
-        {
-            HotelEvents.HotelEventManager.HTE_Factor = (float)HTEFactor.Value;
-            Hotel.Settings.HTEFactor = (int)HTEFactor.Value;
-            TimerHTE.Interval = 1000 / Hotel.Settings.HTEFactor;
         }
 
         private void DebugCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -207,26 +209,63 @@ namespace HotelSimulatie
 
         #endregion
 
-        private void StaircaseTime_ValueChanged(object sender, EventArgs e)
+        private void BackgroundLayer_MouseClick(object sender, MouseEventArgs e)
         {
-            Hotel.Settings.StairCase = (int)StaircaseTime.Value;
+            if(/*X CHECK*/(e.X >= 1 * 60 && e.X <= 2 * 60) && /*Y CHECK*/(e.Y >= (Hotel.Floors.Length - 1) * 55 && e.Y <= Hotel.Floors.Length * 55))
+            {
+                PauseSimulation(false);
+            }
         }
 
-        private void PauseButton_Click(object sender, EventArgs e)
+        public void PauseSimulation(bool IsClosing)
         {
+            HotelEvents.HotelEventManager.Pauze();
             if (Paused)
             {
-                Paused = false;
-                HotelEvents.HotelEventManager.Start();
                 TimerHTE.Start();
-                PauseButton.Text = "Pause";
+                if (!IsClosing)
+                {
+                    ReceptionScreen.Close();
+                }
+                Paused = false;
             }
             else
             {
-                Paused = true;
-                HotelEvents.HotelEventManager.Pauze();
                 TimerHTE.Stop();
-                PauseButton.Text = "Resume";
+                ReceptionScreen = new ReceptionScreen(this);
+                Paused = true;
+            }
+        }
+
+        public void ApplySettings(Settings settings)
+        {
+            Hotel.Settings = settings;
+            TimerHTE.Interval = (int)(1000 / Hotel.Settings.HTEFactor);
+            Zoom(Hotel.Settings.ZoomLevel);
+        }
+
+        private void SimulationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void Zoom(double ZoomLevel)
+        {
+            if(ZoomLevel == 1.0)
+            {
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.Normal;
+                BackgroundLayer.Size = _BackgroundBuffer.Size;
+            }
+            else if(ZoomLevel == 1.25)
+            {
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
+                BackgroundLayer.Size = new Size((int)(_BackgroundBuffer.Size.Width * ZoomLevel), (int)(_BackgroundBuffer.Size.Height * ZoomLevel));
+                this.Height = BackgroundLayer.Size.Height;
+            }
+            else if(ZoomLevel == 1.5)
+            {
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.Normal;
+                BackgroundLayer.Size = new Size((int)(BackgroundLayer.Size.Width * ZoomLevel), (int)(BackgroundLayer.Size.Height * ZoomLevel));
             }
         }
     }

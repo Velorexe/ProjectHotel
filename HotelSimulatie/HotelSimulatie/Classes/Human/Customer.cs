@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Customer : IHuman
+    class Customer : IHuman, IMoveAble
     {
         public string Name { get; set; }
         public int PositionX { get; set; } = 1;

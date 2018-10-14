@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Cleaner : IHuman
+    class Cleaner : IHuman, IMoveAble
     {
         public string Name { get; set; }
         public int PositionX { get; set; }

@@ -57,6 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Areas\Cinema.cs" />
+    <Compile Include="Interfaces\ISimulationForm.cs" />
+    <Compile Include="ReceptionScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceptionScreen.Designer.cs">
+      <DependentUpon>ReceptionScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Entities\Elevator.cs" />
     <Compile Include="Classes\Areas\ElevatorShaft.cs" />
     <Compile Include="Classes\Areas\Fitness.cs" />
@@ -71,6 +78,7 @@
     <Compile Include="Classes\System\Settings.cs" />
     <Compile Include="Factories\HumanFactory.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
+    <Compile Include="Interfaces\IMoveAble.cs" />
     <Compile Include="Pathfinding\Graph.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\IArea.cs" />
@@ -96,6 +104,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Sprites.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReceptionScreen.resx">
+      <DependentUpon>ReceptionScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
