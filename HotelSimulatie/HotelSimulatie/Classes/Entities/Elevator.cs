@@ -16,9 +16,11 @@ namespace HotelSimulatie
         //ELEVATOR FUNCTION
         //'U' for UP, 'D' for DOWN
         private char Direction { get; set; } = 'U';
-        
+
         private List<ElevatorShaft> Up = new List<ElevatorShaft>();
         private List<ElevatorShaft> Down = new List<ElevatorShaft>();
+
+        public List<IHuman> InElevator = new List<IHuman>();
 
         //ELEVATOR WORKS LIKE THIS:
         /// <image url="C:\Users\dvddv\Desktop\ProjectHotel\References\Elevator.png" scale="1"/>
@@ -34,7 +36,20 @@ namespace HotelSimulatie
 
         public void Move()
         {
-            if(Up.Count != 0 || Down.Count != 0)
+            if (Down.Count != 0 && Down[0].PositionY == PositionY)
+            {
+                Down.RemoveAt(0);
+            }
+            if (Up.Count != 0 && Up[0].PositionY == PositionY)
+            {
+                Up.RemoveAt(0);
+            }
+
+            if (Up.Count == 0 && Down.Count == 0)
+            {
+                return;
+            }
+            if (Up.Count != 0 || Down.Count != 0)
             {
                 if (Direction == 'U')
                 {
@@ -48,14 +63,14 @@ namespace HotelSimulatie
                         PositionY++;
                         for (int i = 0; i < Up.Count; i++)
                         {
-                            if(Up[i].PositionY == PositionY)
+                            if (Up[i].PositionY == PositionY)
                             {
                                 Up.RemoveAt(i);
                             }
                         }
                     }
                 }
-                else if(Direction == 'D')
+                else if (Direction == 'D')
                 {
                     if (Up.Count != 0 && Down.Count == 0)
                     {
@@ -74,6 +89,11 @@ namespace HotelSimulatie
                         }
                     }
                 }
+                foreach (IHuman human in InElevator)
+                {
+                    human.PositionX = PositionX;
+                    human.PositionY = PositionY;
+                }
             }
         }
 
@@ -86,6 +106,17 @@ namespace HotelSimulatie
             //Extra Check
             if ((TargetFloor <= Hotel.Floors.Length - 1 && TargetFloor >= 0) && (CurrentFloor <= Hotel.Floors.Length - 1 && CurrentFloor >= 0))
             {
+                if (Up.Count == 0 && Down.Count == 0)
+                {
+                    if (CurrentFloor > PositionY)
+                    {
+                        Direction = 'U';
+                    }
+                    else
+                    {
+                        Direction = 'D';
+                    }
+                }
                 //Goes UP
                 if (TargetFloor > PositionY)
                 {
@@ -112,17 +143,18 @@ namespace HotelSimulatie
                     UpdateList('D', PositionY, Down);
                 }
             }
+
         }
 
         private void UpdateList(char Direction, int CurrentFloor, List<ElevatorShaft> Route)
         {
-            foreach(ElevatorShaft Shaft in Route)
+            foreach (ElevatorShaft Shaft in Route)
             {
                 if (Direction == 'U')
                 {
                     Up = Route.Distinct().OrderBy(x => x.PositionY).ToList();
                 }
-                else if(Direction == 'D')
+                else if (Direction == 'D')
                 {
                     Down = Route.Distinct().OrderByDescending(x => x.PositionY).ToList();
                 }

@@ -81,7 +81,8 @@ namespace HotelSimulatie
                     this.Customers.Add(NewCustomer);
                 if (NewCustomer.AssignedRoom != null)
                 {
-                    NewCustomer.MoveToLocation(this, NewCustomer.AssignedRoom);
+                    NewCustomer.Destination = Graph.SearchNode(NewCustomer.AssignedRoom);
+                    NewCustomer.MoveToLocation(this);
                 }
             }
         }

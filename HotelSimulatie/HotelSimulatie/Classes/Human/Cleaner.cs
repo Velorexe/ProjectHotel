@@ -12,7 +12,7 @@ namespace HotelSimulatie
         public string Name { get; set; }
         public int PositionX { get; set; }
         public int PositionY { get; set; }
-        public Queue<Node> Path { get; set; } = new Queue<Node>();
+        public Route Path { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.Maid;
 
         public void Move()

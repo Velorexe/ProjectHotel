@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Classes\Areas\Cinema.cs" />
     <Compile Include="Interfaces\ISimulationForm.cs" />
+    <Compile Include="Pathfinding\Route.cs" />
     <Compile Include="ReceptionScreen.cs">
       <SubType>Form</SubType>
     </Compile>

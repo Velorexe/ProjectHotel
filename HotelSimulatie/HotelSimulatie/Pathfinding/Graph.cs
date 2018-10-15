@@ -20,7 +20,7 @@ namespace HotelSimulatie
                 {
                     if (j == 0)
                     {
-                        hotelNodes[i, j] = new Node() { Floor = i, NodeType = ENodeType.Elevatorshaft};
+                        hotelNodes[i, j] = new Node() { Floor = i, NodeType = ENodeType.Elevatorshaft };
                     }
                     else if (j == hotelNodes.GetLength(1) - 1)
                     {
@@ -51,7 +51,7 @@ namespace HotelSimulatie
                         }
                         else
                         {
-                            hotelNodes[i, j] = hotelNodes[i, j].FillMoveableNode(Hotel.Floors[i].Areas[j], hotelNodes[i, j + 1], hotelNodes[i - 1, j], hotelNodes[i + 1,j], false);
+                            hotelNodes[i, j] = hotelNodes[i, j].FillMoveableNode(Hotel.Floors[i].Areas[j], hotelNodes[i, j + 1], hotelNodes[i - 1, j], hotelNodes[i + 1, j], false);
                         }
                         hotelNodes[i, j].Area = Hotel.Floors[i].Areas[j];
                         Hotel.Floors[i].Areas[j].Node = hotelNodes[i, j];
@@ -75,7 +75,7 @@ namespace HotelSimulatie
                     }
                     else
                     {
-                        if(Hotel.Floors[i].Areas[j].AreaType == EAreaType.Reception)
+                        if (Hotel.Floors[i].Areas[j].AreaType == EAreaType.Reception)
                         {
                             StartNode = hotelNodes[i, j];
                         }
@@ -85,7 +85,7 @@ namespace HotelSimulatie
                 }
             }
             HotelNodes = hotelNodes;
-            if(StartNode == null)
+            if (StartNode == null)
             {
                 StartNode = HotelNodes[0, 0];
             }
@@ -98,7 +98,7 @@ namespace HotelSimulatie
             {
                 for (int j = 0; j < HotelNodes.GetLength(1); j++)
                 {
-                    if(HotelNodes[i,j].Area == Area)
+                    if (HotelNodes[i, j].Area == Area)
                     {
                         return HotelNodes[i, j];
                     }
@@ -112,43 +112,28 @@ namespace HotelSimulatie
             return (ElevatorShaft)HotelNodes[Floor, 0].Area;
         }
 
-        public static Queue<Node> QuickestRoute(Node StartingNode, Node EndNode, bool ElevatorEnabled, bool StaircaseEnabled)
+        public static Route QuickestRoute(Node StartingNode, Node EndNode, bool ElevatorEnabled, bool StaircaseEnabled)
         {
-            Path ElevatorRoute = new Path();
-            Path StaircaseRoute = new Path();
+            Route Route = new Route();
 
             Node CurrentNode = StartingNode;
             if (ElevatorEnabled)
             {
-                ElevatorRoute.Route.Enqueue(CurrentNode);
-                while(CurrentNode != EndNode)
+                Route.PathToElevator.Enqueue(CurrentNode);
+                while (CurrentNode != EndNode)
                 {
-                    while(CurrentNode.NodeType != ENodeType.Elevatorshaft)
+                    while (CurrentNode.NodeType != ENodeType.Elevatorshaft)
                     {
-                        ElevatorRoute.Route.Enqueue(CurrentNode.LeftNode);
-                        ElevatorRoute.Length++;
+                        Route.PathToElevator.Enqueue(CurrentNode.LeftNode);
+                        Route.PathToElevatorLength++;
                         CurrentNode = CurrentNode.LeftNode;
                     }
 
-                    while(CurrentNode.Floor != EndNode.Floor)
+                    CurrentNode = Hotel.Floors[EndNode.Area.PositionY].Areas[0].Node;
+                    while (CurrentNode != EndNode)
                     {
-                        ElevatorRoute.Length = ElevatorRoute.Length + Hotel.Settings.Elevator;
-                        if(CurrentNode.Floor < EndNode.Floor)
-                        {
-                            ElevatorRoute.Route.Enqueue(CurrentNode.UpperNode);
-                            CurrentNode = CurrentNode.UpperNode;
-                        }
-                        else
-                        {
-                            ElevatorRoute.Route.Enqueue(CurrentNode.LowerNode);
-                            CurrentNode = CurrentNode.LowerNode;
-                        }
-                    }
-
-                    while(CurrentNode != EndNode)
-                    {
-                        ElevatorRoute.Route.Enqueue(CurrentNode.RightNode);
-                        ElevatorRoute.Length++;
+                        Route.PathFromElevator.Enqueue(CurrentNode.RightNode);
+                        Route.PathFromElevatorLength++;
                         CurrentNode = CurrentNode.RightNode;
                     }
                 }
@@ -157,51 +142,90 @@ namespace HotelSimulatie
             CurrentNode = StartingNode;
             if (StaircaseEnabled)
             {
-                StaircaseRoute.Route.Enqueue(CurrentNode);
+                Route.Path.Enqueue(CurrentNode);
                 while (CurrentNode != EndNode)
                 {
                     while (CurrentNode.NodeType != ENodeType.Staircase)
                     {
-                        StaircaseRoute.Route.Enqueue(CurrentNode.RightNode);
-                        StaircaseRoute.Length++;
+                        Route.Path.Enqueue(CurrentNode.RightNode);
+                        Route.PathLength++;
                         CurrentNode = CurrentNode.RightNode;
                     }
 
                     while (CurrentNode.Floor != EndNode.Floor)
                     {
-                        StaircaseRoute.Length = StaircaseRoute.Length + Hotel.Settings.StairCase;
+                        Route.PathLength += Hotel.Settings.StairCase;
                         if (CurrentNode.Floor < EndNode.Floor)
                         {
-                            StaircaseRoute.Route.Enqueue(CurrentNode.UpperNode);
+                            Route.Path.Enqueue(CurrentNode.UpperNode);
                             CurrentNode = CurrentNode.UpperNode;
                         }
                         else
                         {
-                            StaircaseRoute.Route.Enqueue(CurrentNode.LowerNode);
+                            Route.Path.Enqueue(CurrentNode.LowerNode);
                             CurrentNode = CurrentNode.LowerNode;
                         }
                     }
 
                     while (CurrentNode != EndNode)
                     {
-                        StaircaseRoute.Route.Enqueue(CurrentNode.LeftNode);
-                        StaircaseRoute.Length++;
+                        Route.Path.Enqueue(CurrentNode.LeftNode);
+                        Route.PathLength++;
                         CurrentNode = CurrentNode.LeftNode;
                     }
                 }
             }
 
-            if(ElevatorRoute.Length < StaircaseRoute.Length && ElevatorRoute.Length != 0 && ElevatorEnabled)
+            if (ElevatorEnabled && !StaircaseEnabled)
             {
-                return ElevatorRoute.Route;
+                Route.RouteType = ERouteType.ToElevator;
+                return Route;
             }
-            else if(StaircaseRoute.Length != 0 && StaircaseEnabled)
+            else if (StaircaseEnabled && !ElevatorEnabled)
             {
-                return StaircaseRoute.Route;
+                Route.RouteType = ERouteType.Stairs;
+                return Route;
+            }
+            else if (StaircaseEnabled && ElevatorEnabled)
+            {
+                if ((Route.PathLength == 0 && Route.PathFromElevatorLength != 0 && Route.PathToElevatorLength != 0) || Route.PathToElevatorLength < Route.PathLength)
+                {
+                    Route.RouteType = ERouteType.ToElevator;
+                    return Route;
+                }
+                else if (Route.PathLength != 0 && StaircaseEnabled)
+                {
+                    Route.RouteType = ERouteType.Stairs;
+                    return Route;
+                }
             }
             return null;
         }
+        public static Route GetElevatorRoute(Node StartingNode, Node EndNode)
+        {
+            Route returnPath = new Route();
+
+            Node CurrentNode = StartingNode;
+            returnPath.PathToElevator.Enqueue(CurrentNode);
+            while (CurrentNode.NodeType != ENodeType.Elevatorshaft)
+            {
+                returnPath.PathToElevator.Enqueue(CurrentNode.LeftNode);
+                returnPath.PathToElevatorLength++;
+                CurrentNode = CurrentNode.LeftNode;
+            }
+
+            CurrentNode = Hotel.Floors[EndNode.Area.PositionY].Areas[0].Node;
+            while (CurrentNode != EndNode)
+            {
+                returnPath.PathFromElevator.Enqueue(CurrentNode.RightNode);
+                returnPath.PathFromElevatorLength++;
+                CurrentNode = CurrentNode.RightNode;
+            }
+
+            return returnPath;
+        }
     }
+
 
     class Path
     {

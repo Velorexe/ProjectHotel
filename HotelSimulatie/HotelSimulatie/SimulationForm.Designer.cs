@@ -54,13 +54,10 @@
             // 
             // BackgroundLayer
             // 
-            this.BackgroundLayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.BackgroundLayer.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundLayer.Location = new System.Drawing.Point(12, 12);
             this.BackgroundLayer.Name = "BackgroundLayer";
-            this.BackgroundLayer.Size = new System.Drawing.Size(354, 349);
+            this.BackgroundLayer.Size = new System.Drawing.Size(850, 460);
             this.BackgroundLayer.TabIndex = 0;
             this.BackgroundLayer.TabStop = false;
             this.BackgroundLayer.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BackgroundLayer_MouseClick);
