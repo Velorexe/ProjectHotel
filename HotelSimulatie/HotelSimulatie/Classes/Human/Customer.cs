@@ -30,7 +30,6 @@ namespace HotelSimulatie
 
         public void Move()
         {
-
             #region Elevator
             if (Path.RouteType == ERouteType.ToElevator && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft)
             {
