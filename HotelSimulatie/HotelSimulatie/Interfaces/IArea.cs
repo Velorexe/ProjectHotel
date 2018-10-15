@@ -7,8 +7,9 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    interface IArea
+    public interface IArea
     {
+        int ID { get; set; }
         EAreaType AreaType { get; set; }
         int PositionX { get; set; }
         int PositionY { get; set; }
@@ -17,7 +18,7 @@ namespace HotelSimulatie
         Bitmap Sprite { get; set; }
         Node Node { get; set; }
 
-        void Create(EAreaType areaType, int capacity , int classification, int positionX, int positionY, int width, int height);
+        void Create(int ID, EAreaType areaType, int capacity , int classification, int positionX, int positionY, int width, int height);
     }
 
     public enum EAreaType

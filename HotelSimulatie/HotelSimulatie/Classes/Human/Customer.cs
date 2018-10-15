@@ -9,6 +9,7 @@ namespace HotelSimulatie
 {
     class Customer : IHuman, IMoveAble
     {
+        public int ID { get; set; } = 0;
         public string Name { get; set; }
         public int PositionX { get; set; } = 1;
         public int PositionY { get; set; } = 0;
@@ -104,47 +105,60 @@ namespace HotelSimulatie
 
         private void GetRoute()
         {
-            if (Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft)
-            {
-                Tuple<char, int> ElevatorInfo = Hotel.Elevator.GetElevatorInfo().ToTuple();
-                int ElevatorTime = 0;
+            Tuple<char, int> ElevatorInfo = Hotel.Elevator.GetElevatorInfo().ToTuple();
+            int ElevatorTime = 0;
 
-                if (ElevatorInfo.Item1 == 'D' && ElevatorInfo.Item2 < PositionY)
-                {
-                    ElevatorTime += ElevatorInfo.Item2;
-                    ElevatorTime += PositionY;
-                }
-                else if (ElevatorInfo.Item1 == 'D' && ElevatorInfo.Item2 > PositionY)
-                {
-                    ElevatorTime += ElevatorInfo.Item2 - PositionY;
-                }
-                else if (ElevatorInfo.Item1 == 'U' && ElevatorInfo.Item2 < PositionY)
+            if(ElevatorInfo.Item1 == 'I')
+            {
+                if(ElevatorInfo.Item2 < PositionY)
                 {
                     ElevatorTime += PositionY - ElevatorInfo.Item2;
                 }
-                else if (ElevatorInfo.Item1 == 'U' && ElevatorInfo.Item2 > PositionY)
+                else
+                {
+                    ElevatorTime += ElevatorInfo.Item2 - PositionY;
+                }
+            }
+            else if(ElevatorInfo.Item1 == 'U')
+            {
+                if (ElevatorInfo.Item2 < PositionY)
+                {
+                    ElevatorTime += PositionY - ElevatorInfo.Item2;
+                }
+                else if (ElevatorInfo.Item2 > PositionY)
                 {
                     ElevatorTime += Hotel.Floors.Length - ElevatorInfo.Item2;
                     ElevatorTime += Hotel.Floors.Length - PositionY;
                 }
-
-                ElevatorTime += Math.Abs(ElevatorInfo.Item2 - PositionY);
-
-                if (Path.PathToElevatorLength + Path.PathFromElevatorLength + ElevatorTime < Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true).PathLength)
+            }
+            else if(ElevatorInfo.Item1 == 'D')
+            {
+                if (ElevatorInfo.Item2 < PositionY)
                 {
-                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, false);
-                    Path.RouteType = ERouteType.Elevator;
+                    ElevatorTime += ElevatorInfo.Item2;
+                    ElevatorTime += PositionY;
                 }
-                else
+                else if (ElevatorInfo.Item2 > PositionY)
                 {
-                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true);
-                    Path.RouteType = ERouteType.Stairs;
+                    ElevatorTime += ElevatorInfo.Item2 - PositionY;
                 }
+            }
+
+            if (Path.PathToElevatorLength + Path.PathFromElevatorLength + ElevatorTime < Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true).PathLength)
+            {
+                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, false);
+                Path.RouteType = ERouteType.Elevator;
+            }
+            else
+            {
+                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true);
+                Path.RouteType = ERouteType.Stairs;
             }
         }
 
         public IHuman Create(string Name)
         {
+            GlobalStatistics.Customers.Add(this);
             this.Name = Name;
             return this;
         }

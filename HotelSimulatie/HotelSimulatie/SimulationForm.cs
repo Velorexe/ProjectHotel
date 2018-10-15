@@ -48,16 +48,6 @@ namespace HotelSimulatie
             TimerHTE.Start();
 
             DrawForeground();
-
-            char t = Hotel.Elevator.GetElevatorInfo().Item1;
-            int i = Hotel.Elevator.GetElevatorInfo().Item2;
-
-            //Hotel.Elevator.RequestElevator(4, 3);
-            //Hotel.Elevator.RequestElevator(1, 6);
-            //Hotel.Elevator.RequestElevator(1, 1);
-            //Hotel.Elevator.RequestElevator(-1, 5);
-            //Hotel.Elevator.RequestElevator(8, 3);
-            //Hotel.Elevator.RequestElevator(6, 9);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)

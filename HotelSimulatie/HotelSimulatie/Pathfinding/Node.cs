@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Node
+    public class Node
     {
         public IArea Area { get; set; }
         public int Floor { get; set; }

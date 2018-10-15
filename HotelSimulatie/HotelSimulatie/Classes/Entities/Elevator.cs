@@ -14,8 +14,8 @@ namespace HotelSimulatie
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
 
         //ELEVATOR FUNCTION
-        //'U' for UP, 'D' for DOWN
-        private char Direction { get; set; } = 'U';
+        //'U' for UP, 'D' for DOWN, 'I' for IDLE
+        private char Direction { get; set; } = 'I';
 
         private List<ElevatorShaft> Up = new List<ElevatorShaft>();
         private List<ElevatorShaft> Down = new List<ElevatorShaft>();
@@ -34,6 +34,17 @@ namespace HotelSimulatie
             return (Direction, PositionY);
         }
 
+        //ELEVATOR DOESN'T WORK PROPERLY
+        //WHEN REQUESTING ELEVATOR
+        //THE ELEVATOR SHOULDN'T MOVE TO THE TARGETFLOOR
+        //WITHOUT PICKING UP THE CUSTOMER FIRST
+
+        //SOLUTION:
+        //MAKE CLASS WITH CURRENT FLOOR, TARGET FLOOR AND BOOL
+        //PUT THEM IN A LIST
+        //SORT THE LIST FOR UP AND DOWN
+        //PRIORITISE CURRENT FLOOR TO GET CUSTOMER
+        //ONLY ADD TARGET FLOOR WHEN BOOL IS TRUE
         public void Move()
         {
             if (Down.Count != 0 && Down[0].PositionY == PositionY)
@@ -45,10 +56,6 @@ namespace HotelSimulatie
                 Up.RemoveAt(0);
             }
 
-            if (Up.Count == 0 && Down.Count == 0)
-            {
-                return;
-            }
             if (Up.Count != 0 || Down.Count != 0)
             {
                 if (Direction == 'U')
@@ -66,6 +73,7 @@ namespace HotelSimulatie
                             if (Up[i].PositionY == PositionY)
                             {
                                 Up.RemoveAt(i);
+                                break;
                             }
                         }
                     }
@@ -85,6 +93,7 @@ namespace HotelSimulatie
                             if (Down[i].PositionY == PositionY)
                             {
                                 Down.RemoveAt(i);
+                                break;
                             }
                         }
                     }
@@ -94,6 +103,11 @@ namespace HotelSimulatie
                     human.PositionX = PositionX;
                     human.PositionY = PositionY;
                 }
+            }
+
+            if (Up.Count == 0 && Down.Count == 0)
+            {
+                Direction = 'I';
             }
         }
 
@@ -106,9 +120,9 @@ namespace HotelSimulatie
             //Extra Check
             if ((TargetFloor <= Hotel.Floors.Length - 1 && TargetFloor >= 0) && (CurrentFloor <= Hotel.Floors.Length - 1 && CurrentFloor >= 0))
             {
-                if (Up.Count == 0 && Down.Count == 0)
+                if(Direction == 'I')
                 {
-                    if (CurrentFloor > PositionY)
+                    if(CurrentFloor > PositionY)
                     {
                         Direction = 'U';
                     }
