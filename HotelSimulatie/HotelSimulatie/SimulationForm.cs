@@ -52,12 +52,12 @@ namespace HotelSimulatie
             char t = Hotel.Elevator.GetElevatorInfo().Item1;
             int i = Hotel.Elevator.GetElevatorInfo().Item2;
 
-            Hotel.Elevator.RequestElevator(4, 3);
-            Hotel.Elevator.RequestElevator(1, 6);
-            Hotel.Elevator.RequestElevator(1, 1);
-            Hotel.Elevator.RequestElevator(-1, 5);
-            Hotel.Elevator.RequestElevator(8, 3);
-            Hotel.Elevator.RequestElevator(6, 9);
+            //Hotel.Elevator.RequestElevator(4, 3);
+            //Hotel.Elevator.RequestElevator(1, 6);
+            //Hotel.Elevator.RequestElevator(1, 1);
+            //Hotel.Elevator.RequestElevator(-1, 5);
+            //Hotel.Elevator.RequestElevator(8, 3);
+            //Hotel.Elevator.RequestElevator(6, 9);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace HotelSimulatie
             }
             DrawFacilities();
             BackgroundLayer.Image = _BackgroundBuffer;
-            BackgroundLayer.Size = _BackgroundBuffer.Size;
+            //BackgroundLayer.Size = _BackgroundBuffer.Size;
         }
         private void DrawForeground()
         {
@@ -93,6 +93,8 @@ namespace HotelSimulatie
             //Cleaners
             _ForegroundBuffer.Dispose();
             DrawBackground();
+
+            //SHOULD ONLY BE DRAWN ONCE
             using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
             {
                 g.DrawImage(Hotel.Elevator.Sprite, Hotel.Elevator.PositionX * 60, (Hotel.Floors.Count() - 1 - Hotel.Elevator.PositionY) * 55);
@@ -116,7 +118,6 @@ namespace HotelSimulatie
                     {
                         g.DrawImage(Hotel.Reception.Customers[i].Sprite, Hotel.Reception.Customers[i].PositionX * 60, (Hotel.Floors.Count() - 1 - Hotel.Reception.Customers[i].PositionY) * 55 + (55 - Hotel.Reception.Customers[i].Sprite.Height));
                         BackgroundLayer.Image = _BackgroundBuffer;
-                        BackgroundLayer.Size = _BackgroundBuffer.Size;
                     }
                 }
             }
@@ -149,9 +150,9 @@ namespace HotelSimulatie
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
             Hotel.Elevator.Move();
-            foreach (Customer human in Hotel.Reception.Customers)
+            for (int i = 0; i < Hotel.Reception.Customers.Count; i++)
             {
-                human.Move();
+                Hotel.Reception.Customers[i].Move();
             }
             DrawForeground();
         }
@@ -260,12 +261,12 @@ namespace HotelSimulatie
             {
                 BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
                 BackgroundLayer.Size = new Size((int)(_BackgroundBuffer.Size.Width * ZoomLevel), (int)(_BackgroundBuffer.Size.Height * ZoomLevel));
-                this.Height = BackgroundLayer.Size.Height;
+                this.Height = (this.Height + ((int)(_BackgroundBuffer.Size.Height * ZoomLevel - _BackgroundBuffer.Size.Height)));
             }
             else if(ZoomLevel == 1.5)
             {
                 BackgroundLayer.SizeMode = PictureBoxSizeMode.Normal;
-                BackgroundLayer.Size = new Size((int)(BackgroundLayer.Size.Width * ZoomLevel), (int)(BackgroundLayer.Size.Height * ZoomLevel));
+                //BackgroundLayer.Image.Size = new Size((int)(BackgroundLayer.Image.Width * ZoomLevel), (int)(BackgroundLayer.Image.Height * ZoomLevel));
             }
         }
     }
