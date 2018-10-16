@@ -74,7 +74,7 @@
   <Class Name="HotelSimulatie.Elevator" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAIAAIAAAAIgACAAAAAAAAAAAAAQAAAAAAAAAAI=</HashCode>
+      <HashCode>EAAAAAIAAIAAAAIgACAAAAAAAAAAAAAQAAAAAAAIAAI=</HashCode>
       <FileName>Classes\Entities\Elevator.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -97,7 +97,7 @@
   <Class Name="HotelSimulatie.Customer" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAIkAAAAAAQAAAAAAEAVAAIAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAEIkAAAAAEQAAAAAAEAVAAIAACAAAAA=</HashCode>
       <FileName>Classes\Human\Customer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -140,7 +140,7 @@
   <Class Name="HotelSimulatie.Graph" Collapsed="true">
     <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQAAAAQAAAAAAAAgBAAAACAAAAAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAQAAAAQAAAAAAAAgBAAAACAAAAAAAQAgAAAAAAAA=</HashCode>
       <FileName>Pathfinding\Graph.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -152,7 +152,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="HotelSimulatie.Node" Collapsed="true">
-    <Position X="2.25" Y="7.75" Width="1.5" />
+    <Position X="2.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAIAACAAABAAAAgAAAADAAAAAAAAAAAAAAAAAQAACEA=</HashCode>
       <FileName>Pathfinding\Node.cs</FileName>
@@ -208,7 +208,7 @@
   <Interface Name="HotelSimulatie.IHuman" Collapsed="true">
     <Position X="2.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAIgAAAAAAQAAAAAAEAQAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAIgAAAAAAQAAAAAAEAQAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IHuman.cs</FileName>
     </TypeIdentifier>
   </Interface>
