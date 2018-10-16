@@ -13,13 +13,16 @@ namespace HotelSimulatie
     {
         public int ID { get; set; } = 0;
         public string Name { get; set; }
+
+        public bool IsVisible { get; set; } = true;
+
         public int PositionX { get; set; } = 1;
         public int PositionY { get; set; } = 0;
-        public bool IsInRoom { get; set; } = false;
 
         public bool IsRegistered { get; set; } = false;
 
         public HotelEventType Status { get; set; } = HotelEventType.NONE;
+        public ECustomerStatus CustomerStatus { get; set; } = ECustomerStatus.IDLE;
 
         public Route Path { get; set; }
         public Node Destination { get; set; }
@@ -42,6 +45,11 @@ namespace HotelSimulatie
             {
                 HotelEventManager.Register(this);
                 IsRegistered = true;
+            }
+
+            if(Destination != null && AssignedRoom == Destination.Area)
+            {
+                CustomerStatus = ECustomerStatus.GOING_TO_ROOM;
             }
 
             #region Elevator
@@ -123,8 +131,19 @@ namespace HotelSimulatie
             }
             #endregion
 
-            if(Hotel.Floors[PositionY].Areas[PositionX].Node == Destination)
+            if(CustomerStatus != ECustomerStatus.IN_ROOM || Hotel.Floors[PositionY].Areas[PositionX] != AssignedRoom)
             {
+                IsVisible = true;
+            }
+            if(Hotel.Floors[PositionY].Areas[PositionX].Node == Destination && CustomerStatus == ECustomerStatus.GOING_TO_ROOM)
+            {
+                CustomerStatus = ECustomerStatus.IN_ROOM;
+                IsVisible = false;
+                Destination = null;
+            }
+            else if(Hotel.Floors[PositionY].Areas[PositionX].Node == Destination)
+            {
+                IsVisible = true;
                 Destination = null;
             }
 
@@ -235,6 +254,12 @@ namespace HotelSimulatie
                 }
             }
             return result;
+        }
+        public enum ECustomerStatus
+        {
+            IN_ROOM,
+            IDLE,
+            GOING_TO_ROOM
         }
     }
 }

@@ -40,10 +40,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ApplyButton = new System.Windows.Forms.Button();
             this.RoomGroup = new System.Windows.Forms.GroupBox();
+            this.RoomOwner = new System.Windows.Forms.TextBox();
             this.RoomID = new System.Windows.Forms.TextBox();
             this.RoomOwnerLabel = new System.Windows.Forms.Label();
             this.RoomIDLabel = new System.Windows.Forms.Label();
-            this.RoomOwner = new System.Windows.Forms.TextBox();
             this.CinemaGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MovieTime)).BeginInit();
             this.RestaurantGroup.SuspendLayout();
@@ -189,6 +189,14 @@
             this.RoomGroup.Text = "View Room";
             this.RoomGroup.Visible = false;
             // 
+            // RoomOwner
+            // 
+            this.RoomOwner.Location = new System.Drawing.Point(9, 75);
+            this.RoomOwner.Name = "RoomOwner";
+            this.RoomOwner.ReadOnly = true;
+            this.RoomOwner.Size = new System.Drawing.Size(148, 20);
+            this.RoomOwner.TabIndex = 6;
+            // 
             // RoomID
             // 
             this.RoomID.Location = new System.Drawing.Point(9, 36);
@@ -209,20 +217,11 @@
             // RoomIDLabel
             // 
             this.RoomIDLabel.AutoSize = true;
-            this.RoomIDLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.RoomIDLabel.Location = new System.Drawing.Point(6, 20);
             this.RoomIDLabel.Name = "RoomIDLabel";
-            this.RoomIDLabel.Size = new System.Drawing.Size(23, 15);
+            this.RoomIDLabel.Size = new System.Drawing.Size(21, 13);
             this.RoomIDLabel.TabIndex = 4;
             this.RoomIDLabel.Text = "ID:";
-            // 
-            // RoomOwner
-            // 
-            this.RoomOwner.Location = new System.Drawing.Point(9, 75);
-            this.RoomOwner.Name = "RoomOwner";
-            this.RoomOwner.ReadOnly = true;
-            this.RoomOwner.Size = new System.Drawing.Size(148, 20);
-            this.RoomOwner.TabIndex = 6;
             // 
             // EditScreen
             // 

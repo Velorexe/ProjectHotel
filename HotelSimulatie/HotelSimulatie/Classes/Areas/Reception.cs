@@ -29,7 +29,19 @@ namespace HotelSimulatie
             this.PositionY = positionY;
             this.Width = width;
             this.Height = height;
-            HotelEvents.HotelEventManager.Register(this);
+            HotelEventManager.Register(this);
+        }
+
+        public void HireCleaners(int CleanerAmount)
+        {
+            for (int i = 0; i < CleanerAmount; i++)
+            {
+                HumanFactory.CreateHuman(EHumanType.Cleaner);
+                GlobalStatistics.Cleaners[i].PositionX = PositionX;
+                GlobalStatistics.Cleaners[i].PositionY = PositionY;
+                GlobalStatistics.Cleaners[i].Destination = Hotel.Floors[Hotel.Floors.Length / 2].Areas[Hotel.Floors[0].Areas.Length / (Hotel.Settings.CleanerAmount + 1) * (i + 1)].Node;
+                GlobalStatistics.Cleaners[i].MoveToLocation(this);
+            }
         }
 
         public void Notify(HotelEvents.HotelEvent hotelEvent)

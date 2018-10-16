@@ -93,7 +93,6 @@ namespace HotelSimulatie
 
         public static Node SearchNode(IArea Area)
         {
-            Node currentNode = StartNode;
             for (int i = 0; i < HotelNodes.GetLength(0); i++)
             {
                 for (int j = 0; j < HotelNodes.GetLength(1); j++)

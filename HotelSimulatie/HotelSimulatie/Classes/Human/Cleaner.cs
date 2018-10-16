@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using HotelEvents;
+using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
@@ -15,8 +16,28 @@ namespace HotelSimulatie
         public int PositionX { get; set; }
         public int PositionY { get; set; }
 
+        public bool IsVisible { get; set; } = true;
+
         public int WaitingTime { get; set; }
         public Node Destination { get; set; }
+
+        public HotelEventType Status { get; set; } = HotelEventType.NONE;
+        public ECleanerStatus CleanerStatus { get; set; } = ECleanerStatus.IDLE;
+        public Node CurrentCleaningNode { get; set; }
+
+        private Queue<Room> RoomsToClean { get; set; } = new Queue<Room>();
+
+        public Queue<Room> roomsToClean
+        {
+            get { return roomsToClean; }
+            set
+            {
+                if (RoomsToClean.Count != 0 && CleanerStatus == ECleanerStatus.IDLE && Status != HotelEventType.CLEANING_EMERGENCY)
+                {
+                    CleanRoom(RoomsToClean.Dequeue(), Hotel.Settings.CleaningTime);
+                }
+            }
+        }
 
         public bool IsInElevator { get; set; }
         public bool RequestedElevator { get; set; }
@@ -26,9 +47,48 @@ namespace HotelSimulatie
         public Route Path { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.Maid;
 
+        public void MoveToLocation(IArea CurrentLocation)
+        {
+            Path = Graph.QuickestRoute(Graph.SearchNode(CurrentLocation), Graph.SearchNode(Destination.Area), true, true);
+        }
+
+        public void CleanRoom(Room RoomToClean, int CleaningTime)
+        {
+            if (CleanerStatus == ECleanerStatus.IDLE && CurrentCleaningNode == null)
+            {
+                CurrentCleaningNode = RoomToClean.Node;
+                Destination = RoomToClean.Node;
+                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, RoomToClean.Node, true, true);
+            }
+            else
+            {
+                RoomsToClean.Enqueue(RoomToClean);
+            }
+        }
+
         public void Notify(HotelEvent Event)
         {
+            if (Event.EventType == HotelEventType.CLEANING_EMERGENCY)
+            {
+                if (RoomsToClean.Count != 0)
+                {
+                    if (Event.Data.Keys.First() == "kamer")
+                    {
+                        int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                        Room RoomToClean = new Room();
 
+                        foreach (Room room in GlobalStatistics.Rooms)
+                        {
+                            if (room.ID == Data[0])
+                            {
+                                RoomToClean = room;
+                                break;
+                            }
+                        }
+                        CleanRoom((Room)Destination.Area, Data[1]);
+                    }
+                }
+            }
         }
 
         private void MoveToOptimalPosition()
@@ -179,9 +239,38 @@ namespace HotelSimulatie
 
         public IHuman Create(string Name)
         {
+            RoomsToClean = new Queue<Room>();
             GlobalStatistics.Cleaners.Add(this);
             this.Name = Name;
             return this;
+        }
+
+        private int[] PullIntsFromString(List<string> Data)
+        {
+            int[] result = new int[0];
+            for (int j = 0; j < Data.Count; j++)
+            {
+                string target = Data[j];
+                if (target is null)
+                {
+                    return new int[] { 0, 0 };
+                }
+                target = target.Replace(" ", "");
+                target = Regex.Replace(target, "[A-Za-z ]", "");
+                string[] tempArray = target.Split(',');
+                result = new int[tempArray.Length];
+                for (int i = 0; i < tempArray.Length; i++)
+                {
+                    result[i] = Convert.ToInt32(tempArray[i]);
+                }
+            }
+            return result;
+        }
+        public enum ECleanerStatus
+        {
+            IDLE,
+            GOING_TO_ROOM,
+
         }
     }
 }

@@ -10,8 +10,11 @@ namespace HotelSimulatie
     interface IHuman
     {
         string Name { get; set; }
+        bool IsVisible { get; set; }
+
         int PositionX { get; set; }
         int PositionY { get; set; }
+
         Route Path { get; set; }
         Bitmap Sprite { get; set; }
 

@@ -31,7 +31,10 @@ namespace HotelSimulatie
 
             Hotel.Settings = settings;
 
+
             Graph.CreateGraph();
+
+            Hotel.Reception.HireCleaners(Hotel.Settings.CleanerAmount);
 
             _BackgroundBuffer = new Bitmap(Hotel.Floors[0].Areas.Length * 60 + 1, Hotel.Floors.Length * 55 + 1);
             _ForegroundBuffer = new Bitmap(Hotel.Floors[0].Areas.Length * 60 + 1, Hotel.Floors.Length * 55 + 1);
@@ -39,11 +42,8 @@ namespace HotelSimulatie
 
             DrawBackground();
 
-            HotelEvents.HotelEventManager.Start();
-            HotelEvents.HotelEventManager.HTE_Factor = (float)Hotel.Settings.HTEFactor;
-
-            //WAIT BEFORE LOADING ALL THE DATA IN
-            //BEFORE STARTING THE SIMULATION
+            HotelEventManager.Start();
+            HotelEventManager.HTE_Factor = (float)Hotel.Settings.HTEFactor;
 
             TimerHTE.Interval = (int)(1000 / Hotel.Settings.HTEFactor);
             TimerHTE.Start();
@@ -52,6 +52,7 @@ namespace HotelSimulatie
 
             BackgroundLayer.Size = _BackgroundBuffer.Size;
             Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
+
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -83,7 +84,6 @@ namespace HotelSimulatie
         private void DrawForeground()
         {
             //What should be drawn on the foreground:
-            //Cleaners
             _ForegroundBuffer.Dispose();
             DrawBackground();
 
@@ -107,9 +107,17 @@ namespace HotelSimulatie
                 }
                 for (int i = 0; i < GlobalStatistics.Customers.Count; i++)
                 {
-                    if (GlobalStatistics.Customers[i].IsInRoom == false)
+                    if (GlobalStatistics.Customers[i].IsVisible == true)
                     {
                         g.DrawImage(GlobalStatistics.Customers[i].Sprite, GlobalStatistics.Customers[i].PositionX * 60, (Hotel.Floors.Count() - 1 - GlobalStatistics.Customers[i].PositionY) * 55 + (55 - GlobalStatistics.Customers[i].Sprite.Height));
+                        BackgroundLayer.Image = _BackgroundBuffer;
+                    }
+                }
+                for (int i = 0; i < GlobalStatistics.Cleaners.Count; i++)
+                {
+                    if(GlobalStatistics.Cleaners[i].IsVisible == true)
+                    {
+                        g.DrawImage(GlobalStatistics.Cleaners[i].Sprite, GlobalStatistics.Cleaners[i].PositionX * 60, (Hotel.Floors.Count() - 1 - GlobalStatistics.Cleaners[i].PositionY) * 55 + (55 - GlobalStatistics.Cleaners[i].Sprite.Height));
                         BackgroundLayer.Image = _BackgroundBuffer;
                     }
                 }
@@ -146,6 +154,10 @@ namespace HotelSimulatie
             for (int i = 0; i < GlobalStatistics.Customers.Count; i++)
             {
                 GlobalStatistics.Customers[i].Move();
+            }
+            for (int i = 0; i < GlobalStatistics.Cleaners.Count; i++)
+            {
+                GlobalStatistics.Cleaners[i].Move();
             }
             DrawForeground();
         }
