@@ -9,6 +9,7 @@ namespace HotelSimulatie
 {
     class Hallway : IArea
     {
+        public int ID { get; set; }
         public EAreaType AreaType { get; set; } = EAreaType.Hallway;
         public int PositionX { get; set; }
         public int PositionY { get; set; }
@@ -17,8 +18,9 @@ namespace HotelSimulatie
         public Bitmap Sprite { get; set; } = Sprites.Room;
         public Node Node { get; set; }
 
-        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
+        public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
+            this.ID = ID;
             this.AreaType = areaType;
             this.PositionX = positionX;
             this.PositionY = positionY;

@@ -30,6 +30,7 @@ namespace HotelSimulatie
             {
                 hotelRooms.Add(RoomFactory.Create
                 (
+                    tempRoom.ID,
                     tempRoom.AreaType, tempRoom.Capacity,
                     PullIntsFromString(tempRoom.Classification)[0],
                     PullIntsFromString(tempRoom.Position)[0],
@@ -60,19 +61,19 @@ namespace HotelSimulatie
             }
             for (int i = 0; i < Hotel.Floors.Length; i++)
             {
-                Hotel.Floors[i].Areas[0] = RoomFactory.Create("ElevatorShaft", 0, 0, 0, i, 1, 1);
-                Hotel.Floors[i].Areas[Hotel.Floors[i].Areas.Length - 1] = RoomFactory.Create("Staircase", 0, 0, Hotel.Floors[i].Areas.Length - 1, i, 1, 1);
+                Hotel.Floors[i].Areas[0] = RoomFactory.Create(0, "ElevatorShaft", 0, 0, 0, i, 1, 1);
+                Hotel.Floors[i].Areas[Hotel.Floors[i].Areas.Length - 1] = RoomFactory.Create(0, "Staircase", 0, 0, Hotel.Floors[i].Areas.Length - 1, i, 1, 1);
                 if (i == 0)
-                    Hotel.Floors[i].Areas[1] = RoomFactory.Create("Reception", 0, 0, 1, 0, 1, 1);
+                    Hotel.Floors[i].Areas[1] = RoomFactory.Create(0, "Reception", 0, 0, 1, 0, 1, 1);
                 for (int j = 0; j < Hotel.Floors[i].Areas.Length; j++)
                 {
                     if (Hotel.Floors[i].Areas[j] is null && i == 0)
                     {
-                        Hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
+                        Hotel.Floors[i].Areas[j] = RoomFactory.Create(0, "Hallway", 0, 0, j, i, 1, 1);
                         Hotel.Floors[i].Areas[j].Sprite = Sprites.Reception;
                     }
                     else if(Hotel.Floors[i].Areas[j] is null)
-                        Hotel.Floors[i].Areas[j] = RoomFactory.Create("Hallway", 0, 0, j, i, 1, 1);
+                        Hotel.Floors[i].Areas[j] = RoomFactory.Create(0, "Hallway", 0, 0, j, i, 1, 1);
                 }
             }
             Hotel.Elevator = new Elevator() { PositionX = 0, PositionY = 0 };
@@ -114,6 +115,7 @@ namespace HotelSimulatie
 
         private class TempLayout
         {
+            public int ID { get; set; }
             public string AreaType { get; set; }
             public int Capacity { get; set; }
             public string Position { get; set; }

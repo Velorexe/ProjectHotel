@@ -11,6 +11,7 @@ namespace HotelSimulatie
 {
     class Reception : IArea, HotelEvents.HotelEventListener
     {
+        public int ID { get; set; }
         public EAreaType AreaType { get; set; } = EAreaType.Reception;
         public int Height { get; set; } = 1;
         public int Width { get; set; } = 1;
@@ -23,8 +24,9 @@ namespace HotelSimulatie
         public List<Customer> Customers = new List<Customer>();
         public List<IHuman> Cleaners = new List<IHuman>();
 
-        public void Create(EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
+        public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
+            this.ID = ID;
             this.AreaType = areaType;
             this.PositionX = positionX;
             this.PositionY = positionY;
@@ -56,31 +58,46 @@ namespace HotelSimulatie
 
                 Customer NewCustomer = (Customer)HumanFactory.CreateHuman(EHumanType.Customer);
 
-                for (int i = 0; i < Rooms.Count; i++)
+                while (NewCustomer.AssignedRoom == null && Classification <= 5)
                 {
-                    if (Classification == 0 && Rooms[i].RoomOwner is null)
+                    for (int i = 0; i < Rooms.Count; i++)
                     {
-                        AvaiableRooms.Add(Rooms[i]);
+                        if (Classification == 0 && Rooms[i].RoomOwner is null)
+                        {
+                            AvaiableRooms.Add(Rooms[i]);
+                        }
+                        else if (Rooms[i].Classification == Classification && Rooms[i].RoomOwner is null)
+                        {
+                            AvaiableRooms.Add(Rooms[i]);
+                        }
                     }
-                    else if (Rooms[i].Classification == Classification && Rooms[i].RoomOwner is null)
+                    if(AvaiableRooms.Count == 0)
                     {
-                        AvaiableRooms.Add(Rooms[i]);
+                        Classification++;
                     }
-                }
-
-                if (AvaiableRooms.Count != 0)
-                {
-                    Random r = new Random();
-                    int RandomNumber;
-                    RandomNumber = r.Next(0, AvaiableRooms.Count - 1);
-                    NewCustomer.AssignedRoom = AvaiableRooms[RandomNumber];
-                    AvaiableRooms[RandomNumber].RoomOwner = NewCustomer;
+                    else if(AvaiableRooms.Count == 1)
+                    {
+                        NewCustomer.AssignedRoom = AvaiableRooms[0];
+                        AvaiableRooms[0].RoomOwner = NewCustomer;
+                    }
+                    else
+                    {
+                        NewCustomer.AssignedRoom = (Room)Graph.SearchNode(AvaiableRooms.OrderBy(x => x.PositionY).ThenBy(x => x.PositionX).ToList()[0]).Area;
+                        NewCustomer.AssignedRoom.RoomOwner = NewCustomer;
+                    }
                 }
 
                 if (NewCustomer.AssignedRoom != null)
+                {
+                    if (hotelEvent.Data != null && PullIntsFromString(hotelEvent.Data.Keys.First()) != 0)
+                    {
+                        NewCustomer.ID = PullIntsFromString(hotelEvent.Data.Keys.First());
+                    }
+                    else
+                    {
+                        NewCustomer.ID = 0;
+                    }
                     this.Customers.Add(NewCustomer);
-                if (NewCustomer.AssignedRoom != null)
-                {
                     NewCustomer.Destination = Graph.SearchNode(NewCustomer.AssignedRoom);
                     NewCustomer.MoveToLocation(this);
                 }
@@ -93,6 +110,10 @@ namespace HotelSimulatie
             target = target.Replace(" ", "");
             target = Regex.Replace(target, "[A-Za-z ]", "");
             string[] tempArray = target.Split(',');
+            if(target == "")
+            {
+                return result;
+            }
             for (int i = 0; i < tempArray.Length; i++)
             {
                 result = Convert.ToInt32(tempArray[i]);

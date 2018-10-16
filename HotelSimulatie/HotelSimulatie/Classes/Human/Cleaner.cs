@@ -10,8 +10,10 @@ namespace HotelSimulatie
     class Cleaner : IHuman, IMoveAble
     {
         public string Name { get; set; }
+
         public int PositionX { get; set; }
         public int PositionY { get; set; }
+
         public Route Path { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.Maid;
 
@@ -19,8 +21,10 @@ namespace HotelSimulatie
         {
 
         }
+
         public IHuman Create(string Name)
         {
+            GlobalStatistics.Cleaners.Add(this);
             this.Name = Name;
             return this;
         }
