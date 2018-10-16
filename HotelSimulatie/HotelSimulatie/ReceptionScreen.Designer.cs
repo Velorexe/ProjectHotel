@@ -36,25 +36,39 @@
             this.ApplyButton = new System.Windows.Forms.Button();
             this.DefaultValuesButton = new System.Windows.Forms.Button();
             this.TimeBasedGroup = new System.Windows.Forms.GroupBox();
-            this.EatingTime = new System.Windows.Forms.NumericUpDown();
-            this.EatingTimeLabel = new System.Windows.Forms.Label();
+            this.TimeBeforeDeath = new System.Windows.Forms.NumericUpDown();
+            this.TimeBeforeDeathLabel = new System.Windows.Forms.Label();
             this.StairTime = new System.Windows.Forms.NumericUpDown();
             this.CleaningTime = new System.Windows.Forms.NumericUpDown();
             this.StairTimeLabel = new System.Windows.Forms.Label();
             this.CleaningTimeLabel = new System.Windows.Forms.Label();
             this.FacilityGroup = new System.Windows.Forms.GroupBox();
-            this.RestaurantLabel = new System.Windows.Forms.Label();
-            this.RestaurantBox = new System.Windows.Forms.ComboBox();
-            this.CinemaLabel = new System.Windows.Forms.Label();
-            this.CinemasBox = new System.Windows.Forms.ComboBox();
-            this.RestaurantEditButton = new System.Windows.Forms.Button();
             this.CinemaEditButton = new System.Windows.Forms.Button();
+            this.RestaurantEditButton = new System.Windows.Forms.Button();
+            this.CinemasBox = new System.Windows.Forms.ComboBox();
+            this.CinemaLabel = new System.Windows.Forms.Label();
+            this.RestaurantBox = new System.Windows.Forms.ComboBox();
+            this.RestaurantLabel = new System.Windows.Forms.Label();
+            this.RoomsLabel = new System.Windows.Forms.Label();
+            this.RoomsBox = new System.Windows.Forms.ComboBox();
+            this.RoomViewButton = new System.Windows.Forms.Button();
+            this.CustomerGroup = new System.Windows.Forms.GroupBox();
+            this.CustomerBox = new System.Windows.Forms.ComboBox();
+            this.CustomerLabel = new System.Windows.Forms.Label();
+            this.AssignedRoom = new System.Windows.Forms.TextBox();
+            this.AssignedRoomLabel = new System.Windows.Forms.Label();
+            this.CustomerNameLabel = new System.Windows.Forms.Label();
+            this.CustomerName = new System.Windows.Forms.TextBox();
+            this.CustomerApplyButton = new System.Windows.Forms.Button();
+            this.CurrentActivity = new System.Windows.Forms.TextBox();
+            this.CurrentActivityLabel = new System.Windows.Forms.Label();
             this.SettingsGroup.SuspendLayout();
             this.TimeBasedGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EatingTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeBeforeDeath)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.StairTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CleaningTime)).BeginInit();
             this.FacilityGroup.SuspendLayout();
+            this.CustomerGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // SettingsGroup
@@ -126,7 +140,7 @@
             // 
             this.ApplyButton.Location = new System.Drawing.Point(12, 275);
             this.ApplyButton.Name = "ApplyButton";
-            this.ApplyButton.Size = new System.Drawing.Size(501, 43);
+            this.ApplyButton.Size = new System.Drawing.Size(698, 43);
             this.ApplyButton.TabIndex = 1;
             this.ApplyButton.Text = "Apply";
             this.ApplyButton.UseVisualStyleBackColor = true;
@@ -136,7 +150,7 @@
             // 
             this.DefaultValuesButton.Location = new System.Drawing.Point(12, 246);
             this.DefaultValuesButton.Name = "DefaultValuesButton";
-            this.DefaultValuesButton.Size = new System.Drawing.Size(501, 23);
+            this.DefaultValuesButton.Size = new System.Drawing.Size(698, 23);
             this.DefaultValuesButton.TabIndex = 2;
             this.DefaultValuesButton.Text = "Revert To Default Values";
             this.DefaultValuesButton.UseVisualStyleBackColor = true;
@@ -144,8 +158,8 @@
             // 
             // TimeBasedGroup
             // 
-            this.TimeBasedGroup.Controls.Add(this.EatingTime);
-            this.TimeBasedGroup.Controls.Add(this.EatingTimeLabel);
+            this.TimeBasedGroup.Controls.Add(this.TimeBeforeDeath);
+            this.TimeBasedGroup.Controls.Add(this.TimeBeforeDeathLabel);
             this.TimeBasedGroup.Controls.Add(this.StairTime);
             this.TimeBasedGroup.Controls.Add(this.CleaningTime);
             this.TimeBasedGroup.Controls.Add(this.StairTimeLabel);
@@ -157,36 +171,36 @@
             this.TimeBasedGroup.TabStop = false;
             this.TimeBasedGroup.Text = "Time Based Settings";
             // 
-            // EatingTime
+            // TimeBeforeDeath
             // 
-            this.EatingTime.Location = new System.Drawing.Point(9, 116);
-            this.EatingTime.Maximum = new decimal(new int[] {
+            this.TimeBeforeDeath.Location = new System.Drawing.Point(9, 116);
+            this.TimeBeforeDeath.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.EatingTime.Minimum = new decimal(new int[] {
+            this.TimeBeforeDeath.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.EatingTime.Name = "EatingTime";
-            this.EatingTime.Size = new System.Drawing.Size(122, 20);
-            this.EatingTime.TabIndex = 9;
-            this.EatingTime.Value = new decimal(new int[] {
+            this.TimeBeforeDeath.Name = "TimeBeforeDeath";
+            this.TimeBeforeDeath.Size = new System.Drawing.Size(122, 20);
+            this.TimeBeforeDeath.TabIndex = 9;
+            this.TimeBeforeDeath.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // EatingTimeLabel
+            // TimeBeforeDeathLabel
             // 
-            this.EatingTimeLabel.AutoSize = true;
-            this.EatingTimeLabel.Location = new System.Drawing.Point(6, 100);
-            this.EatingTimeLabel.Name = "EatingTimeLabel";
-            this.EatingTimeLabel.Size = new System.Drawing.Size(63, 13);
-            this.EatingTimeLabel.TabIndex = 8;
-            this.EatingTimeLabel.Text = "Eating Time";
+            this.TimeBeforeDeathLabel.AutoSize = true;
+            this.TimeBeforeDeathLabel.Location = new System.Drawing.Point(6, 100);
+            this.TimeBeforeDeathLabel.Name = "TimeBeforeDeathLabel";
+            this.TimeBeforeDeathLabel.Size = new System.Drawing.Size(96, 13);
+            this.TimeBeforeDeathLabel.TabIndex = 8;
+            this.TimeBeforeDeathLabel.Text = "Time Before Death";
             // 
             // StairTime
             // 
@@ -252,6 +266,9 @@
             // 
             // FacilityGroup
             // 
+            this.FacilityGroup.Controls.Add(this.RoomViewButton);
+            this.FacilityGroup.Controls.Add(this.RoomsBox);
+            this.FacilityGroup.Controls.Add(this.RoomsLabel);
             this.FacilityGroup.Controls.Add(this.CinemaEditButton);
             this.FacilityGroup.Controls.Add(this.RestaurantEditButton);
             this.FacilityGroup.Controls.Add(this.CinemasBox);
@@ -265,39 +282,15 @@
             this.FacilityGroup.TabStop = false;
             this.FacilityGroup.Text = "Facilities";
             // 
-            // RestaurantLabel
+            // CinemaEditButton
             // 
-            this.RestaurantLabel.AutoSize = true;
-            this.RestaurantLabel.Location = new System.Drawing.Point(7, 18);
-            this.RestaurantLabel.Name = "RestaurantLabel";
-            this.RestaurantLabel.Size = new System.Drawing.Size(59, 13);
-            this.RestaurantLabel.TabIndex = 0;
-            this.RestaurantLabel.Text = "Restaurant";
-            // 
-            // RestaurantBox
-            // 
-            this.RestaurantBox.FormattingEnabled = true;
-            this.RestaurantBox.Location = new System.Drawing.Point(10, 35);
-            this.RestaurantBox.Name = "RestaurantBox";
-            this.RestaurantBox.Size = new System.Drawing.Size(174, 21);
-            this.RestaurantBox.TabIndex = 1;
-            // 
-            // CinemaLabel
-            // 
-            this.CinemaLabel.AutoSize = true;
-            this.CinemaLabel.Location = new System.Drawing.Point(7, 85);
-            this.CinemaLabel.Name = "CinemaLabel";
-            this.CinemaLabel.Size = new System.Drawing.Size(42, 13);
-            this.CinemaLabel.TabIndex = 2;
-            this.CinemaLabel.Text = "Cinema";
-            // 
-            // CinemasBox
-            // 
-            this.CinemasBox.FormattingEnabled = true;
-            this.CinemasBox.Location = new System.Drawing.Point(10, 99);
-            this.CinemasBox.Name = "CinemasBox";
-            this.CinemasBox.Size = new System.Drawing.Size(174, 21);
-            this.CinemasBox.TabIndex = 3;
+            this.CinemaEditButton.Location = new System.Drawing.Point(10, 126);
+            this.CinemaEditButton.Name = "CinemaEditButton";
+            this.CinemaEditButton.Size = new System.Drawing.Size(174, 23);
+            this.CinemaEditButton.TabIndex = 5;
+            this.CinemaEditButton.Text = "Edit";
+            this.CinemaEditButton.UseVisualStyleBackColor = true;
+            this.CinemaEditButton.Click += new System.EventHandler(this.CinemaEditButton_Click);
             // 
             // RestaurantEditButton
             // 
@@ -309,21 +302,172 @@
             this.RestaurantEditButton.UseVisualStyleBackColor = true;
             this.RestaurantEditButton.Click += new System.EventHandler(this.RestaurantEditButton_Click);
             // 
-            // CinemaEditButton
+            // CinemasBox
             // 
-            this.CinemaEditButton.Location = new System.Drawing.Point(10, 126);
-            this.CinemaEditButton.Name = "CinemaEditButton";
-            this.CinemaEditButton.Size = new System.Drawing.Size(174, 23);
-            this.CinemaEditButton.TabIndex = 5;
-            this.CinemaEditButton.Text = "Edit";
-            this.CinemaEditButton.UseVisualStyleBackColor = true;
-            this.CinemaEditButton.Click += new System.EventHandler(this.CinemaEditButton_Click);
+            this.CinemasBox.FormattingEnabled = true;
+            this.CinemasBox.Location = new System.Drawing.Point(10, 99);
+            this.CinemasBox.Name = "CinemasBox";
+            this.CinemasBox.Size = new System.Drawing.Size(174, 21);
+            this.CinemasBox.TabIndex = 3;
+            this.CinemasBox.SelectedIndexChanged += new System.EventHandler(this.CinemasBox_SelectedIndexChanged);
+            // 
+            // CinemaLabel
+            // 
+            this.CinemaLabel.AutoSize = true;
+            this.CinemaLabel.Location = new System.Drawing.Point(7, 85);
+            this.CinemaLabel.Name = "CinemaLabel";
+            this.CinemaLabel.Size = new System.Drawing.Size(42, 13);
+            this.CinemaLabel.TabIndex = 2;
+            this.CinemaLabel.Text = "Cinema";
+            // 
+            // RestaurantBox
+            // 
+            this.RestaurantBox.FormattingEnabled = true;
+            this.RestaurantBox.Location = new System.Drawing.Point(10, 35);
+            this.RestaurantBox.Name = "RestaurantBox";
+            this.RestaurantBox.Size = new System.Drawing.Size(174, 21);
+            this.RestaurantBox.TabIndex = 1;
+            this.RestaurantBox.SelectedIndexChanged += new System.EventHandler(this.RestaurantBox_SelectedIndexChanged);
+            // 
+            // RestaurantLabel
+            // 
+            this.RestaurantLabel.AutoSize = true;
+            this.RestaurantLabel.Location = new System.Drawing.Point(7, 18);
+            this.RestaurantLabel.Name = "RestaurantLabel";
+            this.RestaurantLabel.Size = new System.Drawing.Size(59, 13);
+            this.RestaurantLabel.TabIndex = 0;
+            this.RestaurantLabel.Text = "Restaurant";
+            // 
+            // RoomsLabel
+            // 
+            this.RoomsLabel.AutoSize = true;
+            this.RoomsLabel.Location = new System.Drawing.Point(7, 152);
+            this.RoomsLabel.Name = "RoomsLabel";
+            this.RoomsLabel.Size = new System.Drawing.Size(35, 13);
+            this.RoomsLabel.TabIndex = 6;
+            this.RoomsLabel.Text = "Room";
+            // 
+            // RoomsBox
+            // 
+            this.RoomsBox.FormattingEnabled = true;
+            this.RoomsBox.Location = new System.Drawing.Point(10, 168);
+            this.RoomsBox.Name = "RoomsBox";
+            this.RoomsBox.Size = new System.Drawing.Size(174, 21);
+            this.RoomsBox.TabIndex = 7;
+            this.RoomsBox.SelectedIndexChanged += new System.EventHandler(this.RoomsBox_SelectedIndexChanged);
+            // 
+            // RoomViewButton
+            // 
+            this.RoomViewButton.Location = new System.Drawing.Point(10, 195);
+            this.RoomViewButton.Name = "RoomViewButton";
+            this.RoomViewButton.Size = new System.Drawing.Size(174, 23);
+            this.RoomViewButton.TabIndex = 8;
+            this.RoomViewButton.Text = "View";
+            this.RoomViewButton.UseVisualStyleBackColor = true;
+            this.RoomViewButton.Click += new System.EventHandler(this.RoomViewButton_Click);
+            // 
+            // CustomerGroup
+            // 
+            this.CustomerGroup.Controls.Add(this.CurrentActivityLabel);
+            this.CustomerGroup.Controls.Add(this.CurrentActivity);
+            this.CustomerGroup.Controls.Add(this.CustomerApplyButton);
+            this.CustomerGroup.Controls.Add(this.CustomerName);
+            this.CustomerGroup.Controls.Add(this.CustomerNameLabel);
+            this.CustomerGroup.Controls.Add(this.AssignedRoomLabel);
+            this.CustomerGroup.Controls.Add(this.AssignedRoom);
+            this.CustomerGroup.Controls.Add(this.CustomerLabel);
+            this.CustomerGroup.Controls.Add(this.CustomerBox);
+            this.CustomerGroup.Location = new System.Drawing.Point(519, 13);
+            this.CustomerGroup.Name = "CustomerGroup";
+            this.CustomerGroup.Size = new System.Drawing.Size(191, 227);
+            this.CustomerGroup.TabIndex = 5;
+            this.CustomerGroup.TabStop = false;
+            this.CustomerGroup.Text = "Customers";
+            // 
+            // CustomerBox
+            // 
+            this.CustomerBox.FormattingEnabled = true;
+            this.CustomerBox.Location = new System.Drawing.Point(6, 34);
+            this.CustomerBox.Name = "CustomerBox";
+            this.CustomerBox.Size = new System.Drawing.Size(179, 21);
+            this.CustomerBox.TabIndex = 0;
+            this.CustomerBox.SelectedIndexChanged += new System.EventHandler(this.CustomerBox_SelectedIndexChanged);
+            // 
+            // CustomerLabel
+            // 
+            this.CustomerLabel.AutoSize = true;
+            this.CustomerLabel.Location = new System.Drawing.Point(6, 18);
+            this.CustomerLabel.Name = "CustomerLabel";
+            this.CustomerLabel.Size = new System.Drawing.Size(65, 13);
+            this.CustomerLabel.TabIndex = 9;
+            this.CustomerLabel.Text = "Customer ID";
+            // 
+            // AssignedRoom
+            // 
+            this.AssignedRoom.Location = new System.Drawing.Point(6, 115);
+            this.AssignedRoom.Name = "AssignedRoom";
+            this.AssignedRoom.ReadOnly = true;
+            this.AssignedRoom.Size = new System.Drawing.Size(179, 20);
+            this.AssignedRoom.TabIndex = 10;
+            // 
+            // AssignedRoomLabel
+            // 
+            this.AssignedRoomLabel.AutoSize = true;
+            this.AssignedRoomLabel.Location = new System.Drawing.Point(6, 99);
+            this.AssignedRoomLabel.Name = "AssignedRoomLabel";
+            this.AssignedRoomLabel.Size = new System.Drawing.Size(81, 13);
+            this.AssignedRoomLabel.TabIndex = 11;
+            this.AssignedRoomLabel.Text = "Assigned Room";
+            // 
+            // CustomerNameLabel
+            // 
+            this.CustomerNameLabel.AutoSize = true;
+            this.CustomerNameLabel.Location = new System.Drawing.Point(6, 59);
+            this.CustomerNameLabel.Name = "CustomerNameLabel";
+            this.CustomerNameLabel.Size = new System.Drawing.Size(35, 13);
+            this.CustomerNameLabel.TabIndex = 12;
+            this.CustomerNameLabel.Text = "Name";
+            // 
+            // CustomerName
+            // 
+            this.CustomerName.Location = new System.Drawing.Point(6, 76);
+            this.CustomerName.Name = "CustomerName";
+            this.CustomerName.Size = new System.Drawing.Size(179, 20);
+            this.CustomerName.TabIndex = 13;
+            // 
+            // CustomerApplyButton
+            // 
+            this.CustomerApplyButton.Location = new System.Drawing.Point(6, 195);
+            this.CustomerApplyButton.Name = "CustomerApplyButton";
+            this.CustomerApplyButton.Size = new System.Drawing.Size(179, 23);
+            this.CustomerApplyButton.TabIndex = 14;
+            this.CustomerApplyButton.Text = "Apply";
+            this.CustomerApplyButton.UseVisualStyleBackColor = true;
+            this.CustomerApplyButton.Click += new System.EventHandler(this.CustomerApplyButton_Click);
+            // 
+            // CurrentActivity
+            // 
+            this.CurrentActivity.Location = new System.Drawing.Point(6, 154);
+            this.CurrentActivity.Name = "CurrentActivity";
+            this.CurrentActivity.ReadOnly = true;
+            this.CurrentActivity.Size = new System.Drawing.Size(179, 20);
+            this.CurrentActivity.TabIndex = 15;
+            // 
+            // CurrentActivityLabel
+            // 
+            this.CurrentActivityLabel.AutoSize = true;
+            this.CurrentActivityLabel.Location = new System.Drawing.Point(6, 138);
+            this.CurrentActivityLabel.Name = "CurrentActivityLabel";
+            this.CurrentActivityLabel.Size = new System.Drawing.Size(78, 13);
+            this.CurrentActivityLabel.TabIndex = 16;
+            this.CurrentActivityLabel.Text = "Current Activity";
             // 
             // ReceptionScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(525, 330);
+            this.ClientSize = new System.Drawing.Size(722, 330);
+            this.Controls.Add(this.CustomerGroup);
             this.Controls.Add(this.FacilityGroup);
             this.Controls.Add(this.TimeBasedGroup);
             this.Controls.Add(this.DefaultValuesButton);
@@ -336,11 +480,13 @@
             this.SettingsGroup.PerformLayout();
             this.TimeBasedGroup.ResumeLayout(false);
             this.TimeBasedGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EatingTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TimeBeforeDeath)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.StairTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CleaningTime)).EndInit();
             this.FacilityGroup.ResumeLayout(false);
             this.FacilityGroup.PerformLayout();
+            this.CustomerGroup.ResumeLayout(false);
+            this.CustomerGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -359,8 +505,8 @@
         private System.Windows.Forms.Label CleaningTimeLabel;
         private System.Windows.Forms.NumericUpDown CleaningTime;
         private System.Windows.Forms.NumericUpDown StairTime;
-        private System.Windows.Forms.Label EatingTimeLabel;
-        private System.Windows.Forms.NumericUpDown EatingTime;
+        private System.Windows.Forms.Label TimeBeforeDeathLabel;
+        private System.Windows.Forms.NumericUpDown TimeBeforeDeath;
         private System.Windows.Forms.GroupBox FacilityGroup;
         private System.Windows.Forms.Label RestaurantLabel;
         private System.Windows.Forms.ComboBox RestaurantBox;
@@ -368,5 +514,18 @@
         private System.Windows.Forms.ComboBox CinemasBox;
         private System.Windows.Forms.Button RestaurantEditButton;
         private System.Windows.Forms.Button CinemaEditButton;
+        private System.Windows.Forms.Label RoomsLabel;
+        private System.Windows.Forms.Button RoomViewButton;
+        private System.Windows.Forms.ComboBox RoomsBox;
+        private System.Windows.Forms.GroupBox CustomerGroup;
+        private System.Windows.Forms.Label CustomerLabel;
+        private System.Windows.Forms.ComboBox CustomerBox;
+        private System.Windows.Forms.Label AssignedRoomLabel;
+        private System.Windows.Forms.TextBox AssignedRoom;
+        private System.Windows.Forms.TextBox CustomerName;
+        private System.Windows.Forms.Label CustomerNameLabel;
+        private System.Windows.Forms.Button CustomerApplyButton;
+        private System.Windows.Forms.Label CurrentActivityLabel;
+        private System.Windows.Forms.TextBox CurrentActivity;
     }
 }

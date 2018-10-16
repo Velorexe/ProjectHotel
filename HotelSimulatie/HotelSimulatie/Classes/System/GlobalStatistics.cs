@@ -14,5 +14,7 @@ namespace HotelSimulatie
         public static List<Restaurant> Restaurants = new List<Restaurant>();
         public static List<Cinema> Cinemas = new List<Cinema>();
         public static List<Fitness> FitnessCenters = new List<Fitness>();
+
+        public static List<Room> Rooms = new List<Room>();
     }
 }

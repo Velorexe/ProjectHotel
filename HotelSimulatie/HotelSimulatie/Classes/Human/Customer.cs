@@ -4,20 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using HotelEvents;
+using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
-    class Customer : IHuman, IMoveAble
+    class Customer : IHuman, IMoveAble, HotelEventListener
     {
         public int ID { get; set; } = 0;
         public string Name { get; set; }
         public int PositionX { get; set; } = 1;
         public int PositionY { get; set; } = 0;
+        public bool IsInRoom { get; set; } = false;
+
+        public bool IsRegistered { get; set; } = false;
+        public bool CheckOut { get; set; } = false;
+
+        public HotelEventType Status { get; set; } = HotelEventType.NONE;
+
         public Route Path { get; set; }
         public Node Destination { get; set; }
         public Room AssignedRoom { get; set; } = null;
         public Bitmap Sprite { get; set; } = Sprites.Customer;
-        public bool IsInRoom { get; set; } = false;
 
         private bool IsInElevator { get; set; } = false;
         private bool ReqestedElevator { get; set; } = false;
@@ -31,6 +39,12 @@ namespace HotelSimulatie
 
         public void Move()
         {
+            if (!IsRegistered)
+            {
+                HotelEventManager.Register(this);
+                IsRegistered = true;
+            }
+
             #region Elevator
             if (Path.RouteType == ERouteType.ToElevator && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft)
             {
@@ -101,6 +115,16 @@ namespace HotelSimulatie
                 }
             }
             #endregion
+
+            if(Status == HotelEventType.CHECK_OUT && Path.Path.Count == 0 && Path.PathFromElevator.Count == 0 && Path.PathToElevator.Count == 0)
+            {
+                CheckOut = true;
+            }
+            else if (CheckOut)
+            {
+                GlobalStatistics.Customers.Remove(this);
+                HotelEventManager.Deregister(this);
+            }
         }
 
         private void GetRoute()
@@ -161,6 +185,47 @@ namespace HotelSimulatie
             GlobalStatistics.Customers.Add(this);
             this.Name = Name;
             return this;
+        }
+
+        public void Notify(HotelEvent Event)
+        {
+            if(Event.EventType == HotelEventType.CHECK_OUT)
+            {
+                if(Event.Data.Keys.First() == "Gast")
+                {
+                    int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                    if(ID == Data[0])
+                    {
+                        AssignedRoom.Dirty();
+                        AssignedRoom.RoomOwner = null;
+                        Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Hotel.Reception.Node, true, true);
+                        Status = HotelEventType.CHECK_OUT;
+                    }
+                }
+            }
+        }
+
+
+        private int[] PullIntsFromString(List<string> Data)
+        {
+            int[] result = new int[0];
+            for (int j = 0; j < Data.Count; j++)
+            {
+                string target = Data[j];
+                if (target is null)
+                {
+                    return new int[] { 0, 0 };
+                }
+                target = target.Replace(" ", "");
+                target = Regex.Replace(target, "[A-Za-z ]", "");
+                string[] tempArray = target.Split(',');
+                result = new int[tempArray.Length];
+                for (int i = 0; i < tempArray.Length; i++)
+                {
+                    result[i] = Convert.ToInt32(tempArray[i]);
+                }
+            }
+            return result;
         }
     }
 }

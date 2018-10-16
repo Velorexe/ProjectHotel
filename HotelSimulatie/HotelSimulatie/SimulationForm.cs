@@ -269,5 +269,24 @@ namespace HotelSimulatie
                 Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
             }
         }
+
+        public void HighlightFacility(IArea[] areas)
+        {
+            DrawBackground();
+            DrawForeground();
+            BackgroundLayer.Image = _BackgroundBuffer;
+            using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
+            {
+                foreach (IArea area in areas)
+                {
+                    Pen p = new Pen(Color.Red)
+                    {
+                        Width = 5
+                    };
+                    g.DrawRectangle(new Pen(Color.Red, 5), area.PositionX * 60, (Hotel.Floors.Length - 1 - area.PositionY - (area.Height - 1)) * 55, area.Width * 60, area.Height * 55);
+                }
+            }
+            BackgroundLayer.Invalidate();
+        }
     }
 }

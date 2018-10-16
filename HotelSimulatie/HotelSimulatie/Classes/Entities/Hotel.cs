@@ -12,5 +12,6 @@ namespace HotelSimulatie
         public static Reception Reception { get; set; }
         public static Settings Settings { get; set; }
         public static Elevator Elevator { get; set; }
+        public static GlobalEventManager EventManager { get; set; } = new GlobalEventManager();
     }
 }

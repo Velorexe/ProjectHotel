@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using HotelEvents;
 
 namespace HotelSimulatie
 {
@@ -54,7 +55,7 @@ namespace HotelSimulatie
             if (hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
             {
                 List<Room> AvaiableRooms = new List<Room>();
-                int Classification = PullIntsFromString(hotelEvent.Message);
+                int Classification = PullIntsFromString(hotelEvent.Data.Values.First());
 
                 Customer NewCustomer = (Customer)HumanFactory.CreateHuman(EHumanType.Customer);
 

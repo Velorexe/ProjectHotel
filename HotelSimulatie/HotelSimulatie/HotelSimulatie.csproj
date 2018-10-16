@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Areas\Cinema.cs" />
+    <Compile Include="Classes\System\GlobalEventManager.cs" />
     <Compile Include="EditScreen.cs">
       <SubType>Form</SubType>
     </Compile>

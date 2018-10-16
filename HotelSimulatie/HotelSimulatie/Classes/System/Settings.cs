@@ -13,6 +13,6 @@ namespace HotelSimulatie
         public int CleaningTime { get; set; } = 2;
         public int StairCase { get; set; } = 2;
         public int Elevator { get; set; } = 1;
-        public int EatingTime { get; set; } = 5;
+        public int TimeBeforeDeath { get; set; } = 10;
     }
 }

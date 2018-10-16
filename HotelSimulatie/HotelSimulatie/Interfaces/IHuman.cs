@@ -15,6 +15,8 @@ namespace HotelSimulatie
         Route Path { get; set; }
         Bitmap Sprite { get; set; }
 
+        bool IsRegistered { get; set; }
+
         IHuman Create(string Name);
     }
     public enum EHumanType

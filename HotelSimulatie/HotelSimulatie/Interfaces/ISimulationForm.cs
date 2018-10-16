@@ -10,5 +10,6 @@ namespace HotelSimulatie
     {
         void ApplySettings(Settings settings);
         void PauseSimulation(bool IsClosing);
+        void HighlightFacility(IArea[] Areas);
     }
 }
