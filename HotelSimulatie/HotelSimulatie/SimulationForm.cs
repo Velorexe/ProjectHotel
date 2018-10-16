@@ -48,6 +48,9 @@ namespace HotelSimulatie
             TimerHTE.Start();
 
             DrawForeground();
+
+            BackgroundLayer.Size = _BackgroundBuffer.Size;
+            Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -75,7 +78,6 @@ namespace HotelSimulatie
             }
             DrawFacilities();
             BackgroundLayer.Image = _BackgroundBuffer;
-            //BackgroundLayer.Size = _BackgroundBuffer.Size;
         }
         private void DrawForeground()
         {
@@ -202,7 +204,7 @@ namespace HotelSimulatie
 
         private void BackgroundLayer_MouseClick(object sender, MouseEventArgs e)
         {
-            if(/*X CHECK*/(e.X >= 1 * 60 && e.X <= 2 * 60) && /*Y CHECK*/(e.Y >= (Hotel.Floors.Length - 1) * 55 && e.Y <= Hotel.Floors.Length * 55))
+            if(/*X CHECK*/(e.X >= 1 * 60  * Hotel.Settings.ZoomLevel && e.X <= 2 * 60 * Hotel.Settings.ZoomLevel) && /*Y CHECK*/(e.Y >= (Hotel.Floors.Length - 1) * 55 * Hotel.Settings.ZoomLevel && e.Y <= Hotel.Floors.Length * 55 * Hotel.Settings.ZoomLevel))
             {
                 PauseSimulation(false);
             }
@@ -244,19 +246,27 @@ namespace HotelSimulatie
         {
             if(ZoomLevel == 1.0)
             {
-                BackgroundLayer.SizeMode = PictureBoxSizeMode.Normal;
                 BackgroundLayer.Size = _BackgroundBuffer.Size;
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
+                Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
             }
             else if(ZoomLevel == 1.25)
             {
-                BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
                 BackgroundLayer.Size = new Size((int)(_BackgroundBuffer.Size.Width * ZoomLevel), (int)(_BackgroundBuffer.Size.Height * ZoomLevel));
-                this.Height = (this.Height + ((int)(_BackgroundBuffer.Size.Height * ZoomLevel - _BackgroundBuffer.Size.Height)));
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
+                Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
             }
             else if(ZoomLevel == 1.5)
             {
-                BackgroundLayer.SizeMode = PictureBoxSizeMode.Normal;
-                //BackgroundLayer.Image.Size = new Size((int)(BackgroundLayer.Image.Width * ZoomLevel), (int)(BackgroundLayer.Image.Height * ZoomLevel));
+                BackgroundLayer.Size = new Size((int)(BackgroundLayer.Image.Width * ZoomLevel), (int)(BackgroundLayer.Image.Height * ZoomLevel));
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
+                Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
+            }
+            else if (ZoomLevel == 2)
+            {
+                BackgroundLayer.Size = new Size((int)(BackgroundLayer.Image.Width * ZoomLevel), (int)(BackgroundLayer.Image.Height * ZoomLevel));
+                BackgroundLayer.SizeMode = PictureBoxSizeMode.StretchImage;
+                Size = new Size(BackgroundLayer.Size.Width + BackgroundLayer.Location.X * 3, BackgroundLayer.Size.Height + BackgroundLayer.Location.Y * 3);
             }
         }
     }
