@@ -108,6 +108,12 @@ namespace HotelSimulatie
             Enabled = false;
         }
 
+        private void RoomViewButton_Click(object sender, EventArgs e)
+        {
+            EditScreen tempScreen = new EditScreen(EAreaType.Room, (IArea)RoomsBox.SelectedItem, this);
+            Enabled = false;
+        }
+
         public void ApplyEdits(EAreaType areaType, int Value, bool IsClosing)
         {
             if (IsClosing)
@@ -150,10 +156,6 @@ namespace HotelSimulatie
             }
         }
 
-        private void RoomViewButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void RestaurantBox_SelectedIndexChanged(object sender, EventArgs e)
         {

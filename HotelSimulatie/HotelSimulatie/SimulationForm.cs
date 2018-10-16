@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HotelEvents;
 
 namespace HotelSimulatie
 {
@@ -104,11 +105,11 @@ namespace HotelSimulatie
                         }
                     }
                 }
-                for (int i = 0; i < Hotel.Reception.Customers.Count; i++)
+                for (int i = 0; i < GlobalStatistics.Customers.Count; i++)
                 {
-                    if (Hotel.Reception.Customers[i].IsInRoom == false)
+                    if (GlobalStatistics.Customers[i].IsInRoom == false)
                     {
-                        g.DrawImage(Hotel.Reception.Customers[i].Sprite, Hotel.Reception.Customers[i].PositionX * 60, (Hotel.Floors.Count() - 1 - Hotel.Reception.Customers[i].PositionY) * 55 + (55 - Hotel.Reception.Customers[i].Sprite.Height));
+                        g.DrawImage(GlobalStatistics.Customers[i].Sprite, GlobalStatistics.Customers[i].PositionX * 60, (Hotel.Floors.Count() - 1 - GlobalStatistics.Customers[i].PositionY) * 55 + (55 - GlobalStatistics.Customers[i].Sprite.Height));
                         BackgroundLayer.Image = _BackgroundBuffer;
                     }
                 }
@@ -142,9 +143,9 @@ namespace HotelSimulatie
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
             Hotel.Elevator.Move();
-            for (int i = 0; i < Hotel.Reception.Customers.Count; i++)
+            for (int i = 0; i < GlobalStatistics.Customers.Count; i++)
             {
-                Hotel.Reception.Customers[i].Move();
+                GlobalStatistics.Customers[i].Move();
             }
             DrawForeground();
         }
@@ -235,6 +236,7 @@ namespace HotelSimulatie
             Hotel.Settings = settings;
             TimerHTE.Interval = (int)(1000 / Hotel.Settings.HTEFactor);
             Zoom(Hotel.Settings.ZoomLevel);
+            HotelEventManager.HTE_Factor = (float)Hotel.Settings.HTEFactor;
         }
 
         private void SimulationForm_FormClosed(object sender, FormClosedEventArgs e)

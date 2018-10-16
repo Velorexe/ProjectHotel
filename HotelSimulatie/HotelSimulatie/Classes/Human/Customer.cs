@@ -18,7 +18,6 @@ namespace HotelSimulatie
         public bool IsInRoom { get; set; } = false;
 
         public bool IsRegistered { get; set; } = false;
-        public bool CheckOut { get; set; } = false;
 
         public HotelEventType Status { get; set; } = HotelEventType.NONE;
 
@@ -28,7 +27,7 @@ namespace HotelSimulatie
         public Bitmap Sprite { get; set; } = Sprites.Customer;
 
         private bool IsInElevator { get; set; } = false;
-        private bool ReqestedElevator { get; set; } = false;
+        private bool RequestedElevator { get; set; } = false;
 
         private int WaitingTime { get; set; } = 0;
 
@@ -50,7 +49,13 @@ namespace HotelSimulatie
             {
                 GetRoute();
             }
-            else if (Path.RouteType == ERouteType.Elevator)
+            else if(Path.RouteType == ERouteType.ToElevator && Path.PathToElevator.Count != 0)
+            {
+                Node moveNode = Path.PathToElevator.Dequeue();
+                this.PositionX = moveNode.Area.PositionX;
+                this.PositionY = moveNode.Area.PositionY;
+            }
+            if (Path.RouteType == ERouteType.Elevator)
             {
                 if (!IsInElevator)
                 {
@@ -59,15 +64,15 @@ namespace HotelSimulatie
                         Hotel.Elevator.RequestElevator(PositionY, Destination.Floor);
                         PositionX--;
                         IsInElevator = true;
-                        ReqestedElevator = false;
+                        RequestedElevator = false;
                         Hotel.Elevator.InElevator.Add(this);
                     }
                     else if (Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
                     {
-                        if (!ReqestedElevator)
+                        if (!RequestedElevator)
                         {
                             Hotel.Elevator.RequestElevator(PositionY, Destination.Floor);
-                            ReqestedElevator = true;
+                            RequestedElevator = true;
                         }
                     }
                 }
@@ -81,6 +86,8 @@ namespace HotelSimulatie
 
                         Hotel.Elevator.InElevator.Remove(this);
                         Path.RouteType = ERouteType.FromElevator;
+
+                        IsInElevator = false;
                     }
                 }
             }
@@ -116,11 +123,12 @@ namespace HotelSimulatie
             }
             #endregion
 
-            if(Status == HotelEventType.CHECK_OUT && Path.Path.Count == 0 && Path.PathFromElevator.Count == 0 && Path.PathToElevator.Count == 0)
+            if(Hotel.Floors[PositionY].Areas[PositionX].Node == Destination)
             {
-                CheckOut = true;
+                Destination = null;
             }
-            else if (CheckOut)
+
+            if(Status == HotelEventType.CHECK_OUT && Hotel.Floors[PositionY].Areas[PositionX] == Hotel.Reception)
             {
                 GlobalStatistics.Customers.Remove(this);
                 HotelEventManager.Deregister(this);
@@ -170,7 +178,7 @@ namespace HotelSimulatie
 
             if (Path.PathToElevatorLength + Path.PathFromElevatorLength + ElevatorTime < Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true).PathLength)
             {
-                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, false);
+                Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, false);
                 Path.RouteType = ERouteType.Elevator;
             }
             else
@@ -190,7 +198,7 @@ namespace HotelSimulatie
         public void Notify(HotelEvent Event)
         {
             if(Event.EventType == HotelEventType.CHECK_OUT)
-            {
+             {
                 if(Event.Data.Keys.First() == "Gast")
                 {
                     int[] Data = PullIntsFromString(Event.Data.Values.ToList());
@@ -198,7 +206,8 @@ namespace HotelSimulatie
                     {
                         AssignedRoom.Dirty();
                         AssignedRoom.RoomOwner = null;
-                        Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Hotel.Reception.Node, true, true);
+                        Destination = Hotel.Reception.Node;
+                        Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
                         Status = HotelEventType.CHECK_OUT;
                     }
                 }
