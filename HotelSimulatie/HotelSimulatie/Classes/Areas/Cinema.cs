@@ -11,11 +11,16 @@ namespace HotelSimulatie
     {
         public int ID { get; set; }
         public EAreaType AreaType { get; set; } = EAreaType.Cinema;
+
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+
         public int MovieTime { get; set; } = 12;
+
+        public HashSet<Customer> WaitingLine { get; set; } = new HashSet<Customer>();
+
         public Bitmap Sprite { get; set; } = Sprites.Cinema;
         public Node Node { get; set; }
 
