@@ -115,6 +115,11 @@ namespace HotelSimulatie
         {
             Route Route = new Route();
 
+            if (EndNode == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
             Node CurrentNode = StartingNode;
             if (ElevatorEnabled)
             {
@@ -149,7 +154,12 @@ namespace HotelSimulatie
                         Route.Path.Enqueue(CurrentNode.RightNode);
                         Route.PathLength++;
                         CurrentNode = CurrentNode.RightNode;
+                    if(EndNode == null)
+                    {
+                        System.Diagnostics.Debugger.Break();
                     }
+                    }
+
 
                     while (CurrentNode.Floor != EndNode.Floor)
                     {
@@ -199,6 +209,58 @@ namespace HotelSimulatie
                 }
             }
             return null;
+        }
+
+        public static Node NearestFacility(Node StartingNode, EAreaType AreaType)
+        {
+            Node CurrentNode = StartingNode;
+
+            HashSet<Node> NearestFacilities = new HashSet<Node>();
+            for (int i = 0; i < HotelNodes.GetLength(0); i++)
+            {
+                for (int j = 0; j < HotelNodes.GetLength(1); j++)
+                {
+                    if(HotelNodes[i,j].Area.AreaType == AreaType)
+                    {
+                        NearestFacilities.Add(HotelNodes[i, j]);
+                    }
+                }
+            }
+
+            Node ShortestUnder = new Node();
+            int ShortestUnderLength = 0;
+
+            Node ShortestUpper = new Node();
+            int ShortestUpperLength = 0;
+
+            foreach(Node location in NearestFacilities)
+            {
+                if(location.Area.PositionX < StartingNode.Area.PositionX && location.Area.PositionY < StartingNode.Area.PositionY)
+                {
+                    if ((StartingNode.Area.PositionX - location.Area.PositionX) + (StartingNode.Area.PositionY - location.Area.PositionY) < ShortestUnderLength)
+                    {
+                        ShortestUnderLength = (StartingNode.Area.PositionX - location.Area.PositionX) + (StartingNode.Area.PositionY - location.Area.PositionY);
+                        ShortestUnder = location;
+                    }
+                }
+                else
+                {
+                    if ((location.Area.PositionX - StartingNode.Area.PositionX) + (location.Area.PositionY - StartingNode.Area.PositionY) < ShortestUpperLength)
+                    {
+                        ShortestUpperLength = (StartingNode.Area.PositionX - location.Area.PositionX) + (StartingNode.Area.PositionY - location.Area.PositionY);
+                        ShortestUpper = location;
+                    }
+                }
+            }
+
+            if(ShortestUpperLength < ShortestUnderLength)
+            {
+                return ShortestUpper;
+            }
+            else
+            {
+                return ShortestUnder;
+            }
         }
         public static Route GetElevatorRoute(Node StartingNode, Node EndNode)
         {

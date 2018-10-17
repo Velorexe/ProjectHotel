@@ -231,6 +231,19 @@ namespace HotelSimulatie
                     }
                 }
             }
+            else if(Event.EventType == HotelEventType.NEED_FOOD)
+            {
+                if(Event.Data.Keys.First() == "Gast")
+                {
+                    int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                    if(ID == Data[0])
+                    {
+                        Status = HotelEventType.NEED_FOOD;
+                        Destination = Graph.NearestFacility(Hotel.Floors[PositionY].Areas[PositionX].Node, EAreaType.Restaurant);
+                        Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                    }
+                }
+            }
         }
 
 
