@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace HotelSimulatie
 {
@@ -56,7 +57,7 @@ namespace HotelSimulatie
         private double ParseLevels(string Level)
         {
             string result = Level.Replace("x ", "");
-            return Convert.ToDouble(result);
+            return Double.Parse(result, CultureInfo.InvariantCulture);
         }
 
         private void FillFacilities()
