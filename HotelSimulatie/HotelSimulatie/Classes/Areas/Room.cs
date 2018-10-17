@@ -19,6 +19,9 @@ namespace HotelSimulatie
         public int Height { get; set; }
         public int Capacity { get; set; } = 1;
 
+        public bool IsDirty { get; set; } = false;
+        public int CleaningTime { get; set; }
+
         public Customer RoomOwner { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.RoomDoor;
         public Bitmap Occupied { get; set; } = Sprites.Occupied;
@@ -26,7 +29,19 @@ namespace HotelSimulatie
 
         public void Dirty()
         {
+            int CleanerTasks = 0;
+            int CleanerID = 0;
 
+            for (int i = 0; i < GlobalStatistics.Cleaners.Count; i++)
+            {
+                if(GlobalStatistics.Cleaners[i].roomsToClean.Count > CleanerTasks)
+                {
+                    CleanerTasks = GlobalStatistics.Cleaners[i].roomsToClean.Count;
+                    CleanerID = i;
+                }
+            }
+
+            GlobalStatistics.Cleaners[CleanerID].roomsToClean.Enqueue(new CleanRoom() { RoomToClean = Node, TimeToClean = Hotel.Settings.CleaningTime });
         }
 
         public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
