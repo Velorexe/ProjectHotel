@@ -78,7 +78,6 @@ namespace HotelSimulatie
             }
             Hotel.Elevator = new Elevator() { PositionX = 0, PositionY = 0 };
             Hotel.Reception = (Reception)Hotel.Floors[0].Areas[1];
-            Hotel.Reception.AddAllRooms();
         }
 
         /// <summary>

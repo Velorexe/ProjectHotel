@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using HotelEvents;
 
 namespace HotelSimulatie
 {
@@ -20,10 +21,6 @@ namespace HotelSimulatie
         public Bitmap Sprite { get; set; } = Sprites.ReceptionBar;
         public Node Node { get; set; }
 
-        public List<Room> Rooms = new List<Room>();
-        public List<Customer> Customers = new List<Customer>();
-        public List<IHuman> Cleaners = new List<IHuman>();
-
         public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
             this.ID = ID;
@@ -32,20 +29,18 @@ namespace HotelSimulatie
             this.PositionY = positionY;
             this.Width = width;
             this.Height = height;
-            HotelEvents.HotelEventManager.Register(this);
+            HotelEventManager.Register(this);
         }
 
-        public void AddAllRooms()
+        public void HireCleaners(int CleanerAmount)
         {
-            for (int i = 0; i < Hotel.Floors.Length; i++)
+            for (int i = 0; i < CleanerAmount; i++)
             {
-                for (int j = 0; j < Hotel.Floors[i].Areas.Length; j++)
-                {
-                    if (Hotel.Floors[i].Areas[j].AreaType == EAreaType.Room)
-                    {
-                        this.Rooms.Add((Room)Hotel.Floors[i].Areas[j]);
-                    }
-                }
+                HumanFactory.CreateHuman(EHumanType.Cleaner);
+                GlobalStatistics.Cleaners[i].PositionX = PositionX;
+                GlobalStatistics.Cleaners[i].PositionY = PositionY;
+                GlobalStatistics.Cleaners[i].Destination = Hotel.Floors[Hotel.Floors.Length / 2].Areas[Hotel.Floors[0].Areas.Length / (Hotel.Settings.CleanerAmount + 1) * (i + 1)].Node;
+                GlobalStatistics.Cleaners[i].MoveToLocation(this);
             }
         }
 
@@ -54,21 +49,21 @@ namespace HotelSimulatie
             if (hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
             {
                 List<Room> AvaiableRooms = new List<Room>();
-                int Classification = PullIntsFromString(hotelEvent.Message);
+                int Classification = PullIntsFromString(hotelEvent.Data.Values.First());
 
                 Customer NewCustomer = (Customer)HumanFactory.CreateHuman(EHumanType.Customer);
 
                 while (NewCustomer.AssignedRoom == null && Classification <= 5)
                 {
-                    for (int i = 0; i < Rooms.Count; i++)
+                    for (int i = 0; i < GlobalStatistics.Rooms.Count; i++)
                     {
-                        if (Classification == 0 && Rooms[i].RoomOwner is null)
+                        if (Classification == 0 && GlobalStatistics.Rooms[i].RoomOwner is null)
                         {
-                            AvaiableRooms.Add(Rooms[i]);
+                            AvaiableRooms.Add(GlobalStatistics.Rooms[i]);
                         }
-                        else if (Rooms[i].Classification == Classification && Rooms[i].RoomOwner is null)
+                        else if (GlobalStatistics.Rooms[i].Classification == Classification && GlobalStatistics.Rooms[i].RoomOwner is null)
                         {
-                            AvaiableRooms.Add(Rooms[i]);
+                            AvaiableRooms.Add(GlobalStatistics.Rooms[i]);
                         }
                     }
                     if(AvaiableRooms.Count == 0)
@@ -97,7 +92,6 @@ namespace HotelSimulatie
                     {
                         NewCustomer.ID = 0;
                     }
-                    this.Customers.Add(NewCustomer);
                     NewCustomer.Destination = Graph.SearchNode(NewCustomer.AssignedRoom);
                     NewCustomer.MoveToLocation(this);
                 }

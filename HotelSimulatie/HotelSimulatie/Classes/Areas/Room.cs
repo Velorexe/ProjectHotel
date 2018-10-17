@@ -12,15 +12,22 @@ namespace HotelSimulatie
         public int ID { get; set; }
         public EAreaType AreaType { get; set; } = EAreaType.Room;
         public int Classification { get; set; }
+
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public int Capacity { get; set; } = 1;
+
         public Customer RoomOwner { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.RoomDoor;
         public Bitmap Occupied { get; set; } = Sprites.Occupied;
         public Node Node { get; set; }
+
+        public void Dirty()
+        {
+
+        }
 
         public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
@@ -31,6 +38,7 @@ namespace HotelSimulatie
             this.PositionY = positionY;
             this.Width = width;
             this.Height = height;
+            GlobalStatistics.Rooms.Add(this);
         }
     }
 }

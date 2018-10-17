@@ -1,2 +1,287 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HotelSimulatie.Cinema" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Cinema.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.ElevatorShaft" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\ElevatorShaft.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Fitness" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEACAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Fitness.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Hallway" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Hallway.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Reception" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAgBAAAgAAgAAAAAEEAAAAAAEBQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Reception.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Restaurant" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAgBAAAgAAgAAAAAEACAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Restaurant.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Room" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgFAAAgABgAAQAAEACAAAAAEAQAAAAAAEQAAA=</HashCode>
+      <FileName>Classes\Areas\Room.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Staircase" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Staircase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Elevator" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAIAAIAAAAIgACAAAAAAAAAAAAAQAAAAAAAIAAI=</HashCode>
+      <FileName>Classes\Entities\Elevator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Floor" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Entities\Floor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Hotel" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAADAAAAAAAAgAAAAAAAAAQAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Entities\Hotel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Cleaner" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBAAAGAIAAEEIgAAAAAAUIAACgAEBVAAEAACAAAAQ=</HashCode>
+      <FileName>Classes\Human\Cleaner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Customer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAoAAkEIgAAAAAAUAAAAgAEBVAAMAACAAAAA=</HashCode>
+      <FileName>Classes\Human\Customer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.GlobalStatistics" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAABAAAACAAAAAAAAAAAAAAAAACAAAAAAAAAAAACA=</HashCode>
+      <FileName>Classes\System\GlobalStatistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Settings" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgACAgAAAAAAAAAAAAAAIACAQAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\System\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.EditScreen" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgABAiRGAAABAACQCIAgACECAAABAAAAAkAgEQAAA=</HashCode>
+      <FileName>EditScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.HumanFactory" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQ=</HashCode>
+      <FileName>Factories\HumanFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.RoomFactory" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factories\RoomFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.ImportLayout" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAEAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ImportLayout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.MainForm" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAEoASAUAACAQSAEAAQAAAAAAAAAQQ=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Graph" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAQAAAAAAAAgBAAAACAAAAAAAQAgAAAAAAAA=</HashCode>
+      <FileName>Pathfinding\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Path" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pathfinding\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Node" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAACAAABAAAAgAAAADAAAAAAAAAAAAAAAAAQAACEA=</HashCode>
+      <FileName>Pathfinding\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Route" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAACIAAAAAAAAAEAAAAAAACAAQAAAAAAA=</HashCode>
+      <FileName>Pathfinding\Route.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Program" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.ReceptionScreen" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEggJAAACCESICEAQCEBAMySEAABAAgCEIAliABEw0=</HashCode>
+      <FileName>ReceptionScreen.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.SimulationForm" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAwAiCgACAGVBACEACAACACAAKAACAQIAAEAIAADAA=</HashCode>
+      <FileName>SimulationForm.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="HotelSimulatie.Sprites" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAACAAEAEAAAQAABABkAAAQQCAQAIAAAAAAAEEAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Properties.Resources" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAACAAAAEAAAQAABABkAAAQQCASAAAAAAAAAAEAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Properties.Settings" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="HotelSimulatie.IArea" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAQAAAAAAEAAAA=</HashCode>
+      <FileName>Interfaces\IArea.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulatie.IHuman" Collapsed="true">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAIgAAAAAAQAAAAAAEAQAAEAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IHuman.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulatie.IMoveAble" Collapsed="true">
+    <Position X="4" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMoveAble.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulatie.ISettingsScreen" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISettingsScreen.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HotelSimulatie.ISimulationForm" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISimulationForm.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="HotelSimulatie.EAreaType" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAgACAAAAEAAAAAABAAAAAAwAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IArea.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HotelSimulatie.EHumanType" Collapsed="true">
+    <Position X="2.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Interfaces\IHuman.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HotelSimulatie.ENodeType" Collapsed="true">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pathfinding\Node.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="HotelSimulatie.ERouteType" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAEACA=</HashCode>
+      <FileName>Pathfinding\Route.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

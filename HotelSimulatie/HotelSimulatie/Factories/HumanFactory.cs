@@ -36,11 +36,11 @@ namespace HotelSimulatie
             {
                 if(r.Next(0,2) == 0)
                 {
-                    return MNames[r.Next(0, FNames.Length - 1)];
+                    return MNames[r.Next(0, MNames.Length - 1)];
                 }
                 else
                 {
-                    return FNames[r.Next(0, MNames.Length - 1)];
+                    return FNames[r.Next(0, FNames.Length - 1)];
                 }
             }
             else
