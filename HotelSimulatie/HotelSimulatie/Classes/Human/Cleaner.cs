@@ -11,6 +11,7 @@ namespace HotelSimulatie
 {
     class Cleaner : IHuman, IMoveAble, HotelEventListener
     {
+        public int CleanerID { get; set; } = 0;
         public string Name { get; set; }
 
         public int PositionX { get; set; }
@@ -21,20 +22,18 @@ namespace HotelSimulatie
         public int WaitingTime { get; set; }
         public Node Destination { get; set; }
 
-        public HotelEventType Status { get; set; } = HotelEventType.NONE;
+        public CleanRoom CurrentTask { get; set; }
         public ECleanerStatus CleanerStatus { get; set; } = ECleanerStatus.IDLE;
-        public Node CurrentCleaningNode { get; set; }
+        private Queue<CleanRoom> RoomsToClean { get; set; } = new Queue<CleanRoom>();
 
-        private Queue<Room> RoomsToClean { get; set; } = new Queue<Room>();
-
-        public Queue<Room> roomsToClean
+        public Queue<CleanRoom> roomsToClean
         {
-            get { return roomsToClean; }
+            get { return RoomsToClean; }
             set
             {
-                if (RoomsToClean.Count != 0 && CleanerStatus == ECleanerStatus.IDLE && Status != HotelEventType.CLEANING_EMERGENCY)
+                if (RoomsToClean.Count != 0 && CleanerStatus == ECleanerStatus.IDLE)
                 {
-                    CleanRoom(RoomsToClean.Dequeue(), Hotel.Settings.CleaningTime);
+                    CleanRoom(RoomsToClean.Dequeue());
                 }
             }
         }
@@ -52,18 +51,9 @@ namespace HotelSimulatie
             Path = Graph.QuickestRoute(Graph.SearchNode(CurrentLocation), Graph.SearchNode(Destination.Area), true, true);
         }
 
-        public void CleanRoom(Room RoomToClean, int CleaningTime)
+        public void CleanRoom(CleanRoom RoomToClean)
         {
-            if (CleanerStatus == ECleanerStatus.IDLE && CurrentCleaningNode == null)
-            {
-                CurrentCleaningNode = RoomToClean.Node;
-                Destination = RoomToClean.Node;
-                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, RoomToClean.Node, true, true);
-            }
-            else
-            {
-                RoomsToClean.Enqueue(RoomToClean);
-            }
+
         }
 
         public void Notify(HotelEvent Event)
@@ -85,7 +75,8 @@ namespace HotelSimulatie
                                 break;
                             }
                         }
-                        CleanRoom((Room)Destination.Area, Data[1]);
+                        roomsToClean.Enqueue(CurrentTask);
+                        CurrentTask = new CleanRoom() { RoomToClean = RoomToClean.Node, TimeToClean = Data[1] };
                     }
                 }
             }
@@ -93,7 +84,8 @@ namespace HotelSimulatie
 
         private void MoveToOptimalPosition()
         {
-
+            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Hotel.Floors[Hotel.Floors.Length / 2].Areas[Hotel.Floors[0].Areas.Length / (Hotel.Settings.CleanerAmount + 1) * (CleanerID + 1)].Node, true, true);
+            CleanerStatus = ECleanerStatus.IDLE;
         }
 
         public void Move()
@@ -102,6 +94,58 @@ namespace HotelSimulatie
             {
                 HotelEventManager.Register(this);
                 IsRegistered = true;
+            }
+
+            if(CleanerStatus == ECleanerStatus.IDLE && roomsToClean.Count != 0)
+            {
+                CurrentTask = roomsToClean.Dequeue();
+            }
+            else if (CleanerStatus == ECleanerStatus.IDLE && roomsToClean.Count == 0)
+            {
+                CurrentTask = null;
+            }
+            else
+            {
+                Destination = CurrentTask.RoomToClean;
+            }
+
+            //ADD NULL CATCH FOR CURRENTTASK
+            if (CurrentTask != null)
+            {
+                if (Hotel.Floors[PositionY].Areas[PositionX].Node == Destination && Hotel.Floors[PositionY].Areas[PositionX].Node == CurrentTask.RoomToClean)
+                {
+                    if (((Room)CurrentTask.RoomToClean.Area).IsDirty == true)
+                    {
+                        IsVisible = false;
+                        ((Room)CurrentTask.RoomToClean.Area).CleaningTime = CurrentTask.TimeToClean;
+                        CleanerStatus = ECleanerStatus.CLEANING_ROOM;
+                    }
+                    else
+                    {
+                        CurrentTask = roomsToClean.Dequeue();
+                    }
+                }
+            }
+
+            if (CleanerStatus == ECleanerStatus.CLEANING_ROOM)
+            {
+                if (((Room)CurrentTask.RoomToClean.Area).CleaningTime > 0)
+                {
+                    ((Room)CurrentTask.RoomToClean.Area).CleaningTime--;
+                }
+                else
+                {
+                    if(roomsToClean.Count == 0)
+                    {
+                        IsVisible = true;
+                        CleanerStatus = ECleanerStatus.IDLE;
+                        CurrentTask = null;
+                    }
+                    else
+                    {
+                        CurrentTask = roomsToClean.Dequeue();
+                    }
+                }
             }
 
             #region Elevator
@@ -115,6 +159,7 @@ namespace HotelSimulatie
                 this.PositionX = moveNode.Area.PositionX;
                 this.PositionY = moveNode.Area.PositionY;
             }
+
             if (Path.RouteType == ERouteType.Elevator)
             {
                 if (!IsInElevator)
@@ -239,7 +284,7 @@ namespace HotelSimulatie
 
         public IHuman Create(string Name)
         {
-            RoomsToClean = new Queue<Room>();
+            RoomsToClean = new Queue<CleanRoom>();
             GlobalStatistics.Cleaners.Add(this);
             this.Name = Name;
             return this;
@@ -247,7 +292,7 @@ namespace HotelSimulatie
 
         private int[] PullIntsFromString(List<string> Data)
         {
-            int[] result = new int[0];
+            int[] result = new int[Data.Count];
             for (int j = 0; j < Data.Count; j++)
             {
                 string target = Data[j];
@@ -258,7 +303,6 @@ namespace HotelSimulatie
                 target = target.Replace(" ", "");
                 target = Regex.Replace(target, "[A-Za-z ]", "");
                 string[] tempArray = target.Split(',');
-                result = new int[tempArray.Length];
                 for (int i = 0; i < tempArray.Length; i++)
                 {
                     result[i] = Convert.ToInt32(tempArray[i]);
@@ -270,7 +314,8 @@ namespace HotelSimulatie
         {
             IDLE,
             GOING_TO_ROOM,
-
+            CLEANING_ROOM,
+            CLEANING_EMERGENCY,
         }
     }
 }
