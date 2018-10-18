@@ -116,6 +116,33 @@ namespace HotelSimulatie
             }
 
             Node CurrentNode = StartingNode;
+            if(StartingNode.Floor == EndNode.Floor)
+            {
+                Route temproute = new Route { RouteType = ERouteType.Stairs };
+                if (StartingNode.Area.PositionX < EndNode.Area.PositionX)
+                {
+                    temproute.Path.Enqueue(CurrentNode);
+                    while (CurrentNode != EndNode)
+                    {
+                        temproute.Path.Enqueue(CurrentNode.RightNode);
+                        temproute.PathLength++;
+                        CurrentNode = CurrentNode.RightNode;
+                    }
+                }
+                else
+                {
+                    temproute.Path.Enqueue(CurrentNode);
+                    while (CurrentNode != EndNode)
+                    {
+                        temproute.Path.Enqueue(CurrentNode.LeftNode);
+                        temproute.PathLength++;
+                        CurrentNode = CurrentNode.LeftNode;
+                    }
+                }
+                return temproute;
+            }
+
+            CurrentNode = StartingNode;
             if (ElevatorEnabled)
             {
                 Route.PathToElevator.Enqueue(CurrentNode);

@@ -39,16 +39,10 @@
             this.EatingTimeLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.ApplyButton = new System.Windows.Forms.Button();
-            this.RoomGroup = new System.Windows.Forms.GroupBox();
-            this.RoomOwner = new System.Windows.Forms.TextBox();
-            this.RoomID = new System.Windows.Forms.TextBox();
-            this.RoomOwnerLabel = new System.Windows.Forms.Label();
-            this.RoomIDLabel = new System.Windows.Forms.Label();
             this.CinemaGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MovieTime)).BeginInit();
             this.RestaurantGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RestaurantTime)).BeginInit();
-            this.RoomGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // CinemaGroup
@@ -175,60 +169,11 @@
             this.ApplyButton.UseVisualStyleBackColor = true;
             this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
             // 
-            // RoomGroup
-            // 
-            this.RoomGroup.Controls.Add(this.RoomOwner);
-            this.RoomGroup.Controls.Add(this.RoomID);
-            this.RoomGroup.Controls.Add(this.RoomOwnerLabel);
-            this.RoomGroup.Controls.Add(this.RoomIDLabel);
-            this.RoomGroup.Location = new System.Drawing.Point(350, 12);
-            this.RoomGroup.Name = "RoomGroup";
-            this.RoomGroup.Size = new System.Drawing.Size(163, 106);
-            this.RoomGroup.TabIndex = 6;
-            this.RoomGroup.TabStop = false;
-            this.RoomGroup.Text = "View Room";
-            this.RoomGroup.Visible = false;
-            // 
-            // RoomOwner
-            // 
-            this.RoomOwner.Location = new System.Drawing.Point(9, 75);
-            this.RoomOwner.Name = "RoomOwner";
-            this.RoomOwner.ReadOnly = true;
-            this.RoomOwner.Size = new System.Drawing.Size(148, 20);
-            this.RoomOwner.TabIndex = 6;
-            // 
-            // RoomID
-            // 
-            this.RoomID.Location = new System.Drawing.Point(9, 36);
-            this.RoomID.Name = "RoomID";
-            this.RoomID.ReadOnly = true;
-            this.RoomID.Size = new System.Drawing.Size(148, 20);
-            this.RoomID.TabIndex = 5;
-            // 
-            // RoomOwnerLabel
-            // 
-            this.RoomOwnerLabel.AutoSize = true;
-            this.RoomOwnerLabel.Location = new System.Drawing.Point(6, 59);
-            this.RoomOwnerLabel.Name = "RoomOwnerLabel";
-            this.RoomOwnerLabel.Size = new System.Drawing.Size(87, 13);
-            this.RoomOwnerLabel.TabIndex = 4;
-            this.RoomOwnerLabel.Text = "Assigned Owner:";
-            // 
-            // RoomIDLabel
-            // 
-            this.RoomIDLabel.AutoSize = true;
-            this.RoomIDLabel.Location = new System.Drawing.Point(6, 20);
-            this.RoomIDLabel.Name = "RoomIDLabel";
-            this.RoomIDLabel.Size = new System.Drawing.Size(21, 13);
-            this.RoomIDLabel.TabIndex = 4;
-            this.RoomIDLabel.Text = "ID:";
-            // 
             // EditScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 160);
-            this.Controls.Add(this.RoomGroup);
+            this.ClientSize = new System.Drawing.Size(356, 160);
             this.Controls.Add(this.ApplyButton);
             this.Controls.Add(this.RestaurantGroup);
             this.Controls.Add(this.CinemaGroup);
@@ -244,8 +189,6 @@
             this.RestaurantGroup.ResumeLayout(false);
             this.RestaurantGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RestaurantTime)).EndInit();
-            this.RoomGroup.ResumeLayout(false);
-            this.RoomGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -263,10 +206,5 @@
         private System.Windows.Forms.Button ApplyButton;
         private System.Windows.Forms.TextBox CinemaID;
         private System.Windows.Forms.TextBox RestaurantID;
-        private System.Windows.Forms.GroupBox RoomGroup;
-        private System.Windows.Forms.TextBox RoomID;
-        private System.Windows.Forms.Label RoomOwnerLabel;
-        private System.Windows.Forms.Label RoomIDLabel;
-        private System.Windows.Forms.TextBox RoomOwner;
     }
 }

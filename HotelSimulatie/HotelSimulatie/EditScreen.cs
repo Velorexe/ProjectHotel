@@ -49,27 +49,6 @@ namespace HotelSimulatie
                 RestaurantID.Text = "" + tempRestaurant.ID;
                 RestaurantTime.Value = tempRestaurant.EatingTime;
             }
-            else if(AreaType == EAreaType.Room)
-            {
-                RoomGroup.Visible = true;
-                RoomGroup.Location = CinemaGroup.Location;
-                Width = RoomGroup.Location.X * 3 + RoomGroup.Width;
-                Height = RoomGroup.Location.Y * 4 + RoomGroup.Height;
-                ApplyButton.Visible = false;
-
-                //FILLING DATA OF BOXES
-                Room tempRoom = (Room)Area;
-
-                RoomID.Text = tempRoom.ID.ToString();
-                if(tempRoom.RoomOwner == null)
-                {
-                    RoomOwner.Text = "Empty";
-                }
-                else
-                {
-                    RoomOwner.Text = "ID " + tempRoom.RoomOwner.ID + " : " + tempRoom.RoomOwner.Name;
-                }
-            }
             Show();
         }
 

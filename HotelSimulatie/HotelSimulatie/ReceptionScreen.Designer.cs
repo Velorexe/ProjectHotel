@@ -52,16 +52,17 @@
             this.CinemaLabel = new System.Windows.Forms.Label();
             this.RestaurantBox = new System.Windows.Forms.ComboBox();
             this.RestaurantLabel = new System.Windows.Forms.Label();
-            this.CustomerGroup = new System.Windows.Forms.GroupBox();
-            this.CurrentActivityLabel = new System.Windows.Forms.Label();
-            this.CurrentActivity = new System.Windows.Forms.TextBox();
-            this.CustomerApplyButton = new System.Windows.Forms.Button();
-            this.CustomerName = new System.Windows.Forms.TextBox();
-            this.CustomerNameLabel = new System.Windows.Forms.Label();
-            this.AssignedRoomLabel = new System.Windows.Forms.Label();
-            this.AssignedRoom = new System.Windows.Forms.TextBox();
-            this.CustomerLabel = new System.Windows.Forms.Label();
             this.CustomerBox = new System.Windows.Forms.ComboBox();
+            this.CustomerLabel = new System.Windows.Forms.Label();
+            this.AssignedRoom = new System.Windows.Forms.TextBox();
+            this.AssignedRoomLabel = new System.Windows.Forms.Label();
+            this.CustomerNameLabel = new System.Windows.Forms.Label();
+            this.CustomerName = new System.Windows.Forms.TextBox();
+            this.CustomerApplyButton = new System.Windows.Forms.Button();
+            this.CurrentActivity = new System.Windows.Forms.TextBox();
+            this.CurrentActivityLabel = new System.Windows.Forms.Label();
+            this.CustomerGroup = new System.Windows.Forms.GroupBox();
+            this.LiveStatisticsButton = new System.Windows.Forms.Button();
             this.SettingsGroup.SuspendLayout();
             this.TimeBasedGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TimeBeforeDeath)).BeginInit();
@@ -79,7 +80,7 @@
             this.SettingsGroup.Controls.Add(this.SimulationSpeed);
             this.SettingsGroup.Location = new System.Drawing.Point(12, 12);
             this.SettingsGroup.Name = "SettingsGroup";
-            this.SettingsGroup.Size = new System.Drawing.Size(149, 228);
+            this.SettingsGroup.Size = new System.Drawing.Size(149, 199);
             this.SettingsGroup.TabIndex = 0;
             this.SettingsGroup.TabStop = false;
             this.SettingsGroup.Text = "Settings";
@@ -166,7 +167,7 @@
             this.TimeBasedGroup.Controls.Add(this.CleaningTimeLabel);
             this.TimeBasedGroup.Location = new System.Drawing.Point(167, 12);
             this.TimeBasedGroup.Name = "TimeBasedGroup";
-            this.TimeBasedGroup.Size = new System.Drawing.Size(149, 228);
+            this.TimeBasedGroup.Size = new System.Drawing.Size(149, 199);
             this.TimeBasedGroup.TabIndex = 3;
             this.TimeBasedGroup.TabStop = false;
             this.TimeBasedGroup.Text = "Time Based Settings";
@@ -366,6 +367,84 @@
             this.RestaurantLabel.TabIndex = 0;
             this.RestaurantLabel.Text = "Restaurant";
             // 
+            // CustomerBox
+            // 
+            this.CustomerBox.FormattingEnabled = true;
+            this.CustomerBox.Location = new System.Drawing.Point(6, 34);
+            this.CustomerBox.Name = "CustomerBox";
+            this.CustomerBox.Size = new System.Drawing.Size(179, 21);
+            this.CustomerBox.TabIndex = 0;
+            this.CustomerBox.SelectedIndexChanged += new System.EventHandler(this.CustomerBox_SelectedIndexChanged);
+            // 
+            // CustomerLabel
+            // 
+            this.CustomerLabel.AutoSize = true;
+            this.CustomerLabel.Location = new System.Drawing.Point(6, 18);
+            this.CustomerLabel.Name = "CustomerLabel";
+            this.CustomerLabel.Size = new System.Drawing.Size(65, 13);
+            this.CustomerLabel.TabIndex = 9;
+            this.CustomerLabel.Text = "Customer ID";
+            // 
+            // AssignedRoom
+            // 
+            this.AssignedRoom.Location = new System.Drawing.Point(6, 115);
+            this.AssignedRoom.Name = "AssignedRoom";
+            this.AssignedRoom.ReadOnly = true;
+            this.AssignedRoom.Size = new System.Drawing.Size(179, 20);
+            this.AssignedRoom.TabIndex = 10;
+            // 
+            // AssignedRoomLabel
+            // 
+            this.AssignedRoomLabel.AutoSize = true;
+            this.AssignedRoomLabel.Location = new System.Drawing.Point(6, 99);
+            this.AssignedRoomLabel.Name = "AssignedRoomLabel";
+            this.AssignedRoomLabel.Size = new System.Drawing.Size(81, 13);
+            this.AssignedRoomLabel.TabIndex = 11;
+            this.AssignedRoomLabel.Text = "Assigned Room";
+            // 
+            // CustomerNameLabel
+            // 
+            this.CustomerNameLabel.AutoSize = true;
+            this.CustomerNameLabel.Location = new System.Drawing.Point(6, 59);
+            this.CustomerNameLabel.Name = "CustomerNameLabel";
+            this.CustomerNameLabel.Size = new System.Drawing.Size(35, 13);
+            this.CustomerNameLabel.TabIndex = 12;
+            this.CustomerNameLabel.Text = "Name";
+            // 
+            // CustomerName
+            // 
+            this.CustomerName.Location = new System.Drawing.Point(6, 76);
+            this.CustomerName.Name = "CustomerName";
+            this.CustomerName.Size = new System.Drawing.Size(179, 20);
+            this.CustomerName.TabIndex = 13;
+            // 
+            // CustomerApplyButton
+            // 
+            this.CustomerApplyButton.Location = new System.Drawing.Point(6, 195);
+            this.CustomerApplyButton.Name = "CustomerApplyButton";
+            this.CustomerApplyButton.Size = new System.Drawing.Size(179, 23);
+            this.CustomerApplyButton.TabIndex = 14;
+            this.CustomerApplyButton.Text = "Apply";
+            this.CustomerApplyButton.UseVisualStyleBackColor = true;
+            this.CustomerApplyButton.Click += new System.EventHandler(this.CustomerApplyButton_Click);
+            // 
+            // CurrentActivity
+            // 
+            this.CurrentActivity.Location = new System.Drawing.Point(6, 154);
+            this.CurrentActivity.Name = "CurrentActivity";
+            this.CurrentActivity.ReadOnly = true;
+            this.CurrentActivity.Size = new System.Drawing.Size(179, 20);
+            this.CurrentActivity.TabIndex = 15;
+            // 
+            // CurrentActivityLabel
+            // 
+            this.CurrentActivityLabel.AutoSize = true;
+            this.CurrentActivityLabel.Location = new System.Drawing.Point(6, 138);
+            this.CurrentActivityLabel.Name = "CurrentActivityLabel";
+            this.CurrentActivityLabel.Size = new System.Drawing.Size(78, 13);
+            this.CurrentActivityLabel.TabIndex = 16;
+            this.CurrentActivityLabel.Text = "Current Activity";
+            // 
             // CustomerGroup
             // 
             this.CustomerGroup.Controls.Add(this.CurrentActivityLabel);
@@ -384,89 +463,22 @@
             this.CustomerGroup.TabStop = false;
             this.CustomerGroup.Text = "Customers";
             // 
-            // CurrentActivityLabel
+            // LiveStatisticsButton
             // 
-            this.CurrentActivityLabel.AutoSize = true;
-            this.CurrentActivityLabel.Location = new System.Drawing.Point(6, 138);
-            this.CurrentActivityLabel.Name = "CurrentActivityLabel";
-            this.CurrentActivityLabel.Size = new System.Drawing.Size(78, 13);
-            this.CurrentActivityLabel.TabIndex = 16;
-            this.CurrentActivityLabel.Text = "Current Activity";
-            // 
-            // CurrentActivity
-            // 
-            this.CurrentActivity.Location = new System.Drawing.Point(6, 154);
-            this.CurrentActivity.Name = "CurrentActivity";
-            this.CurrentActivity.ReadOnly = true;
-            this.CurrentActivity.Size = new System.Drawing.Size(179, 20);
-            this.CurrentActivity.TabIndex = 15;
-            // 
-            // CustomerApplyButton
-            // 
-            this.CustomerApplyButton.Location = new System.Drawing.Point(6, 195);
-            this.CustomerApplyButton.Name = "CustomerApplyButton";
-            this.CustomerApplyButton.Size = new System.Drawing.Size(179, 23);
-            this.CustomerApplyButton.TabIndex = 14;
-            this.CustomerApplyButton.Text = "Apply";
-            this.CustomerApplyButton.UseVisualStyleBackColor = true;
-            this.CustomerApplyButton.Click += new System.EventHandler(this.CustomerApplyButton_Click);
-            // 
-            // CustomerName
-            // 
-            this.CustomerName.Location = new System.Drawing.Point(6, 76);
-            this.CustomerName.Name = "CustomerName";
-            this.CustomerName.Size = new System.Drawing.Size(179, 20);
-            this.CustomerName.TabIndex = 13;
-            // 
-            // CustomerNameLabel
-            // 
-            this.CustomerNameLabel.AutoSize = true;
-            this.CustomerNameLabel.Location = new System.Drawing.Point(6, 59);
-            this.CustomerNameLabel.Name = "CustomerNameLabel";
-            this.CustomerNameLabel.Size = new System.Drawing.Size(35, 13);
-            this.CustomerNameLabel.TabIndex = 12;
-            this.CustomerNameLabel.Text = "Name";
-            // 
-            // AssignedRoomLabel
-            // 
-            this.AssignedRoomLabel.AutoSize = true;
-            this.AssignedRoomLabel.Location = new System.Drawing.Point(6, 99);
-            this.AssignedRoomLabel.Name = "AssignedRoomLabel";
-            this.AssignedRoomLabel.Size = new System.Drawing.Size(81, 13);
-            this.AssignedRoomLabel.TabIndex = 11;
-            this.AssignedRoomLabel.Text = "Assigned Room";
-            // 
-            // AssignedRoom
-            // 
-            this.AssignedRoom.Location = new System.Drawing.Point(6, 115);
-            this.AssignedRoom.Name = "AssignedRoom";
-            this.AssignedRoom.ReadOnly = true;
-            this.AssignedRoom.Size = new System.Drawing.Size(179, 20);
-            this.AssignedRoom.TabIndex = 10;
-            // 
-            // CustomerLabel
-            // 
-            this.CustomerLabel.AutoSize = true;
-            this.CustomerLabel.Location = new System.Drawing.Point(6, 18);
-            this.CustomerLabel.Name = "CustomerLabel";
-            this.CustomerLabel.Size = new System.Drawing.Size(65, 13);
-            this.CustomerLabel.TabIndex = 9;
-            this.CustomerLabel.Text = "Customer ID";
-            // 
-            // CustomerBox
-            // 
-            this.CustomerBox.FormattingEnabled = true;
-            this.CustomerBox.Location = new System.Drawing.Point(6, 34);
-            this.CustomerBox.Name = "CustomerBox";
-            this.CustomerBox.Size = new System.Drawing.Size(179, 21);
-            this.CustomerBox.TabIndex = 0;
-            this.CustomerBox.SelectedIndexChanged += new System.EventHandler(this.CustomerBox_SelectedIndexChanged);
+            this.LiveStatisticsButton.Location = new System.Drawing.Point(12, 217);
+            this.LiveStatisticsButton.Name = "LiveStatisticsButton";
+            this.LiveStatisticsButton.Size = new System.Drawing.Size(304, 23);
+            this.LiveStatisticsButton.TabIndex = 6;
+            this.LiveStatisticsButton.Text = "Show Live Statistics";
+            this.LiveStatisticsButton.UseVisualStyleBackColor = true;
+            this.LiveStatisticsButton.Click += new System.EventHandler(this.LiveStatisticsButton_Click);
             // 
             // ReceptionScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 330);
+            this.Controls.Add(this.LiveStatisticsButton);
             this.Controls.Add(this.CustomerGroup);
             this.Controls.Add(this.FacilityGroup);
             this.Controls.Add(this.TimeBasedGroup);
@@ -520,15 +532,16 @@
         private System.Windows.Forms.Label RoomsLabel;
         private System.Windows.Forms.Button RoomViewButton;
         private System.Windows.Forms.ComboBox RoomsBox;
-        private System.Windows.Forms.GroupBox CustomerGroup;
-        private System.Windows.Forms.Label CustomerLabel;
         private System.Windows.Forms.ComboBox CustomerBox;
-        private System.Windows.Forms.Label AssignedRoomLabel;
+        private System.Windows.Forms.Label CustomerLabel;
         private System.Windows.Forms.TextBox AssignedRoom;
-        private System.Windows.Forms.TextBox CustomerName;
+        private System.Windows.Forms.Label AssignedRoomLabel;
         private System.Windows.Forms.Label CustomerNameLabel;
+        private System.Windows.Forms.TextBox CustomerName;
         private System.Windows.Forms.Button CustomerApplyButton;
-        private System.Windows.Forms.Label CurrentActivityLabel;
         private System.Windows.Forms.TextBox CurrentActivity;
+        private System.Windows.Forms.Label CurrentActivityLabel;
+        private System.Windows.Forms.GroupBox CustomerGroup;
+        private System.Windows.Forms.Button LiveStatisticsButton;
     }
 }
