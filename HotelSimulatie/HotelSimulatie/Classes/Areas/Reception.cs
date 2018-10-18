@@ -40,8 +40,6 @@ namespace HotelSimulatie
                 GlobalStatistics.Cleaners[i].CleanerID = i;
                 GlobalStatistics.Cleaners[i].PositionX = PositionX;
                 GlobalStatistics.Cleaners[i].PositionY = PositionY;
-                GlobalStatistics.Cleaners[i].Destination = Hotel.Floors[Hotel.Floors.Length / 2].Areas[Hotel.Floors[0].Areas.Length / (Hotel.Settings.CleanerAmount + 1) * (i + 1)].Node;
-                GlobalStatistics.Cleaners[i].MoveToLocation(this);
             }
         }
 

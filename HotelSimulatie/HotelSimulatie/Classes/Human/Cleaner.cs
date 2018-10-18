@@ -17,26 +17,14 @@ namespace HotelSimulatie
         public int PositionX { get; set; }
         public int PositionY { get; set; }
 
+        public Node Destination { get; set; }
+
+        public Queue<CleanRoom> CleanerTasks { get; set; } = new Queue<CleanRoom>();
+        public CleanRoom CurrentTask { get; set; }
+
         public bool IsVisible { get; set; } = true;
 
         public int WaitingTime { get; set; }
-        public Node Destination { get; set; }
-
-        public CleanRoom CurrentTask { get; set; }
-        public ECleanerStatus CleanerStatus { get; set; } = ECleanerStatus.IDLE;
-        private Queue<CleanRoom> RoomsToClean { get; set; } = new Queue<CleanRoom>();
-
-        public Queue<CleanRoom> roomsToClean
-        {
-            get { return RoomsToClean; }
-            set
-            {
-                if (RoomsToClean.Count != 0 && CleanerStatus == ECleanerStatus.IDLE)
-                {
-                    CleanRoom(RoomsToClean.Dequeue());
-                }
-            }
-        }
 
         public bool IsInElevator { get; set; }
         public bool RequestedElevator { get; set; }
@@ -48,35 +36,24 @@ namespace HotelSimulatie
 
         public void MoveToLocation(IArea CurrentLocation)
         {
-            Path = Graph.QuickestRoute(Graph.SearchNode(CurrentLocation), Graph.SearchNode(Destination.Area), true, true);
+
         }
 
         public void CleanRoom(CleanRoom RoomToClean)
         {
-
+            CleanerTasks.Enqueue(RoomToClean);
         }
 
         public void Notify(HotelEvent Event)
         {
             if (Event.EventType == HotelEventType.CLEANING_EMERGENCY)
             {
-                if (RoomsToClean.Count != 0)
+                int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                for (int i = 0; i < GlobalStatistics.Rooms.Count; i++)
                 {
-                    if (Event.Data.Keys.First() == "kamer")
+                    if (GlobalStatistics.Rooms[i].ID == Data[0])
                     {
-                        int[] Data = PullIntsFromString(Event.Data.Values.ToList());
-                        Room RoomToClean = new Room();
-
-                        foreach (Room room in GlobalStatistics.Rooms)
-                        {
-                            if (room.ID == Data[0])
-                            {
-                                RoomToClean = room;
-                                break;
-                            }
-                        }
-                        roomsToClean.Enqueue(CurrentTask);
-                        CurrentTask = new CleanRoom() { RoomToClean = RoomToClean.Node, TimeToClean = Data[1] };
+                        CleanerTasks.Enqueue(new CleanRoom() { RoomToClean = GlobalStatistics.Rooms[i].Node, TimeToClean = Data[1] });
                     }
                 }
             }
@@ -84,8 +61,18 @@ namespace HotelSimulatie
 
         private void MoveToOptimalPosition()
         {
-            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Hotel.Floors[Hotel.Floors.Length / 2].Areas[Hotel.Floors[0].Areas.Length / (Hotel.Settings.CleanerAmount + 1) * (CleanerID + 1)].Node, true, true);
-            CleanerStatus = ECleanerStatus.IDLE;
+            int IdleCleaners = 0;
+
+            for (int i = 0; i < GlobalStatistics.Cleaners.Count; i++)
+            {
+                if (GlobalStatistics.Cleaners[i].CleanerTasks.Count == 0)
+                {
+                    IdleCleaners++;
+                }
+            }
+
+            Destination = Graph.SearchNode(Hotel.Floors[Hotel.Floors.Length / (IdleCleaners + 1)].Areas[Hotel.Floors[0].Areas.Length / 2]);
+            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Graph.SearchNode(Hotel.Floors[Hotel.Floors.Length / (IdleCleaners + 1)].Areas[Hotel.Floors[0].Areas.Length / 2]), true, true);
         }
 
         public void Move()
@@ -96,145 +83,134 @@ namespace HotelSimulatie
                 IsRegistered = true;
             }
 
-            if(CleanerStatus == ECleanerStatus.IDLE && roomsToClean.Count != 0)
+            if (CurrentTask == null && CleanerTasks.Count > 0)
             {
-                CurrentTask = roomsToClean.Dequeue();
+                CurrentTask = CleanerTasks.Dequeue();
             }
-            else if (CleanerStatus == ECleanerStatus.IDLE && roomsToClean.Count == 0)
+            else if (CurrentTask == null && Destination == null && CleanerTasks.Count == 0)
             {
-                CurrentTask = null;
+                MoveToOptimalPosition();
             }
-            else
+
+            if (CurrentTask != null && (Destination == null || Destination == Hotel.Floors[PositionY].Areas[PositionX].Node))
             {
                 Destination = CurrentTask.RoomToClean;
+                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
             }
 
-            //ADD NULL CATCH FOR CURRENTTASK
-            if (CurrentTask != null)
+            if (CurrentTask != null && Hotel.Floors[PositionY].Areas[PositionX].Node == CurrentTask.RoomToClean)
             {
-                if (Hotel.Floors[PositionY].Areas[PositionX].Node == Destination && Hotel.Floors[PositionY].Areas[PositionX].Node == CurrentTask.RoomToClean)
+                if (((Room)CurrentTask.RoomToClean.Area).CleaningTime == 0 && ((Room)CurrentTask.RoomToClean.Area).IsDirty == true)
                 {
-                    if (((Room)CurrentTask.RoomToClean.Area).IsDirty == true)
-                    {
-                        IsVisible = false;
-                        ((Room)CurrentTask.RoomToClean.Area).CleaningTime = CurrentTask.TimeToClean;
-                        CleanerStatus = ECleanerStatus.CLEANING_ROOM;
-                    }
-                    else
-                    {
-                        CurrentTask = roomsToClean.Dequeue();
-                    }
-                }
-            }
-
-            if (CleanerStatus == ECleanerStatus.CLEANING_ROOM)
-            {
-                if (((Room)CurrentTask.RoomToClean.Area).CleaningTime > 0)
-                {
-                    ((Room)CurrentTask.RoomToClean.Area).CleaningTime--;
+                    ((Room)CurrentTask.RoomToClean.Area).CleaningTime = CurrentTask.TimeToClean;
+                    IsVisible = false;
                 }
                 else
                 {
-                    if(roomsToClean.Count == 0)
+                    if (((Room)CurrentTask.RoomToClean.Area).CleaningTime > 0)
                     {
+                        ((Room)CurrentTask.RoomToClean.Area).CleaningTime--;
+                    }
+                    else if (((Room)CurrentTask.RoomToClean.Area).CleaningTime == 0)
+                    {
+                        ((Room)CurrentTask.RoomToClean.Area).IsDirty = false;
                         IsVisible = true;
-                        CleanerStatus = ECleanerStatus.IDLE;
                         CurrentTask = null;
                     }
+                }
+            }
+
+
+            if (Path != null)
+            {
+                #region Elevator
+                if (Path.RouteType == ERouteType.ToElevator && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft)
+                {
+                    GetRoute();
+                }
+                else if (Path.RouteType == ERouteType.ToElevator && Path.PathToElevator.Count != 0)
+                {
+                    Node moveNode = Path.PathToElevator.Dequeue();
+                    this.PositionX = moveNode.Area.PositionX;
+                    this.PositionY = moveNode.Area.PositionY;
+                }
+
+                if (Path.RouteType == ERouteType.Elevator)
+                {
+                    if (!IsInElevator)
+                    {
+                        if (Hotel.Elevator.GetElevatorInfo().Item2 == PositionY && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
+                        {
+                            Hotel.Elevator.RequestElevator(Destination.Floor);
+                            PositionX--;
+                            IsInElevator = true;
+                            RequestedElevator = false;
+                            Hotel.Elevator.InElevator.Add(this);
+                        }
+                        else if (Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
+                        {
+                            if (!RequestedElevator)
+                            {
+                                Hotel.Elevator.RequestElevator(PositionY);
+                                RequestedElevator = true;
+                            }
+                        }
+                    }
                     else
                     {
-                        CurrentTask = roomsToClean.Dequeue();
-                    }
-                }
-            }
-
-            #region Elevator
-            if (Path.RouteType == ERouteType.ToElevator && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft)
-            {
-                GetRoute();
-            }
-            else if (Path.RouteType == ERouteType.ToElevator && Path.PathToElevator.Count != 0)
-            {
-                Node moveNode = Path.PathToElevator.Dequeue();
-                this.PositionX = moveNode.Area.PositionX;
-                this.PositionY = moveNode.Area.PositionY;
-            }
-
-            if (Path.RouteType == ERouteType.Elevator)
-            {
-                if (!IsInElevator)
-                {
-                    if (Hotel.Elevator.GetElevatorInfo().Item2 == PositionY && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
-                    {
-                        Hotel.Elevator.RequestElevator(PositionY, Destination.Floor);
-                        PositionX--;
-                        IsInElevator = true;
-                        RequestedElevator = false;
-                        Hotel.Elevator.InElevator.Add(this);
-                    }
-                    else if (Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
-                    {
-                        if (!RequestedElevator)
+                        if (PositionY == Destination.Floor)
                         {
-                            Hotel.Elevator.RequestElevator(PositionY, Destination.Floor);
-                            RequestedElevator = true;
+                            Node moveNode = Path.PathFromElevator.Dequeue();
+                            this.PositionX = moveNode.Area.PositionX;
+                            this.PositionY = moveNode.Area.PositionY;
+
+                            Hotel.Elevator.InElevator.Remove(this);
+                            Path.RouteType = ERouteType.FromElevator;
+
+                            IsInElevator = false;
                         }
                     }
                 }
-                else
+                else if (Path.RouteType == ERouteType.FromElevator && Path.PathFromElevator.Count != 0)
                 {
-                    if (PositionY == Destination.Floor)
+                    Node moveNode = Path.PathFromElevator.Dequeue();
+                    this.PositionX = moveNode.Area.PositionX;
+                    this.PositionY = moveNode.Area.PositionY;
+
+                }
+                #endregion
+
+                #region Stairs
+                if (Path.RouteType == ERouteType.Stairs)
+                {
+                    if (WaitingTime > 0)
                     {
-                        Node moveNode = Path.PathFromElevator.Dequeue();
-                        this.PositionX = moveNode.Area.PositionX;
-                        this.PositionY = moveNode.Area.PositionY;
-
-                        Hotel.Elevator.InElevator.Remove(this);
-                        Path.RouteType = ERouteType.FromElevator;
-
-                        IsInElevator = false;
+                        WaitingTime--;
                     }
-                }
-            }
-            else if (Path.RouteType == ERouteType.FromElevator && Path.PathFromElevator.Count != 0)
-            {
-                Node moveNode = Path.PathFromElevator.Dequeue();
-                this.PositionX = moveNode.Area.PositionX;
-                this.PositionY = moveNode.Area.PositionY;
-
-            }
-            #endregion
-
-            #region Stairs
-            if (Path.RouteType == ERouteType.Stairs)
-            {
-                if (WaitingTime > 0)
-                {
-                    WaitingTime--;
-                }
-                else
-                {
-                    if (Path.Path.Count != 0)
+                    else
                     {
-                        Node moveNode = Path.Path.Dequeue();
-                        this.PositionX = moveNode.Area.PositionX;
-                        this.PositionY = moveNode.Area.PositionY;
-                        if (moveNode.Area.AreaType == EAreaType.Staircase)
+                        if (Path.Path.Count != 0)
                         {
-                            WaitingTime = WaitingTime + Hotel.Settings.StairCase - 1;
+                            Node moveNode = Path.Path.Dequeue();
+                            this.PositionX = moveNode.Area.PositionX;
+                            this.PositionY = moveNode.Area.PositionY;
+                            if (moveNode.Area.AreaType == EAreaType.Staircase)
+                            {
+                                WaitingTime = WaitingTime + Hotel.Settings.StairCase - 1;
+                            }
                         }
                     }
                 }
+                #endregion
             }
-            #endregion
         }
 
         private void GetRoute()
         {
-            Tuple<char, int> ElevatorInfo = Hotel.Elevator.GetElevatorInfo().ToTuple();
+            Tuple<ElevatorDirection, int> ElevatorInfo = Hotel.Elevator.GetElevatorInfo().ToTuple();
             int ElevatorTime = 0;
 
-            if (ElevatorInfo.Item1 == 'I')
+            if (ElevatorInfo.Item1 == ElevatorDirection.IDLE)
             {
                 if (ElevatorInfo.Item2 < PositionY)
                 {
@@ -245,7 +221,7 @@ namespace HotelSimulatie
                     ElevatorTime += ElevatorInfo.Item2 - PositionY;
                 }
             }
-            else if (ElevatorInfo.Item1 == 'U')
+            else if (ElevatorInfo.Item1 == ElevatorDirection.UP)
             {
                 if (ElevatorInfo.Item2 < PositionY)
                 {
@@ -257,7 +233,7 @@ namespace HotelSimulatie
                     ElevatorTime += Hotel.Floors.Length - PositionY;
                 }
             }
-            else if (ElevatorInfo.Item1 == 'D')
+            else if (ElevatorInfo.Item1 == ElevatorDirection.DOWN)
             {
                 if (ElevatorInfo.Item2 < PositionY)
                 {
@@ -270,21 +246,23 @@ namespace HotelSimulatie
                 }
             }
 
-            if (Path.PathToElevatorLength + Path.PathFromElevatorLength + ElevatorTime < Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true).PathLength)
+            if (Destination != null)
             {
-                Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, false);
-                Path.RouteType = ERouteType.Elevator;
-            }
-            else
-            {
-                Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true);
-                Path.RouteType = ERouteType.Stairs;
+                if (Path.PathToElevatorLength + Path.PathFromElevatorLength + ElevatorTime < Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true).PathLength)
+                {
+                    Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, false);
+                    Path.RouteType = ERouteType.Elevator;
+                }
+                else
+                {
+                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, false, true);
+                    Path.RouteType = ERouteType.Stairs;
+                }
             }
         }
 
         public IHuman Create(string Name)
         {
-            RoomsToClean = new Queue<CleanRoom>();
             GlobalStatistics.Cleaners.Add(this);
             this.Name = Name;
             return this;
@@ -309,13 +287,6 @@ namespace HotelSimulatie
                 }
             }
             return result;
-        }
-        public enum ECleanerStatus
-        {
-            IDLE,
-            GOING_TO_ROOM,
-            CLEANING_ROOM,
-            CLEANING_EMERGENCY,
         }
     }
 }

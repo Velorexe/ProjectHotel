@@ -29,19 +29,19 @@ namespace HotelSimulatie
 
         public void Dirty()
         {
-            int CleanerTasks = 0;
-            int CleanerID = 0;
+            int CleanerTasks = GlobalStatistics.Cleaners[0].CleanerTasks.Count;
+            int Cleaner = 0;
 
             for (int i = 0; i < GlobalStatistics.Cleaners.Count; i++)
             {
-                if(GlobalStatistics.Cleaners[i].roomsToClean.Count > CleanerTasks)
+                if(GlobalStatistics.Cleaners[i].CleanerTasks.Count < CleanerTasks)
                 {
-                    CleanerTasks = GlobalStatistics.Cleaners[i].roomsToClean.Count;
-                    CleanerID = i;
+                    Cleaner = i;
+                    CleanerTasks = GlobalStatistics.Cleaners.Count;
                 }
             }
 
-            GlobalStatistics.Cleaners[CleanerID].roomsToClean.Enqueue(new CleanRoom() { RoomToClean = Node, TimeToClean = Hotel.Settings.CleaningTime });
+            GlobalStatistics.Cleaners[Cleaner].CleanRoom(new CleanRoom() { RoomToClean = Node, TimeToClean = Hotel.Settings.CleaningTime });
         }
 
         public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
