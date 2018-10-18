@@ -15,10 +15,10 @@ namespace HotelSimulatie
 
         //ELEVATOR FUNCTION
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
-        private char Direction { get; set; } = 'I';
+        private ElevatorDirection Direction { get; set; } = ElevatorDirection.IDLE;
 
-        private List<ElevatorShaft> Up = new List<ElevatorShaft>();
-        private List<ElevatorShaft> Down = new List<ElevatorShaft>();
+        private List<int> Up = new List<int>();
+        private List<int> Down = new List<int>();
 
         public List<IHuman> InElevator = new List<IHuman>();
 
@@ -29,7 +29,7 @@ namespace HotelSimulatie
         /// Get the info from the elevator (Direction and Floor).
         /// </summary>
         /// <returns>The direction (char) that the elevator is going too and the floor (int) that the elevator is currently on.</returns>
-        public (char, int) GetElevatorInfo()
+        public (ElevatorDirection, int) GetElevatorInfo()
         {
             return (Direction, PositionY);
         }
@@ -47,22 +47,34 @@ namespace HotelSimulatie
         //ONLY ADD TARGET FLOOR WHEN BOOL IS TRUE
         public void Move()
         {
-            if (Down.Count != 0 && Down[0].PositionY == PositionY)
+            if (Down.Count != 0 && Down[0] == PositionY)
             {
                 Down.RemoveAt(0);
             }
-            if (Up.Count != 0 && Up[0].PositionY == PositionY)
+            if (Up.Count != 0 && Up[0] == PositionY)
             {
                 Up.RemoveAt(0);
             }
 
+            if(Direction == ElevatorDirection.IDLE)
+            {
+                if(Up.Count != 0)
+                {
+                    Direction = ElevatorDirection.UP;
+                }
+                else if(Down.Count != 0)
+                {
+                    Direction = ElevatorDirection.DOWN;
+                }
+            }
+
             if (Up.Count != 0 || Down.Count != 0)
             {
-                if (Direction == 'U')
+                if (Direction == ElevatorDirection.UP)
                 {
                     if (Up.Count == 0 && Down.Count != 0)
                     {
-                        this.Direction = 'D';
+                        this.Direction = ElevatorDirection.DOWN;
                         Move();
                     }
                     else
@@ -70,7 +82,7 @@ namespace HotelSimulatie
                         PositionY++;
                         for (int i = 0; i < Up.Count; i++)
                         {
-                            if (Up[i].PositionY == PositionY)
+                            if (Up[i] == PositionY)
                             {
                                 Up.RemoveAt(i);
                                 break;
@@ -78,11 +90,11 @@ namespace HotelSimulatie
                         }
                     }
                 }
-                else if (Direction == 'D')
+                else if (Direction == ElevatorDirection.DOWN)
                 {
                     if (Up.Count != 0 && Down.Count == 0)
                     {
-                        this.Direction = 'U';
+                        this.Direction = ElevatorDirection.UP;
                         Move();
                     }
                     else
@@ -90,7 +102,7 @@ namespace HotelSimulatie
                         PositionY--;
                         for (int i = 0; i < Down.Count; i++)
                         {
-                            if (Down[i].PositionY == PositionY)
+                            if (Down[i] == PositionY)
                             {
                                 Down.RemoveAt(i);
                                 break;
@@ -107,7 +119,7 @@ namespace HotelSimulatie
 
             if (Up.Count == 0 && Down.Count == 0)
             {
-                Direction = 'I';
+                Direction = ElevatorDirection.IDLE;
             }
         }
 
@@ -115,64 +127,37 @@ namespace HotelSimulatie
         /// Request the elevator to your position
         /// </summary>
         /// <param name="Floor">The Floor that the customer needs to move too</param>
-        public void RequestElevator(int CurrentFloor, int TargetFloor)
+        public void RequestElevator(int RequestFloor)
         {
             //Extra Check
-            if ((TargetFloor <= Hotel.Floors.Length - 1 && TargetFloor >= 0) && (CurrentFloor <= Hotel.Floors.Length - 1 && CurrentFloor >= 0))
+            if (RequestFloor <= Hotel.Floors.Length - 1 && RequestFloor >= 0)
             {
-                if(Direction == 'I')
-                {
-                    if(CurrentFloor > PositionY)
-                    {
-                        Direction = 'U';
-                    }
-                    else
-                    {
-                        Direction = 'D';
-                    }
-                }
                 //Goes UP
-                if (TargetFloor > PositionY)
+                if (RequestFloor > PositionY)
                 {
-                    Up.Add(Graph.SearchElevatorShaft(TargetFloor));
-                    UpdateList('U', PositionY, Up);
+                    Up.Add(RequestFloor);
+                    UpdateList();
                 }
                 //Goes DOWN
                 else
                 {
-                    Down.Add(Graph.SearchElevatorShaft(TargetFloor));
-                    UpdateList('D', PositionY, Down);
-                }
-
-                //Goes UP
-                if (CurrentFloor > PositionY)
-                {
-                    Up.Add(Graph.SearchElevatorShaft(CurrentFloor));
-                    UpdateList('U', PositionY, Up);
-                }
-                //Goes DOWN
-                else
-                {
-                    Down.Add(Graph.SearchElevatorShaft(CurrentFloor));
-                    UpdateList('D', PositionY, Down);
+                    Down.Add(RequestFloor);
+                    UpdateList();
                 }
             }
-
         }
 
-        private void UpdateList(char Direction, int CurrentFloor, List<ElevatorShaft> Route)
+        private void UpdateList()
         {
-            foreach (ElevatorShaft Shaft in Route)
-            {
-                if (Direction == 'U')
-                {
-                    Up = Route.Distinct().OrderBy(x => x.PositionY).ToList();
-                }
-                else if (Direction == 'D')
-                {
-                    Down = Route.Distinct().OrderByDescending(x => x.PositionY).ToList();
-                }
-            }
+            Up = Up.Distinct().OrderBy(x => x).ToList();
+            Down = Down.Distinct().OrderByDescending(x => x).ToList();
         }
+
     }
+        public enum ElevatorDirection
+        {
+            UP,
+            DOWN,
+            IDLE
+        }
 }

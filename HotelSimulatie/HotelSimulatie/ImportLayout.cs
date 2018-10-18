@@ -76,23 +76,8 @@ namespace HotelSimulatie
                         Hotel.Floors[i].Areas[j] = RoomFactory.Create(0, "Hallway", 0, 0, j, i, 1, 1);
                 }
             }
-            Hotel.Elevator = new Elevator() { PositionX = 0, PositionY = 0 };
+            Hotel.Elevator = new Elevator() { PositionX = 0 , PositionY = 0};
             Hotel.Reception = (Reception)Hotel.Floors[0].Areas[1];
-        }
-
-        /// <summary>
-        /// Moves an item in a given list from one place to the other.
-        /// </summary>
-        /// <param name="List">The list where the Items need to be changed.</param>
-        /// <param name="oldIndex">The index of the Object that needs to be moved.</param>
-        /// <param name="newIndex">The new index where the old Object needs to be moved.</param>
-        /// <returns>The given list with the Object moved.</returns>
-        private List<Floor> MoveItemInList(List<Floor> List, int oldIndex, int newIndex)
-        {
-            Floor tempFloor = List[oldIndex];
-            List.RemoveAt(oldIndex);
-            List.Insert(newIndex, tempFloor);
-            return List;
         }
 
         private int[] PullIntsFromString(string target)

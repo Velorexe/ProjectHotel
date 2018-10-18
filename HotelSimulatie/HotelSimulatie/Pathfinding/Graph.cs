@@ -106,11 +106,6 @@ namespace HotelSimulatie
             return null;
         }
 
-        public static ElevatorShaft SearchElevatorShaft(int Floor)
-        {
-            return (ElevatorShaft)HotelNodes[Floor, 0].Area;
-        }
-
         public static Route QuickestRoute(Node StartingNode, Node EndNode, bool ElevatorEnabled, bool StaircaseEnabled)
         {
             Route Route = new Route();

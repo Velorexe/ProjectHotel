@@ -69,7 +69,7 @@ namespace HotelSimulatie
                 {
                     if (Hotel.Elevator.GetElevatorInfo().Item2 == PositionY && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
                     {
-                        Hotel.Elevator.RequestElevator(PositionY, Destination.Floor);
+                        Hotel.Elevator.RequestElevator(Destination.Floor);
                         PositionX--;
                         IsInElevator = true;
                         RequestedElevator = false;
@@ -79,7 +79,7 @@ namespace HotelSimulatie
                     {
                         if (!RequestedElevator)
                         {
-                            Hotel.Elevator.RequestElevator(PositionY, Destination.Floor);
+                            Hotel.Elevator.RequestElevator(PositionY);
                             RequestedElevator = true;
                         }
                     }
@@ -156,10 +156,10 @@ namespace HotelSimulatie
 
         private void GetRoute()
         {
-            Tuple<char, int> ElevatorInfo = Hotel.Elevator.GetElevatorInfo().ToTuple();
+            Tuple<ElevatorDirection, int> ElevatorInfo = Hotel.Elevator.GetElevatorInfo().ToTuple();
             int ElevatorTime = 0;
 
-            if(ElevatorInfo.Item1 == 'I')
+            if(ElevatorInfo.Item1 == ElevatorDirection.IDLE)
             {
                 if(ElevatorInfo.Item2 < PositionY)
                 {
@@ -170,7 +170,7 @@ namespace HotelSimulatie
                     ElevatorTime += ElevatorInfo.Item2 - PositionY;
                 }
             }
-            else if(ElevatorInfo.Item1 == 'U')
+            else if(ElevatorInfo.Item1 == ElevatorDirection.UP)
             {
                 if (ElevatorInfo.Item2 < PositionY)
                 {
@@ -182,7 +182,7 @@ namespace HotelSimulatie
                     ElevatorTime += Hotel.Floors.Length - PositionY;
                 }
             }
-            else if(ElevatorInfo.Item1 == 'D')
+            else if(ElevatorInfo.Item1 == ElevatorDirection.DOWN)
             {
                 if (ElevatorInfo.Item2 < PositionY)
                 {
