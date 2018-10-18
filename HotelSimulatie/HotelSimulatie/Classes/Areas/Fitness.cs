@@ -28,6 +28,7 @@ namespace HotelSimulatie
             this.PositionY = positionY;
             this.Width = width;
             this.Height = height;
+            GlobalStatistics.FitnessCenters.Add(this);
         }
     }
 }

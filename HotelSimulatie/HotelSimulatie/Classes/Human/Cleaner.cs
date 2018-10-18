@@ -61,18 +61,8 @@ namespace HotelSimulatie
 
         private void MoveToOptimalPosition()
         {
-            int IdleCleaners = 0;
-
-            for (int i = 0; i < GlobalStatistics.Cleaners.Count; i++)
-            {
-                if (GlobalStatistics.Cleaners[i].CleanerTasks.Count == 0)
-                {
-                    IdleCleaners++;
-                }
-            }
-
-            Destination = Graph.SearchNode(Hotel.Floors[Hotel.Floors.Length / (IdleCleaners + 1)].Areas[Hotel.Floors[0].Areas.Length / 2]);
-            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Graph.SearchNode(Hotel.Floors[Hotel.Floors.Length / (IdleCleaners + 1)].Areas[Hotel.Floors[0].Areas.Length / 2]), true, true);
+            Destination = Graph.SearchNode(Hotel.Floors[Hotel.Floors.Length / GlobalStatistics.Cleaners.Count * CleanerID].Areas[Hotel.Floors[0].Areas.Length / 2]);
+            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Graph.SearchNode(Hotel.Floors[Hotel.Floors.Length / GlobalStatistics.Cleaners.Count * CleanerID].Areas[Hotel.Floors[0].Areas.Length / 2]), true, true);
         }
 
         public void Move()

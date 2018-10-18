@@ -65,6 +65,12 @@
     <Compile Include="Classes\System\GlobalStatistics.cs" />
     <Compile Include="Interfaces\ISettingsScreen.cs" />
     <Compile Include="Interfaces\ISimulationForm.cs" />
+    <Compile Include="LiveStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LiveStatistics.Designer.cs">
+      <DependentUpon>LiveStatistics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pathfinding\Route.cs" />
     <Compile Include="ReceptionScreen.cs">
       <SubType>Form</SubType>
@@ -114,6 +120,9 @@
     </Compile>
     <EmbeddedResource Include="EditScreen.resx">
       <DependentUpon>EditScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LiveStatistics.resx">
+      <DependentUpon>LiveStatistics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReceptionScreen.resx">
       <DependentUpon>ReceptionScreen.cs</DependentUpon>

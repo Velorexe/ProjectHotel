@@ -17,6 +17,8 @@ namespace HotelSimulatie
         private Bitmap _ForegroundBuffer { get; set; }
         private Bitmap _Wireframe { get; set; }
 
+        public LiveStatistics Statistics { get; set; }
+
         private ReceptionScreen ReceptionScreen { get; set; }
 
         private bool WireframeEnabled = false;
@@ -157,61 +159,12 @@ namespace HotelSimulatie
             {
                 GlobalStatistics.Cleaners[i].Move();
             }
+            if(Statistics != null)
+            {
+                Statistics.UpdateStatistics();
+            }
             DrawForeground();
         }
-
-        #region DEBUG
-
-        private void WireFrameButton_Click(object sender, EventArgs e)
-        {
-            DrawWireFrame();
-        }
-
-        private void DebugCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (DebugCheckBox.Checked)
-            {
-                DebugGroup.Visible = true;
-            }
-            else
-            {
-                DebugGroup.Visible = false;
-            }
-        }
-        private void DrawWireFrame()
-        {
-            if (WireframeEnabled == false)
-            {
-                WireframeEnabled = true;
-
-                for (int i = 0; i < Hotel.Floors.Length; i++)
-                {
-                    for (int j = 0; j < Hotel.Floors[i].Areas.Length; j++)
-                    {
-                        using (Graphics g = Graphics.FromImage(_Wireframe))
-                        {
-                            if (Hotel.Floors[i].Areas[j].AreaType != EAreaType.Hallway)
-                            {
-                                g.DrawRectangle(new Pen(Color.Red, 5), j * 60, (Hotel.Floors.Length - 1 - i - (Hotel.Floors[i].Areas[j].Height - 1)) * 55, Hotel.Floors[i].Areas[j].Width * 60, Hotel.Floors[i].Areas[j].Height * 55);
-                            }
-                        }
-                    }
-                }
-                using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
-                {
-                    g.DrawImage(_Wireframe, 0, 0, _BackgroundBuffer.Width, _BackgroundBuffer.Height);
-                }
-                BackgroundLayer.Image = _Wireframe;
-                BackgroundLayer.Size = _BackgroundBuffer.Size;
-            }
-            else
-            {
-                WireframeEnabled = false;
-                BackgroundLayer.Image = _BackgroundBuffer;
-            }
-        }
-
-        #endregion
 
         private void BackgroundLayer_MouseClick(object sender, MouseEventArgs e)
         {

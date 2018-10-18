@@ -213,5 +213,11 @@ namespace HotelSimulatie
                 CurrentActivity.Text = ((Customer)CustomerBox.SelectedItem).Status.ToString();
             }
         }
+
+        private void LiveStatisticsButton_Click(object sender, EventArgs e)
+        {
+            LiveStatistics Screen = new LiveStatistics();
+            SimulationForm.Statistics = Screen;
+        }
     }
 }
