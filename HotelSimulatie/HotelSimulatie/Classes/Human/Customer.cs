@@ -68,20 +68,18 @@ namespace HotelSimulatie
                 if (Path != null)
                 {
                     #region Elevator
-                    if (Path.RouteType == ERouteType.ToElevator && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft)
-                    {
-                        Hotel.Elevator.RequestElevator(Destination.Floor);
-                        PositionX--;
-                        IsInElevator = true;
-                        RequestedElevator = false;
-                        Hotel.Elevator.InElevator.Add(this);
-                        GetRoute();
-                    }
-                    else if (Path.RouteType == ERouteType.ToElevator && Path.PathToElevator.Count != 0)
+                    if (Path.RouteType == ERouteType.ToElevator && Path.PathToElevator.Count != 0)
                     {
                         Node moveNode = Path.PathToElevator.Dequeue();
-                        this.PositionX = moveNode.Area.PositionX;
-                        this.PositionY = moveNode.Area.PositionY;
+                        if (moveNode.NodeType != ENodeType.Elevatorshaft)
+                        {
+                            PositionX = moveNode.Area.PositionX;
+                            PositionY = moveNode.Area.PositionY;
+                        }
+                        if(Path.PathToElevator.Count == 0)
+                        {
+                            GetRoute();
+                        }
                     }
                     if (Path.RouteType == ERouteType.Elevator)
                     {
@@ -268,6 +266,7 @@ namespace HotelSimulatie
                     {
                         AssignedRoom.Dirty();
                         AssignedRoom.RoomOwner = null;
+                        InArea = null;
                         Destination = Hotel.Reception.Node;
                         Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
                         Status = HotelEventType.CHECK_OUT;
