@@ -62,7 +62,6 @@ namespace HotelSimulatie
             {
                 WaitingTime--;
             }
-
             else
             {
                 if (Path != null)
@@ -167,13 +166,19 @@ namespace HotelSimulatie
                 if (Destination.Area.AreaType == EAreaType.Restaurant)
                 {
                     WaitingTime = ((Restaurant)Destination.Area).EatingTime;
+                    InArea = Destination.Area;
                 }
                 else if (Destination.Area.AreaType == EAreaType.Cinema)
                 {
                     ((Cinema)Destination.Area).WaitingLine.Add(this);
+                    InArea = Destination.Area;
                 }
                 InArea = Destination.Area;
                 Destination = null;
+            }
+            else if(Hotel.Floors[PositionY].Areas[PositionX] != AssignedRoom && Destination != null)
+            {
+                InArea = null;
             }
 
             if (Status == HotelEventType.CHECK_OUT && Hotel.Floors[PositionY].Areas[PositionX] == Hotel.Reception)
@@ -266,7 +271,6 @@ namespace HotelSimulatie
                     {
                         AssignedRoom.Dirty();
                         AssignedRoom.RoomOwner = null;
-                        InArea = null;
                         Destination = Hotel.Reception.Node;
                         Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
                         Status = HotelEventType.CHECK_OUT;

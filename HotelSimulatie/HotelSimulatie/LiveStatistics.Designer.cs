@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LiveStatistics));
             this.CustomerGroup = new System.Windows.Forms.GroupBox();
             this.Customers = new System.Windows.Forms.TextBox();
             this.CleanerGroup = new System.Windows.Forms.GroupBox();
@@ -149,6 +150,7 @@
             this.Controls.Add(this.RoomsGroup);
             this.Controls.Add(this.CleanerGroup);
             this.Controls.Add(this.CustomerGroup);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LiveStatistics";
             this.Text = "Live Statistics (Updated Every HTE)";
             this.CustomerGroup.ResumeLayout(false);
