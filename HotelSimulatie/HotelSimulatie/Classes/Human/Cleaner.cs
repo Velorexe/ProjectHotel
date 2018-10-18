@@ -141,6 +141,7 @@ namespace HotelSimulatie
                     {
                         if (Hotel.Elevator.GetElevatorInfo().Item2 == PositionY && Hotel.Floors[PositionY].Areas[PositionX - 1].AreaType == EAreaType.ElevatorShaft && !IsInElevator)
                         {
+                            Hotel.Elevator.RequestElevator(Destination.Floor);
                             PositionX--;
                             IsInElevator = true;
                             RequestedElevator = false;

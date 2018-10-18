@@ -83,11 +83,9 @@ namespace HotelSimulatie
         }
         private void DrawForeground()
         {
-            //What should be drawn on the foreground:
             _ForegroundBuffer.Dispose();
             DrawBackground();
 
-            //SHOULD ONLY BE DRAWN ONCE
             using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
             {
                 g.DrawImage(Hotel.Elevator.Sprite, Hotel.Elevator.PositionX * 60, (Hotel.Floors.Count() - 1 - Hotel.Elevator.PositionY) * 55);
