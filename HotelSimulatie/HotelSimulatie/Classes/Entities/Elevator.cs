@@ -9,17 +9,23 @@ namespace HotelSimulatie
 {
     class Elevator : IMoveAble
     {
+        //PositionX is a horizontal point in the grid of the simulation (Together with the PositionY it makes a location for the Elevator)
         public int PositionX { get; set; } = 0;
+        //PositionY is a vertical point in the grid of the simulation (Together with the PositionX it makes a location for the Elevator)
         public int PositionY { get; set; } = 0;
+        //Sprite for the Elevator
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
 
         //ELEVATOR FUNCTION
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
         private ElevatorDirection Direction { get; set; } = ElevatorDirection.IDLE;
 
+        //List of the floors the Elevator has to visit when the elevator is goin up
         private List<int> Up = new List<int>();
+        //List of the floors the Elevator has to visit when the elevator is goin down
         private List<int> Down = new List<int>();
 
+        //List of Humans inside the Elevator
         public List<IHuman> InElevator = new List<IHuman>();
 
         //ELEVATOR WORKS LIKE THIS:
@@ -133,6 +139,7 @@ namespace HotelSimulatie
         }
 
     }
+        //All possible Elevator Directions
         public enum ElevatorDirection
         {
             UP,

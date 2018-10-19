@@ -69,7 +69,7 @@ namespace HotelSimulatie
         private double ParseLevels(string Level)
         {
             string result = Level.Replace("x ", "");
-            return double.Parse(result, CultureInfo.InvariantCulture);
+            return Double.Parse(result, CultureInfo.InvariantCulture);
         }
 
         private void FillFacilities()
