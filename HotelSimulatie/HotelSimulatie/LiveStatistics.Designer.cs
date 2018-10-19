@@ -153,6 +153,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LiveStatistics";
             this.Text = "Live Statistics (Updated Every HTE)";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LiveStatistics_FormClosing);
             this.CustomerGroup.ResumeLayout(false);
             this.CustomerGroup.PerformLayout();
             this.CleanerGroup.ResumeLayout(false);

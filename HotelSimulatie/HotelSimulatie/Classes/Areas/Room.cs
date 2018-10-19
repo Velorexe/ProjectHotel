@@ -41,6 +41,7 @@ namespace HotelSimulatie
                 }
             }
 
+            IsDirty = true;
             GlobalStatistics.Cleaners[Cleaner].CleanRoom(new CleanRoom() { RoomToClean = Node, TimeToClean = Hotel.Settings.CleaningTime });
         }
 
