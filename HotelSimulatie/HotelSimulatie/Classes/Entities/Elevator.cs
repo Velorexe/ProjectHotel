@@ -20,9 +20,12 @@ namespace HotelSimulatie
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
         private ElevatorDirection Direction { get; set; } = ElevatorDirection.IDLE;
 
+        //List of the floors the Elevator has to visit when the elevator is goin up
         private List<int> Up = new List<int>();
+        //List of the floors the Elevator has to visit when the elevator is goin down
         private List<int> Down = new List<int>();
 
+        //List of Humans inside the Elevator
         public List<IHuman> InElevator = new List<IHuman>();
 
         //ELEVATOR WORKS LIKE THIS:
@@ -136,6 +139,7 @@ namespace HotelSimulatie
         }
 
     }
+        //All possible Elevator Directions
         public enum ElevatorDirection
         {
             UP,

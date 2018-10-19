@@ -8,7 +8,9 @@ namespace HotelSimulatie
 {
     static class Graph
     {
+        //The starting Node of a Graph
         static Node StartNode { get; set; }
+        //An array with all the Nodes in the Simulation
         private static Node[,] HotelNodes { get; set; }
 
         public static void CreateGraph()
