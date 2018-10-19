@@ -13,10 +13,12 @@ namespace HotelSimulatie
 {
     public partial class LiveStatistics : Form
     {
-        public LiveStatistics()
+        private ISimulationForm Form { get; set; }
+        public LiveStatistics(ISimulationForm Form)
         {
             InitializeComponent();
             Show();
+            this.Form = Form;
         }
 
         public void UpdateStatistics()
@@ -71,6 +73,11 @@ namespace HotelSimulatie
             {
                 Facilities.AppendText($"ID: {c.ID} \t {c.Capacity}\n");
             }
+        }
+
+        private void LiveStatistics_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form.Statistics = null;
         }
     }
 }

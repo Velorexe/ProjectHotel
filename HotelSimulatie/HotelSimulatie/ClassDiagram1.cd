@@ -1,13 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="HotelSimulatie.Cinema" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAwAAAAAAEAAAA=</HashCode>
-      <FileName>Classes\Areas\Cinema.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="HotelSimulatie.ElevatorShaft" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -29,14 +21,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAgBAAAgAAgAAAAAEAAAAAAAEAQAAAAAAEAAAA=</HashCode>
       <FileName>Classes\Areas\Hallway.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="HotelSimulatie.Reception" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.5" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ABAAAAAgBAAAgAAgAAAAAEEAAAAAAEBQAAAAAAEAAAA=</HashCode>
-      <FileName>Classes\Areas\Reception.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -85,22 +69,6 @@
       <HashCode>AAAAADAAAAAAAAgAAAAAAAAAQAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Classes\Entities\Hotel.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="HotelSimulatie.Cleaner" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAIAAEEIgAAAACAUAAAAgAEBVAAEAQCAAAAw=</HashCode>
-      <FileName>Classes\Human\Cleaner.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="HotelSimulatie.Customer" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAgAAAEAIAAkEIgAAAAAAUAAAIgAEBXAAMAADAAAAA=</HashCode>
-      <FileName>Classes\Human\Customer.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="HotelSimulatie.GlobalStatistics" Collapsed="true">
     <Position X="4" Y="1.5" Width="1.5" />
@@ -189,7 +157,7 @@
   <Class Name="HotelSimulatie.ReceptionScreen" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAkggJAAICCESJCEAQCEBAMySUAABAAgCEIAliABGw0=</HashCode>
+      <HashCode>EAkggJAAICCESJCEAQCEAAMySUAABAAgCEIAliABGw0=</HashCode>
       <FileName>ReceptionScreen.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -205,7 +173,7 @@
   <Class Name="HotelSimulatie.Sprites" Collapsed="true">
     <Position X="7.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAEAACAAEAEAAAQAABABkAAAQQCAQAIAAAAAAAEEAIA=</HashCode>
+      <HashCode>IAEAACAAECEAAAQAABABkAAAQQCAQAIAAAAAAAEEAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="HotelSimulatie.Properties.Resources" Collapsed="true">
@@ -219,6 +187,38 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
+  </Class>
+  <Class Name="HotelSimulatie.Cinema" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgBAAAgAAgAAAAAEEAAAAAAEBwAAAAEQEAAAA=</HashCode>
+      <FileName>Classes\Areas\Cinema.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HotelSimulatie.Reception" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAABAAgBAAAgAAgAAACAEEAAAAAAEBQAAAAAAEAAAA=</HashCode>
+      <FileName>Classes\Areas\Reception.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HotelSimulatie.Cleaner" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAIAAEEIgAAAACAUAAAAgAEBVAAEAQCAAAAw=</HashCode>
+      <FileName>Classes\Human\Cleaner.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HotelSimulatie.Customer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAEAIAAmEIgAAAAAAUAAAIgAEBXAAMAEDAAAAA=</HashCode>
+      <FileName>Classes\Human\Customer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Interface Name="HotelSimulatie.IArea" Collapsed="true">
     <Position X="0.5" Y="5.75" Width="1.5" />
