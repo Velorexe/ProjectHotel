@@ -20,6 +20,7 @@ namespace HotelSimulatie
         public int PositionY { get; set; }
         public Bitmap Sprite { get; set; } = Sprites.ReceptionBar;
         public Node Node { get; set; }
+        private Queue<HotelEvent> CustomerQueue { get; set; } = new Queue<HotelEvent>();
 
         public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
@@ -43,10 +44,11 @@ namespace HotelSimulatie
             }
         }
 
-        public void Notify(HotelEvents.HotelEvent hotelEvent)
+        public void GuestCheckIn()
         {
-            if (hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
+            if (CustomerQueue.Count > 0)
             {
+                HotelEvent hotelEvent = CustomerQueue.Dequeue();
                 List<Room> AvaiableRooms = new List<Room>();
                 int Classification = PullIntsFromString(hotelEvent.Data.Values.First());
 
@@ -56,20 +58,20 @@ namespace HotelSimulatie
                 {
                     for (int i = 0; i < GlobalStatistics.Rooms.Count; i++)
                     {
-                        if (Classification == 0 && GlobalStatistics.Rooms[i].RoomOwner is null)
+                        if (Classification == 0 && GlobalStatistics.Rooms[i].RoomOwner is null && GlobalStatistics.Rooms[i].IsDirty == false)
                         {
                             AvaiableRooms.Add(GlobalStatistics.Rooms[i]);
                         }
-                        else if (GlobalStatistics.Rooms[i].Classification == Classification && GlobalStatistics.Rooms[i].RoomOwner is null)
+                        else if (GlobalStatistics.Rooms[i].Classification == Classification && GlobalStatistics.Rooms[i].RoomOwner is null && GlobalStatistics.Rooms[i].IsDirty == false)
                         {
                             AvaiableRooms.Add(GlobalStatistics.Rooms[i]);
                         }
                     }
-                    if(AvaiableRooms.Count == 0)
+                    if (AvaiableRooms.Count == 0)
                     {
                         Classification++;
                     }
-                    else if(AvaiableRooms.Count == 1)
+                    else if (AvaiableRooms.Count == 1)
                     {
                         NewCustomer.AssignedRoom = AvaiableRooms[0];
                         AvaiableRooms[0].RoomOwner = NewCustomer;
@@ -94,6 +96,14 @@ namespace HotelSimulatie
                     NewCustomer.Destination = Graph.SearchNode(NewCustomer.AssignedRoom);
                     NewCustomer.MoveToLocation(this);
                 }
+            }
+        }
+
+        public void Notify(HotelEvents.HotelEvent hotelEvent)
+        {
+            if (hotelEvent.EventType == HotelEvents.HotelEventType.CHECK_IN)
+            {
+                CustomerQueue.Enqueue(hotelEvent);
             }
         }
 

@@ -202,6 +202,7 @@
     <None Include="Resources\MarvAndHarry.png" />
     <None Include="Resources\Maid.png" />
     <None Include="Resources\Occupied.png" />
+    <None Include="Resources\Cinema_Start.png" />
     <Content Include="Resources\ReceptionBar.png" />
     <Content Include="Resources\Staircase.png" />
     <None Include="Resources\RoomDoor.png" />

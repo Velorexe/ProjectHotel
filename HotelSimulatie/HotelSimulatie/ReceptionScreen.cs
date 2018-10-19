@@ -21,7 +21,7 @@ namespace HotelSimulatie
             InitializeComponent();
             this.SimulationForm = SimulationForm;
             Show();
-            DefaultValuesButton_Click(new object(), new EventArgs());
+            FillSettings();
             FillFacilities();
             HighlightAllFacilities();
         }
@@ -42,6 +42,16 @@ namespace HotelSimulatie
                 StairCase = (int)StairTime.Value
             };
             SimulationForm.ApplySettings(tempSettings);
+        }
+
+        private void FillSettings()
+        {
+            ZoomLevel.Text = $"x {Hotel.Settings.ZoomLevel}.0";
+            SimulationSpeed.Text = $"x {Hotel.Settings.ZoomLevel}.0";
+
+            CleaningTime.Value = Hotel.Settings.CleaningTime;
+            TimeBeforeDeath.Value = Hotel.Settings.TimeBeforeDeath;
+            StairTime.Value = Hotel.Settings.StairCase;
         }
 
         private void DefaultValuesButton_Click(object sender, EventArgs e)
@@ -216,8 +226,15 @@ namespace HotelSimulatie
 
         private void LiveStatisticsButton_Click(object sender, EventArgs e)
         {
-            LiveStatistics Screen = new LiveStatistics();
-            SimulationForm.Statistics = Screen;
+            if (SimulationForm.Statistics == null)
+            {
+                LiveStatistics Screen = new LiveStatistics(SimulationForm);
+                SimulationForm.Statistics = Screen;
+            }
+            else
+            {
+                SimulationForm.Statistics.Close();
+            }
         }
     }
 }

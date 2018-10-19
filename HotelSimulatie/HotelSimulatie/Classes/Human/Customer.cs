@@ -1,10 +1,8 @@
-﻿using System;
+﻿using HotelEvents;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using HotelEvents;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
@@ -24,6 +22,8 @@ namespace HotelSimulatie
         private bool IsWaiting { get; set; } = false;
         private int DeathTimer { get; set; } = 0;
         private Node LastLocation { get; set; }
+
+        private int FitnessTime { get; set; } = 0;
 
         public HotelEventType Status { get; set; } = HotelEventType.NONE;
 
@@ -46,6 +46,7 @@ namespace HotelSimulatie
 
         public void Move()
         {
+
             if (!IsRegistered)
             {
                 HotelEventManager.Register(this);
@@ -62,8 +63,7 @@ namespace HotelSimulatie
             {
                 WaitingTime--;
             }
-
-            else
+            else if (WaitingTime == 0)
             {
                 if (Path != null)
                 {
@@ -76,7 +76,7 @@ namespace HotelSimulatie
                             PositionX = moveNode.Area.PositionX;
                             PositionY = moveNode.Area.PositionY;
                         }
-                        if(Path.PathToElevator.Count == 0)
+                        if (Path.PathToElevator.Count == 0)
                         {
                             GetRoute();
                         }
@@ -167,13 +167,38 @@ namespace HotelSimulatie
                 if (Destination.Area.AreaType == EAreaType.Restaurant)
                 {
                     WaitingTime = ((Restaurant)Destination.Area).EatingTime;
+                    InArea = Destination.Area;
+                    Destination = AssignedRoom.Node;
+                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
                 }
                 else if (Destination.Area.AreaType == EAreaType.Cinema)
                 {
-                    ((Cinema)Destination.Area).WaitingLine.Add(this);
+                    if (!((Cinema)Destination.Area).MovieStarted)
+                    {
+                        ((Cinema)Destination.Area).WaitingLine.Add(this);
+                        IsWaiting = true;
+                    }
+                    else
+                    {
+                        Destination = AssignedRoom.Node;
+                        Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                    }
                 }
-                InArea = Destination.Area;
-                Destination = null;
+                else if(Destination.Area.AreaType == EAreaType.Fitness)
+                {
+                    WaitingTime = FitnessTime;
+                    InArea = Destination.Area;
+                    Destination = AssignedRoom.Node;
+                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                }
+                else if (Hotel.Floors[PositionY].Areas[PositionX] == AssignedRoom)
+                {
+                    InArea = AssignedRoom;
+                }
+            }
+            else if(WaitingTime == 0)
+            {
+                InArea = null;
             }
 
             if (Status == HotelEventType.CHECK_OUT && Hotel.Floors[PositionY].Areas[PositionX] == Hotel.Reception)
@@ -257,37 +282,79 @@ namespace HotelSimulatie
 
         public void Notify(HotelEvent Event)
         {
-            if (Event.EventType == HotelEventType.CHECK_OUT)
+            if (Status != HotelEventType.EVACUATE)
             {
-                if (Event.Data.Keys.First() == "Gast")
+                if(Event.EventType == HotelEventType.EVACUATE)
                 {
-                    int[] Data = PullIntsFromString(Event.Data.Values.ToList());
-                    if (ID == Data[0])
+                    Status = HotelEventType.EVACUATE;
+                    Destination = Hotel.Reception.Node;
+                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                }
+                else if(Event.EventType == HotelEventType.GOTO_FITNESS)
+                {
+                    if (Event.Data.Keys.First() == "Gast")
                     {
-                        AssignedRoom.Dirty();
-                        AssignedRoom.RoomOwner = null;
-                        InArea = null;
-                        Destination = Hotel.Reception.Node;
-                        Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
-                        Status = HotelEventType.CHECK_OUT;
+                        int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                        if (ID == Data[0])
+                        {
+                            //FINISH THIS LOL
+                            FitnessTime = Data[1];
+                            Destination = Graph.NearestFacility(Hotel.Floors[PositionY].Areas[PositionX].Node, EAreaType.Fitness);
+                            Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
+                            Status = HotelEventType.GOTO_FITNESS;
+                        }
                     }
                 }
-            }
-            else if (Event.EventType == HotelEventType.NEED_FOOD)
-            {
-                if (Event.Data.Keys.First() == "Gast")
+                else if (Event.EventType == HotelEventType.CHECK_OUT)
                 {
-                    int[] Data = PullIntsFromString(Event.Data.Values.ToList());
-                    if (ID == Data[0])
+                    if (Event.Data.Keys.First() == "Gast")
                     {
-                        Status = HotelEventType.NEED_FOOD;
-                        Destination = Graph.NearestFacility(Hotel.Floors[PositionY].Areas[PositionX].Node, EAreaType.Restaurant);
-                        Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                        int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                        if (ID == Data[0])
+                        {
+                            AssignedRoom.Dirty();
+                            AssignedRoom.RoomOwner = null;
+                            Destination = Hotel.Reception.Node;
+                            Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
+                            Status = HotelEventType.CHECK_OUT;
+                        }
+                    }
+                }
+                else if (Event.EventType == HotelEventType.GOTO_CINEMA)
+                {
+                    if (Event.Data.Keys.First() == "Gast")
+                    {
+                        int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                        if (ID == Data[0])
+                        {
+                            Status = HotelEventType.GOTO_CINEMA;
+                            Destination = Graph.NearestFacility(Hotel.Floors[PositionY].Areas[PositionX].Node, EAreaType.Cinema);
+                            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                        }
+                    }
+                }
+                else if (Event.EventType == HotelEventType.NEED_FOOD)
+                {
+                    if (Event.Data.Keys.First() == "Gast")
+                    {
+                        int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                        if (ID == Data[0])
+                        {
+                            Status = HotelEventType.NEED_FOOD;
+                            Destination = Graph.NearestFacility(Hotel.Floors[PositionY].Areas[PositionX].Node, EAreaType.Restaurant);
+                            Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                        }
                     }
                 }
             }
         }
 
+        public void InCinema(int MovieTime, Cinema Area)
+        {
+            WaitingTime = MovieTime;
+            InArea = Area;
+            IsWaiting = false;
+        }
 
         private int[] PullIntsFromString(List<string> Data)
         {

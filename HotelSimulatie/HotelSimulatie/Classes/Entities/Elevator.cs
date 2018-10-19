@@ -33,36 +33,16 @@ namespace HotelSimulatie
         {
             return (Direction, PositionY);
         }
-
-        //ELEVATOR DOESN'T WORK PROPERLY
-        //WHEN REQUESTING ELEVATOR
-        //THE ELEVATOR SHOULDN'T MOVE TO THE TARGETFLOOR
-        //WITHOUT PICKING UP THE CUSTOMER FIRST
-
-        //SOLUTION:
-        //MAKE CLASS WITH CURRENT FLOOR, TARGET FLOOR AND BOOL
-        //PUT THEM IN A LIST
-        //SORT THE LIST FOR UP AND DOWN
-        //PRIORITISE CURRENT FLOOR TO GET CUSTOMER
-        //ONLY ADD TARGET FLOOR WHEN BOOL IS TRUE
+        
         public void Move()
         {
-            if (Down.Count != 0 && Down[0] == PositionY)
-            {
-                Down.RemoveAt(0);
-            }
-            if (Up.Count != 0 && Up[0] == PositionY)
-            {
-                Up.RemoveAt(0);
-            }
-
             if(Direction == ElevatorDirection.IDLE)
             {
-                if(Up.Count != 0)
+                if(Up.Count > Down.Count)
                 {
                     Direction = ElevatorDirection.UP;
                 }
-                else if(Down.Count != 0)
+                else
                 {
                     Direction = ElevatorDirection.DOWN;
                 }
@@ -136,14 +116,13 @@ namespace HotelSimulatie
                 if (RequestFloor > PositionY)
                 {
                     Up.Add(RequestFloor);
-                    UpdateList();
                 }
                 //Goes DOWN
                 else
                 {
                     Down.Add(RequestFloor);
-                    UpdateList();
                 }
+                UpdateList();
             }
         }
 

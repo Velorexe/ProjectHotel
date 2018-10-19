@@ -21,7 +21,6 @@ namespace HotelSimulatie
 
         private ReceptionScreen ReceptionScreen { get; set; }
 
-        private bool WireframeEnabled = false;
         private bool Paused = false;
 
         public SimulationForm(string fileLocation, Settings settings)
@@ -151,6 +150,8 @@ namespace HotelSimulatie
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
             Hotel.Elevator.Move();
+            Hotel.Reception.GuestCheckIn();
+
             for (int i = 0; i < GlobalStatistics.Customers.Count; i++)
             {
                 GlobalStatistics.Customers[i].Move();
@@ -159,6 +160,7 @@ namespace HotelSimulatie
             {
                 GlobalStatistics.Cleaners[i].Move();
             }
+
             if(Statistics != null)
             {
                 Statistics.UpdateStatistics();
