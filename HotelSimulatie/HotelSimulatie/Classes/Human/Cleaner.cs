@@ -11,27 +11,43 @@ namespace HotelSimulatie
 {
     class Cleaner : IHuman, IMoveAble, HotelEventListener
     {
+        //ID of the Cleaner
         public int CleanerID { get; set; } = 0;
+        //All Cleaners are given a random generated name
         public string Name { get; set; }
 
+        //PositionX is a point in the grid of the simulation (together with the PositionY it makes a position for the Cleaner)
         public int PositionX { get; set; }
+        //PositionX is a point in the grid of the simulation (together with the PositionY it makes a position for the Cleaner)
         public int PositionY { get; set; }
-
+        
+        //The destination of the Cleaner
         public Node Destination { get; set; }
 
+        //Tasks the Cleaners have to do
         public Queue<CleanRoom> CleanerTasks { get; set; } = new Queue<CleanRoom>();
+        //The current task the Cleaner is assigned to 
         public CleanRoom CurrentTask { get; set; }
 
+        //A boolean to see if the Cleaner must be shown of screen or not
         public bool IsVisible { get; set; } = true;
 
+        //The time a Cleaner has to wait before continuing an action
         public int WaitingTime { get; set; }
 
+        //Check if Cleaner is in the Elevator
         public bool IsInElevator { get; set; }
+        //Check if the Cleaner requested the elevator to its floor
         public bool RequestedElevator { get; set; }
 
+        //Because of different threads we need to check if the Cleaner is registered of not.
+        //If IsRegistered is true the Cleaner will be added to HotelEventManager
+        //If IsRegistered is false nothing will be done to the Cleaner
         public bool IsRegistered { get; set; } = false;
 
+        //The Route that is given to a Cleaner based on the quickest path to the destination
         public Route Path { get; set; }
+        //A sprite is given to the Cleaner based on the HumanType
         public Bitmap Sprite { get; set; } = Sprites.Maid;
 
         public void MoveToLocation(IArea CurrentLocation)

@@ -12,33 +12,56 @@ namespace HotelSimulatie
     class Customer : IHuman, IMoveAble, HotelEventListener
     {
         public int ID { get; set; } = 0;
+        //All Customers are given a random generated name 
         public string Name { get; set; }
 
+        //A boolean to see if the Customer must be shown of screen or not
         public bool IsVisible { get; set; } = true;
 
+        //PositionX is a point in the grid of the simulation (together with the PositionY it makes a position for the Customer)
         public int PositionX { get; set; } = 1;
+        //PositionX is a point in the grid of the simulation (together with the PositionY it makes a position for the Customer)
         public int PositionY { get; set; } = 0;
 
+        //Because of different threads we need to check if the Customer is registered of not.
+        //If IsRegistered is true the Customer will be added to HotelEventManager
+        //If IsRegistered is false nothing will be done to the Customer
         public bool IsRegistered { get; set; } = false;
 
+        //A check if the Customer is waitng 
         private bool IsWaiting { get; set; } = false;
+        //The time that needs to go by before a Customer dies
         private int DeathTimer { get; set; } = 0;
+        //LastLocation is a check for Customer to see if the Customer is in the same location as the last check and if the Customer is not in an Area
         private Node LastLocation { get; set; }
 
+        //The Status of the Customer
         public HotelEventType Status { get; set; } = HotelEventType.NONE;
 
+        //The Area that the Customer is in
         public IArea InArea { get; set; }
 
+        //The Route that is given to a Customer based on the quickest path to the destination
         public Route Path { get; set; }
+        //The destination of the Customer
         public Node Destination { get; set; }
+        //The Room that is assigned to the Customer
         public Room AssignedRoom { get; set; } = null;
+        //A sprite is given to the Customer based on the HumanType
         public Bitmap Sprite { get; set; } = Sprites.Customer;
 
+        //Check if Customer is in the Elevator
         private bool IsInElevator { get; set; } = false;
+        //Check if the Customer requested the elevator to its floor
         private bool RequestedElevator { get; set; } = false;
 
+        //The time a Customer has to wait before continuing an action
         private int WaitingTime { get; set; } = 0;
 
+        /// <summary>
+        /// The Customer gets a Path to certain location
+        /// </summary>
+        /// <param name="CurrentLocation">The Location from where the Customer must calculate the Quickest Route</param>
         public void MoveToLocation(IArea CurrentLocation)
         {
             Path = Graph.QuickestRoute(Graph.SearchNode(CurrentLocation), Graph.SearchNode(Destination.Area), true, true);
