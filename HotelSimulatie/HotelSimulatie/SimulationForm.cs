@@ -21,7 +21,6 @@ namespace HotelSimulatie
 
         private ReceptionScreen ReceptionScreen { get; set; }
 
-        private bool WireframeEnabled = false;
         private bool Paused = false;
 
         public SimulationForm(string fileLocation, Settings settings)
