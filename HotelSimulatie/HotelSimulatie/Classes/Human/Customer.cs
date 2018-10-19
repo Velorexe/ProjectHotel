@@ -297,7 +297,6 @@ namespace HotelSimulatie
                         int[] Data = PullIntsFromString(Event.Data.Values.ToList());
                         if (ID == Data[0])
                         {
-                            //FINISH THIS LOL
                             FitnessTime = Data[1];
                             Destination = Graph.NearestFacility(Hotel.Floors[PositionY].Areas[PositionX].Node, EAreaType.Fitness);
                             Path = Graph.QuickestRoute(Graph.SearchNode(Hotel.Floors[PositionY].Areas[PositionX]), Destination, true, true);
@@ -358,7 +357,7 @@ namespace HotelSimulatie
 
         private int[] PullIntsFromString(List<string> Data)
         {
-            int[] result = new int[0];
+            int[] result = new int[Data.Count];
             for (int j = 0; j < Data.Count; j++)
             {
                 string target = Data[j];
@@ -369,7 +368,6 @@ namespace HotelSimulatie
                 target = target.Replace(" ", "");
                 target = Regex.Replace(target, "[A-Za-z ]", "");
                 string[] tempArray = target.Split(',');
-                result = new int[tempArray.Length];
                 for (int i = 0; i < tempArray.Length; i++)
                 {
                     result[i] = Convert.ToInt32(tempArray[i]);
