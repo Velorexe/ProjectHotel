@@ -8,6 +8,9 @@ namespace HotelSimulatie
 {
     interface IMoveAble
     {
+        /// <summary>
+        /// 
+        /// </summary>
         void Move();
     }
 }
