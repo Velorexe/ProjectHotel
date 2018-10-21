@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Elevator : IMoveAble
+    public class Elevator : IMoveAble
     {
         //PositionX is a horizontal point in the grid of the simulation (Together with the PositionY it makes a location for the Elevator)
         public int PositionX { get; set; } = 0;

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Room : IArea
+    public class Room : IArea
     {
         //Areas are given an ID 
         public int ID { get; set; }

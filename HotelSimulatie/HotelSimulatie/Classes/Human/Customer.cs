@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
-    class Customer : IHuman, IMoveAble, HotelEventListener
+    public class Customer : IHuman, IMoveAble, HotelEventListener
     {
         public int ID { get; set; } = 0;
         //All Customers are given a random generated name 

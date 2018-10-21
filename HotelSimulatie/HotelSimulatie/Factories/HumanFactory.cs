@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    static class HumanFactory
+    public static class HumanFactory
     {
         public static IHuman CreateHuman(EHumanType humanType)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Route
+    public class Route
     {
         //Route Type
         public ERouteType RouteType { get; set; } = ERouteType.Undefined;

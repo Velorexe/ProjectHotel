@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    static class Hotel
+    public static class Hotel
     {
         //The amount of Floors in the Hotel
         public static Floor[] Floors { get; set; }

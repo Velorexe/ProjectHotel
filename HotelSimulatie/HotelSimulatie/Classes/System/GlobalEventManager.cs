@@ -11,7 +11,7 @@ namespace HotelSimulatie
     /// <summary>
     /// We can use GlobalEventManager to perform Events that are Global, not for Individuals
     /// </summary>
-    class GlobalEventManager : HotelEventListener
+    public class GlobalEventManager : HotelEventListener
     {
         //A list of the Events that occur
         public List<HotelEvent> EventHistory { get; set; } = new List<HotelEvent>();

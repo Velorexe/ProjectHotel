@@ -10,7 +10,7 @@ using HotelEvents;
 
 namespace HotelSimulatie
 {
-    class Reception : IArea, HotelEventListener
+    public class Reception : IArea, HotelEventListener
     {
         //Areas are given an ID 
         public int ID { get; set; }

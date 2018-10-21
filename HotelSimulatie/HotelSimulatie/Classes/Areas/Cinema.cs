@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace HotelSimulatie
 {
-    class Cinema : IArea, HotelEventListener
+    public class Cinema : IArea, HotelEventListener
     {
         //Areas are given an ID 
         public int ID { get; set; }

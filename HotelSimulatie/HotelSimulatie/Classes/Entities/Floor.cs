@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Floor
+    public class Floor
     {
         //Int of the Floor level
         public int FloorLevel { get; set; }

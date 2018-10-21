@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class CleanRoom
+    public class CleanRoom
     {
         //Node given to the Area
         public Node RoomToClean { get; set; }

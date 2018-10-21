@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    interface IHuman
+    public interface IHuman
     {
         //All Humans are given a random generated name 
         string Name { get; set; }

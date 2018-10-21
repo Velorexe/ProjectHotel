@@ -50,7 +50,7 @@ namespace HotelSimulatie
 
             if (IsStairs)
             {
-                this.LeftNode = RightNode;
+                this.LeftNode = ConnectedNode;
                 this.NodeType = ENodeType.Staircase;
             }
             else

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    static class RoomFactory
+    public static class RoomFactory
     {
         public static IArea Create(int ID, string areaType, int capacity,int classification, int positionX, int positionY, int width, int height)
         {
