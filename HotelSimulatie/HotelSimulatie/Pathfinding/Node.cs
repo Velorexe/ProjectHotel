@@ -8,14 +8,21 @@ namespace HotelSimulatie
 {
     public class Node
     {
+        //The Area the Node is going to be in
         public IArea Area { get; set; }
+        //The Floor the Node is going to be in
         public int Floor { get; set; }
 
+        //The type of Node
         public ENodeType NodeType { get; set; }
 
+        //The Node on the left of a Node that is getting checked
         public Node LeftNode { get; set; }
+        //The Node on the right of a Node that is getting checked
         public Node RightNode { get; set; }
+        //The Node above a Node that is getting checked
         public Node UpperNode { get; set; }
+        //The Node below a Node that is getting checked
         public Node LowerNode { get; set; }
 
         public Node FillBottomNode(IArea Area, Node ConnectedNode, Node UpperNode, bool IsStairs)
@@ -83,6 +90,7 @@ namespace HotelSimulatie
         }
     }
 
+    //All possible Node Types
     public enum ENodeType
     {
         Staircase,

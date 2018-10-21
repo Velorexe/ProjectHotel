@@ -13,15 +13,20 @@ namespace HotelSimulatie
 {
     public partial class SimulationForm : Form, ISimulationForm
     {
+        //The Bitmap of the Background (All the Areas)
         private Bitmap _BackgroundBuffer { get; set; }
+        //The Bitmap of the Background (Customers, Cleaners)
         private Bitmap _ForegroundBuffer { get; set; }
+        //The Bitmap to help indicate the selected Rooms
         private Bitmap _Wireframe { get; set; }
 
+        //The live Statistics in the options menu
         public LiveStatistics Statistics { get; set; }
 
+        //The options menu
         private ReceptionScreen ReceptionScreen { get; set; }
 
-        private bool WireframeEnabled = false;
+        //A check if the game is paused or not
         private bool Paused = false;
 
         public SimulationForm(string fileLocation, Settings settings)
@@ -151,6 +156,8 @@ namespace HotelSimulatie
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
             Hotel.Elevator.Move();
+            Hotel.Reception.GuestCheckIn();
+
             for (int i = 0; i < GlobalStatistics.Customers.Count; i++)
             {
                 GlobalStatistics.Customers[i].Move();
@@ -159,6 +166,7 @@ namespace HotelSimulatie
             {
                 GlobalStatistics.Cleaners[i].Move();
             }
+
             if(Statistics != null)
             {
                 Statistics.UpdateStatistics();

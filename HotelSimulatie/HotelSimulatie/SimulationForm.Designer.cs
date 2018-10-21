@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimulationForm));
             this.BackgroundLayer = new System.Windows.Forms.PictureBox();
             this.TimerHTE = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.BackgroundLayer)).BeginInit();
@@ -55,6 +56,7 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(873, 481);
             this.Controls.Add(this.BackgroundLayer);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SimulationForm";
             this.Text = "SimulationForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SimulationForm_FormClosed);

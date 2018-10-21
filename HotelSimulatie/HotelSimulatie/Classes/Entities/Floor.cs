@@ -8,7 +8,9 @@ namespace HotelSimulatie
 {
     class Floor
     {
+        //Int of the Floor level
         public int FloorLevel { get; set; }
+        //The amount of Areas a Floor has
         public IArea[] Areas { get; set; }
 
         /// <summary>

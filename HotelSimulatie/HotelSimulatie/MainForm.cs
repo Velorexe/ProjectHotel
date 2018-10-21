@@ -18,12 +18,12 @@ namespace HotelSimulatie
             InitializeComponent();
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
             openFileDialog.FileName = "Hotel.layout";
             openFileDialog.Filter = "Hotel Layout|*.layout";
@@ -31,21 +31,16 @@ namespace HotelSimulatie
 
             if (layoutFile == DialogResult.OK)
             {
-                SettingsGroup.Visible = true;
+                Settings configSettings = new Settings();
+                SimulationForm form = new SimulationForm(openFileDialog.FileName, configSettings);
+                form.Show();
+                this.Hide();
             }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void StartSimulation_Click(object sender, EventArgs e)
-        {
-            Settings configSettings = new Settings() { HTEFactor = (int)HTEFactor.Value, StairCase = (int)StaircaseTime.Value };
-            SimulationForm form = new SimulationForm(openFileDialog.FileName, configSettings);
-            form.Show();
-            this.Hide();
         }
     }
 }

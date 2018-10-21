@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReceptionScreen));
             this.SettingsGroup = new System.Windows.Forms.GroupBox();
             this.ZoomLevel = new System.Windows.Forms.ComboBox();
             this.ZoomLevelsLabel = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@
             this.StairTimeLabel = new System.Windows.Forms.Label();
             this.CleaningTimeLabel = new System.Windows.Forms.Label();
             this.FacilityGroup = new System.Windows.Forms.GroupBox();
-            this.RoomViewButton = new System.Windows.Forms.Button();
             this.RoomsBox = new System.Windows.Forms.ComboBox();
             this.RoomsLabel = new System.Windows.Forms.Label();
             this.CinemaEditButton = new System.Windows.Forms.Button();
@@ -176,7 +176,7 @@
             // 
             this.TimeBeforeDeath.Location = new System.Drawing.Point(9, 116);
             this.TimeBeforeDeath.Maximum = new decimal(new int[] {
-            20,
+            40,
             0,
             0,
             0});
@@ -267,7 +267,6 @@
             // 
             // FacilityGroup
             // 
-            this.FacilityGroup.Controls.Add(this.RoomViewButton);
             this.FacilityGroup.Controls.Add(this.RoomsBox);
             this.FacilityGroup.Controls.Add(this.RoomsLabel);
             this.FacilityGroup.Controls.Add(this.CinemaEditButton);
@@ -278,20 +277,10 @@
             this.FacilityGroup.Controls.Add(this.RestaurantLabel);
             this.FacilityGroup.Location = new System.Drawing.Point(323, 13);
             this.FacilityGroup.Name = "FacilityGroup";
-            this.FacilityGroup.Size = new System.Drawing.Size(190, 227);
+            this.FacilityGroup.Size = new System.Drawing.Size(190, 198);
             this.FacilityGroup.TabIndex = 4;
             this.FacilityGroup.TabStop = false;
             this.FacilityGroup.Text = "Facilities";
-            // 
-            // RoomViewButton
-            // 
-            this.RoomViewButton.Location = new System.Drawing.Point(10, 195);
-            this.RoomViewButton.Name = "RoomViewButton";
-            this.RoomViewButton.Size = new System.Drawing.Size(174, 23);
-            this.RoomViewButton.TabIndex = 8;
-            this.RoomViewButton.Text = "View";
-            this.RoomViewButton.UseVisualStyleBackColor = true;
-            this.RoomViewButton.Click += new System.EventHandler(this.RoomViewButton_Click);
             // 
             // RoomsBox
             // 
@@ -467,7 +456,7 @@
             // 
             this.LiveStatisticsButton.Location = new System.Drawing.Point(12, 217);
             this.LiveStatisticsButton.Name = "LiveStatisticsButton";
-            this.LiveStatisticsButton.Size = new System.Drawing.Size(304, 23);
+            this.LiveStatisticsButton.Size = new System.Drawing.Size(501, 23);
             this.LiveStatisticsButton.TabIndex = 6;
             this.LiveStatisticsButton.Text = "Show Live Statistics";
             this.LiveStatisticsButton.UseVisualStyleBackColor = true;
@@ -486,6 +475,7 @@
             this.Controls.Add(this.ApplyButton);
             this.Controls.Add(this.SettingsGroup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ReceptionScreen";
@@ -530,7 +520,6 @@
         private System.Windows.Forms.Button RestaurantEditButton;
         private System.Windows.Forms.Button CinemaEditButton;
         private System.Windows.Forms.Label RoomsLabel;
-        private System.Windows.Forms.Button RoomViewButton;
         private System.Windows.Forms.ComboBox RoomsBox;
         private System.Windows.Forms.ComboBox CustomerBox;
         private System.Windows.Forms.Label CustomerLabel;

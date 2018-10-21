@@ -11,27 +11,46 @@ namespace HotelSimulatie
 {
     class Cleaner : IHuman, IMoveAble, HotelEventListener
     {
+        //ID of the Cleaner
         public int CleanerID { get; set; } = 0;
+        //All Cleaners are given a random generated name
         public string Name { get; set; }
 
+        //PositionX is a point in the grid of the simulation (together with the PositionY it makes a position for the Cleaner)
         public int PositionX { get; set; }
+        //PositionX is a point in the grid of the simulation (together with the PositionY it makes a position for the Cleaner)
         public int PositionY { get; set; }
-
+        
+        //The destination of the Cleaner
         public Node Destination { get; set; }
 
+        //Tasks the Cleaners have to do
         public Queue<CleanRoom> CleanerTasks { get; set; } = new Queue<CleanRoom>();
+        //The current task the Cleaner is assigned to 
         public CleanRoom CurrentTask { get; set; }
 
+        //Is only being used for the most important events (like EVACUATE)
+        private HotelEventType Status { get; set; } = HotelEventType.NONE;
+
+        //A boolean to see if the Cleaner must be shown of screen or not
         public bool IsVisible { get; set; } = true;
 
+        //The time a Cleaner has to wait before continuing an action
         public int WaitingTime { get; set; }
 
+        //Check if Cleaner is in the Elevator
         public bool IsInElevator { get; set; }
+        //Check if the Cleaner requested the elevator to its floor
         public bool RequestedElevator { get; set; }
 
+        //Because of different threads we need to check if the Cleaner is registered of not.
+        //If IsRegistered is true the Cleaner will be added to HotelEventManager
+        //If IsRegistered is false nothing will be done to the Cleaner
         public bool IsRegistered { get; set; } = false;
 
+        //The Route that is given to a Cleaner based on the quickest path to the destination
         public Route Path { get; set; }
+        //A sprite is given to the Cleaner based on the HumanType
         public Bitmap Sprite { get; set; } = Sprites.Maid;
 
         public void MoveToLocation(IArea CurrentLocation)
@@ -46,14 +65,25 @@ namespace HotelSimulatie
 
         public void Notify(HotelEvent Event)
         {
-            if (Event.EventType == HotelEventType.CLEANING_EMERGENCY)
+            if (Status != HotelEventType.EVACUATE)
             {
-                int[] Data = PullIntsFromString(Event.Data.Values.ToList());
-                for (int i = 0; i < GlobalStatistics.Rooms.Count; i++)
+                if (Event.EventType == HotelEventType.EVACUATE)
                 {
-                    if (GlobalStatistics.Rooms[i].ID == Data[0])
+                    CurrentTask = null;
+                    CleanerTasks.Clear();
+                    Status = HotelEventType.EVACUATE;
+                    Destination = Hotel.Reception.Node;
+                    Path = Graph.QuickestRoute(Hotel.Floors[PositionY].Areas[PositionX].Node, Destination, true, true);
+                }
+                if (Event.EventType == HotelEventType.CLEANING_EMERGENCY)
+                {
+                    int[] Data = PullIntsFromString(Event.Data.Values.ToList());
+                    for (int i = 0; i < GlobalStatistics.Rooms.Count; i++)
                     {
-                        CleanerTasks.Enqueue(new CleanRoom() { RoomToClean = GlobalStatistics.Rooms[i].Node, TimeToClean = Data[1] });
+                        if (GlobalStatistics.Rooms[i].ID == Data[0])
+                        {
+                            CleanerTasks.Enqueue(new CleanRoom() { RoomToClean = GlobalStatistics.Rooms[i].Node, TimeToClean = Data[1] });
+                        }
                     }
                 }
             }
@@ -100,12 +130,13 @@ namespace HotelSimulatie
                     if (((Room)CurrentTask.RoomToClean.Area).CleaningTime > 0)
                     {
                         ((Room)CurrentTask.RoomToClean.Area).CleaningTime--;
-                    }
-                    else if (((Room)CurrentTask.RoomToClean.Area).CleaningTime == 0)
-                    {
-                        ((Room)CurrentTask.RoomToClean.Area).IsDirty = false;
-                        IsVisible = true;
-                        CurrentTask = null;
+                        if (((Room)CurrentTask.RoomToClean.Area).CleaningTime == 0)
+                        {
+                            ((Room)CurrentTask.RoomToClean.Area).IsDirty = false;
+                            IsVisible = true;
+                            CurrentTask = null;
+                            Destination = null;
+                        }
                     }
                 }
             }

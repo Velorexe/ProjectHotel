@@ -13,6 +13,7 @@ namespace HotelSimulatie
     /// </summary>
     class GlobalEventManager : HotelEventListener
     {
+        //A list of the Events that occur
         public List<HotelEvent> EventHistory { get; set; } = new List<HotelEvent>();
 
         public GlobalEventManager()

@@ -9,17 +9,23 @@ namespace HotelSimulatie
 {
     class Elevator : IMoveAble
     {
+        //PositionX is a horizontal point in the grid of the simulation (Together with the PositionY it makes a location for the Elevator)
         public int PositionX { get; set; } = 0;
+        //PositionY is a vertical point in the grid of the simulation (Together with the PositionX it makes a location for the Elevator)
         public int PositionY { get; set; } = 0;
+        //Sprite for the Elevator
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
 
         //ELEVATOR FUNCTION
         //'U' for UP, 'D' for DOWN, 'I' for IDLE
         private ElevatorDirection Direction { get; set; } = ElevatorDirection.IDLE;
 
+        //List of the floors the Elevator has to visit when the elevator is goin up
         private List<int> Up = new List<int>();
+        //List of the floors the Elevator has to visit when the elevator is goin down
         private List<int> Down = new List<int>();
 
+        //List of Humans inside the Elevator
         public List<IHuman> InElevator = new List<IHuman>();
 
         //ELEVATOR WORKS LIKE THIS:
@@ -33,36 +39,16 @@ namespace HotelSimulatie
         {
             return (Direction, PositionY);
         }
-
-        //ELEVATOR DOESN'T WORK PROPERLY
-        //WHEN REQUESTING ELEVATOR
-        //THE ELEVATOR SHOULDN'T MOVE TO THE TARGETFLOOR
-        //WITHOUT PICKING UP THE CUSTOMER FIRST
-
-        //SOLUTION:
-        //MAKE CLASS WITH CURRENT FLOOR, TARGET FLOOR AND BOOL
-        //PUT THEM IN A LIST
-        //SORT THE LIST FOR UP AND DOWN
-        //PRIORITISE CURRENT FLOOR TO GET CUSTOMER
-        //ONLY ADD TARGET FLOOR WHEN BOOL IS TRUE
+        
         public void Move()
         {
-            if (Down.Count != 0 && Down[0] == PositionY)
-            {
-                Down.RemoveAt(0);
-            }
-            if (Up.Count != 0 && Up[0] == PositionY)
-            {
-                Up.RemoveAt(0);
-            }
-
             if(Direction == ElevatorDirection.IDLE)
             {
-                if(Up.Count != 0)
+                if(Up.Count > Down.Count)
                 {
                     Direction = ElevatorDirection.UP;
                 }
-                else if(Down.Count != 0)
+                else
                 {
                     Direction = ElevatorDirection.DOWN;
                 }
@@ -136,14 +122,13 @@ namespace HotelSimulatie
                 if (RequestFloor > PositionY)
                 {
                     Up.Add(RequestFloor);
-                    UpdateList();
                 }
                 //Goes DOWN
                 else
                 {
                     Down.Add(RequestFloor);
-                    UpdateList();
                 }
+                UpdateList();
             }
         }
 
@@ -154,6 +139,7 @@ namespace HotelSimulatie
         }
 
     }
+        //All possible Elevator Directions
         public enum ElevatorDirection
         {
             UP,
