@@ -12,7 +12,7 @@ namespace HotelSimulatie
 {
     class Cinema : IArea, HotelEventListener
     {
-        //Areas are given an ID 
+        //Areas are given an ID through the .layout file
         public int ID { get; set; }
         //Areas are given a AreaType based on what is given in the Lay-out file
         public EAreaType AreaType { get; set; } = EAreaType.Cinema;
@@ -29,9 +29,11 @@ namespace HotelSimulatie
         //Time how long a movie lasts in the Cinema
         public int MovieTime { get; set; } = 12;
         public bool MovieStarted { get; set; } = false;
+        private int MovieProgress { get; set; }
 
         //Waitingline of Customers
         public HashSet<Customer> WaitingLine { get; set; } = new HashSet<Customer>();
+        //List of Customers in the Cinema
         public HashSet<Customer> InCinema { get; set; } = new HashSet<Customer>();
 
         //Areas have different sprites based on the AreaType
@@ -60,6 +62,18 @@ namespace HotelSimulatie
             this.Height = height;
             GlobalStatistics.Cinemas.Add(this);
             HotelEventManager.Register(this);
+        }
+
+        public void Update()
+        {
+            if (MovieStarted && MovieProgress > 0)
+            {
+                MovieProgress--;
+            }
+            if(MovieStarted && MovieProgress <= 0)
+            {
+                MovieStarted = false;
+            }
         }
 
         public void Notify(HotelEvent Event)
