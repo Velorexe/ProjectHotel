@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace HotelSimulatie
 {
-    class Cleaner : IHuman, IMoveAble, HotelEventListener
+    public class Cleaner : IHuman, IMoveAble, HotelEventListener
     {
         //ID of the Cleaner
         public int CleanerID { get; set; } = 0;

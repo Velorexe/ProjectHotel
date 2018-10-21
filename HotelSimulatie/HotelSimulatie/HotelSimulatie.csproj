@@ -66,6 +66,8 @@
     <Compile Include="Enums\AreaType.cs" />
     <Compile Include="Enums\ElevatorDirection.cs" />
     <Compile Include="Enums\HumanType.cs" />
+    <Compile Include="Enums\NodeType.cs" />
+    <Compile Include="Enums\RouteType.cs" />
     <Compile Include="Interfaces\ISettingsScreen.cs" />
     <Compile Include="Interfaces\ISimulationForm.cs" />
     <Compile Include="LiveStatistics.cs">

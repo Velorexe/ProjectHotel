@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    static class RoomFactory
+    public static class RoomFactory
     {
         /// <summary>
         /// Creates an instance of the given AreaType and returns it.

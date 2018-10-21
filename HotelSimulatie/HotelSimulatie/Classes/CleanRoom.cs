@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class CleanRoom
+    public class CleanRoom
     {
         //This is a class that's only used by the Cleaner
         //It contains all the information for the Cleaner to know where to clean and how long it will take

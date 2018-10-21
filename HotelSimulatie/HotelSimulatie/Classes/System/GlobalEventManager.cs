@@ -12,7 +12,7 @@ namespace HotelSimulatie
     /// <summary>
     /// We can use GlobalEventManager to perform Events that are Global, not for Individuals
     /// </summary>
-    class GlobalEventManager : HotelEventListener
+    public class GlobalEventManager : HotelEventListener
     {
         //The GlobalEventManager was an idea to catch all the HotelEvents and place them in a List
         //Since the Application is Multi Threaded, all the Event's will still play in the background

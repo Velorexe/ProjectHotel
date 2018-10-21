@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    static class Graph
+    public static class Graph
     {
         //The starting Node of a Graph
         static Node StartNode { get; set; }
