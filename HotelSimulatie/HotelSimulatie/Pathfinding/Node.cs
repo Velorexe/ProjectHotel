@@ -25,6 +25,8 @@ namespace HotelSimulatie
         //The Node below a Node that is getting checked
         public Node LowerNode { get; set; }
 
+        //Nodes are explained in the Documentation Document (In the References Folder titled "Project Hotel - Documentatie.docx")
+
         public Node FillBottomNode(IArea Area, Node ConnectedNode, Node UpperNode, bool IsStairs)
         {
             this.Area = Area;
@@ -32,13 +34,13 @@ namespace HotelSimulatie
 
             if (IsStairs)
             {
-                this.LeftNode = ConnectedNode;
-                this.NodeType = ENodeType.Staircase;
+                LeftNode = ConnectedNode;
+                NodeType = ENodeType.Staircase;
             }
             else
             {
-                this.RightNode = ConnectedNode;
-                this.NodeType = ENodeType.Elevatorshaft;
+                RightNode = ConnectedNode;
+                NodeType = ENodeType.Elevatorshaft;
             }
             return this;
         }
@@ -50,13 +52,13 @@ namespace HotelSimulatie
 
             if (IsStairs)
             {
-                this.LeftNode = RightNode;
-                this.NodeType = ENodeType.Staircase;
+                LeftNode = ConnectedNode;
+                NodeType = ENodeType.Staircase;
             }
             else
             {
-                this.RightNode = ConnectedNode;
-                this.NodeType = ENodeType.Elevatorshaft;
+                RightNode = ConnectedNode;
+                NodeType = ENodeType.Elevatorshaft;
             }
             return this;
         }
@@ -69,13 +71,13 @@ namespace HotelSimulatie
 
             if (IsStairs)
             {
-                this.LeftNode = ConnectedNode;
-                this.NodeType = ENodeType.Staircase;
+                LeftNode = ConnectedNode;
+                NodeType = ENodeType.Staircase;
             }
             else
             {
-                this.RightNode = ConnectedNode;
-                this.NodeType = ENodeType.Elevatorshaft;
+                RightNode = ConnectedNode;
+                NodeType = ENodeType.Elevatorshaft;
             }
             return this;
         }
@@ -85,16 +87,8 @@ namespace HotelSimulatie
             this.Area = Area;
             this.RightNode = RightNode;
             this.LeftNode = LeftNode;
-            this.NodeType = ENodeType.Room;
+            NodeType = ENodeType.Room;
             return this;
         }
-    }
-
-    //All possible Node Types
-    public enum ENodeType
-    {
-        Staircase,
-        Elevatorshaft,
-        Room
     }
 }

@@ -11,23 +11,27 @@ namespace HotelSimulatie
     {
         //Areas are given an ID 
         public int ID { get; set; }
-        //Areas are given a AreaType based on what is given in the Lay-out file
+        //This AreaType is given through the ImportLayout class, since it's not given through the .layout file
         public EAreaType AreaType { get; set; } = EAreaType.ElevatorShaft;
+
         //Height of the Area
         public int Height { get; set; } = 1;
         //Width of the Area
         public int Width { get; set; } = 1;
+
         //PositionX is a horizontal point in the grid of the simulation (Together with the PositionY it makes a location for the Area)
         public int PositionX { get; set; }
         //PositionY is a vertical point in the grid of the simulation (Together with the PositionX it makes a location for the Area)
         public int PositionY { get; set; }
+
         //Areas have different sprites based on the AreaType
         public Bitmap Sprite { get; set; } = Sprites.Elevator_Shaft;
+
         //Node given to the Area
         public Node Node { get; set; }
 
         /// <summary>
-        /// Creation of an Area
+        /// Creates an instance of ElevatorShaft with the given Parameters
         /// </summary>
         /// <param name="ID">ID of the Area</param>
         /// <param name="areaType">Type of Area</param>

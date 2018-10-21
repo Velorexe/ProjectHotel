@@ -11,13 +11,13 @@ namespace UnitTestHotel
         [TestMethod]
         public void TestIfEditScreenIsWorking()
         {
-            //arrange         
+            //arrange
             SimulationForm SimulationFormTest;
             string path;
             Settings SettingsTest;
             EditScreen EditScreenTest;
 
-            //act     
+            //act
             SettingsTest = new Settings();
             path = (Directory.GetCurrentDirectory() + @"..\..\..\HotelTestLayout.layout");
             SimulationFormTest = new SimulationForm(path, SettingsTest);

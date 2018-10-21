@@ -63,6 +63,9 @@
       <DependentUpon>EditScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\System\GlobalStatistics.cs" />
+    <Compile Include="Enums\AreaType.cs" />
+    <Compile Include="Enums\ElevatorDirection.cs" />
+    <Compile Include="Enums\HumanType.cs" />
     <Compile Include="Interfaces\ISettingsScreen.cs" />
     <Compile Include="Interfaces\ISimulationForm.cs" />
     <Compile Include="LiveStatistics.cs">

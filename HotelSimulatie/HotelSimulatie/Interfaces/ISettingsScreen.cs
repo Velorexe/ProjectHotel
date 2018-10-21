@@ -11,11 +11,11 @@ namespace HotelSimulatie
     public interface ISettingsScreen
     {
         /// <summary>
-        /// 
+        /// Applies the given edits to the AreaType
         /// </summary>
-        /// <param name="areaType"></param>
-        /// <param name="Value"></param>
-        /// <param name="IsClosing"></param>
+        /// <param name="areaType">The AreaType that the settings need to apply too</param>
+        /// <param name="Value">The new Value for the Parameter</param>
+        /// <param name="IsClosing">If the ISettingsScreen is Closing then the eddits shouldn't be applied</param>
         void ApplyEdits(EAreaType areaType, int Value, bool IsClosing);
     }
 }

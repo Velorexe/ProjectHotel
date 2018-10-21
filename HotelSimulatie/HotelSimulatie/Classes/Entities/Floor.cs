@@ -10,7 +10,7 @@ namespace HotelSimulatie
     {
         //Int of the Floor level
         public int FloorLevel { get; set; }
-        //The amount of Areas a Floor has
+        //The amount of Areas a Floor has (how many spaces in X it has)
         public IArea[] Areas { get; set; }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace HotelSimulatie
         public Floor(int FloorLevel, int MaxWidth)
         {
             this.FloorLevel = FloorLevel;
-            this.Areas = new IArea[MaxWidth];
+            Areas = new IArea[MaxWidth];
         }
     }
 }

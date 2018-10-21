@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    class Room : IArea
+    public class Room : IArea
     {
         //Areas are given an ID 
         public int ID { get; set; }
@@ -19,11 +19,13 @@ namespace HotelSimulatie
         public int PositionX { get; set; }
         //PositionY is a vertical point in the grid of the simulation (Together with the PositionX it makes a location for the Area)
         public int PositionY { get; set; }
+
         //Width of the Area
         public int Width { get; set; }
         //Height of the Area
         public int Height { get; set; }
-        //How many Humans can be in the Area at the same time
+
+        //Is unnecesairy, but is helpful if multiple people can fit in the same room
         public int Capacity { get; set; } = 1;
 
         //If a room is dirty or not
@@ -33,15 +35,17 @@ namespace HotelSimulatie
 
         //The assigned Customer to the Room
         public Customer RoomOwner { get; set; }
+
         //Areas have different sprites based on the AreaType
         public Bitmap Sprite { get; set; } = Sprites.RoomDoor;
         //Sprite if the room is occupied by a Customer
         public Bitmap Occupied { get; set; } = Sprites.Occupied;
+
         //Node given to the Area
         public Node Node { get; set; }
 
         /// <summary>
-        /// 
+        /// Tasks a Cleaner to clean this room. IsDirty boolean will be true for as long as the cleaning lasts.
         /// </summary>
         public void Dirty()
         {
@@ -62,7 +66,7 @@ namespace HotelSimulatie
         }
 
         /// <summary>
-        /// Creation of an Area
+        /// Creates an instance of Room with the given Parameters
         /// </summary>
         /// <param name="ID">ID of the Area</param>
         /// <param name="areaType">Type of Area</param>
@@ -75,12 +79,16 @@ namespace HotelSimulatie
         public void Create(int ID, EAreaType areaType, int capacity, int classification, int positionX, int positionY, int width, int height)
         {
             this.ID = ID;
-            this.AreaType = areaType;
-            this.Classification = classification;
-            this.PositionX = positionX;
-            this.PositionY = positionY;
-            this.Width = width;
-            this.Height = height;
+            AreaType = areaType;
+
+            Classification = classification;
+
+            PositionX = positionX;
+            PositionY = positionY;
+
+            Width = width;
+            Height = height;
+
             GlobalStatistics.Rooms.Add(this);
         }
     }

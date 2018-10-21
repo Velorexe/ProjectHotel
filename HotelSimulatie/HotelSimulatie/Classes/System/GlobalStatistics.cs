@@ -8,6 +8,11 @@ namespace HotelSimulatie
 {
     static class GlobalStatistics
     {
+        //The idea behind the GlobalStatistics was to save all the Customers, Cleaners, Rooms and Facilities into one static place
+        //So they can be used everywhere in the Application
+        //That way we can loop through all the Rooms to assign the right Room to the Customer, etc.
+        //And we can assign them as a DataSource for the ReceptionScreen DropDown boxes.
+
         //A list of Customers in the Simulation
         public static List<Customer> Customers = new List<Customer>();
         //A list of Cleaners in the Simulation

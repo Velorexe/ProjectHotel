@@ -17,6 +17,12 @@ namespace HotelSimulatie
 
         public int Value { get; set; }
 
+        /// <summary>
+        /// Creates a new EditScreen and set the Variables to the given Parameters (also fills the boxes with the give Parameters)
+        /// </summary>
+        /// <param name="AreaType">The AreaType that needs to be edited</param>
+        /// <param name="Area">The Area that needs to be edited</param>
+        /// <param name="Form">The ISettingsScreen form to apply eddits too</param>
         public EditScreen(EAreaType AreaType, IArea Area, ISettingsScreen Form)
         {
             InitializeComponent();
@@ -52,6 +58,11 @@ namespace HotelSimulatie
             Show();
         }
 
+        /// <summary>
+        /// Apply's the Settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApplyButton_Click(object sender, EventArgs e)
         {
             if(AreaType == EAreaType.Cinema)

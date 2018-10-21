@@ -16,8 +16,9 @@ namespace HotelSimulatie
         //Sprite for the Elevator
         public Bitmap Sprite { get; set; } = Sprites.Elevator;
 
-        //ELEVATOR FUNCTION
-        //'U' for UP, 'D' for DOWN, 'I' for IDLE
+        //Elevator Direction
+        //ElevatorDirection Enum contains UP, DOWN and IDLE
+        //Is set to IDLE on creation
         private ElevatorDirection Direction { get; set; } = ElevatorDirection.IDLE;
 
         //List of the floors the Elevator has to visit when the elevator is goin up
@@ -25,14 +26,17 @@ namespace HotelSimulatie
         //List of the floors the Elevator has to visit when the elevator is goin down
         private List<int> Down = new List<int>();
 
-        //List of Humans inside the Elevator
+        //List of IHumans inside the Elevator
+        //Used to update all the IHuman's position everytime the Elevator moves
         public List<IHuman> InElevator = new List<IHuman>();
 
-        //ELEVATOR WORKS LIKE THIS:
-        /// <image url="C:\Users\dvddv\Desktop\ProjectHotel\References\Elevator.png" scale="1"/>
+        //There's an image in the References folder that shows how to Elevator looks to the customer
+        //It's called Elevator.PNG
+
+        //For more information about the Elevator, see the References folder and go to the ProjectHotel - Documentatie.docx
 
         /// <summary>
-        /// Get the info from the elevator (Direction and Floor).
+        /// Gets the info from the elevator (Direction and Floor).
         /// </summary>
         /// <returns>The direction (char) that the elevator is going too and the floor (int) that the elevator is currently on.</returns>
         public (ElevatorDirection, int) GetElevatorInfo()
@@ -40,8 +44,14 @@ namespace HotelSimulatie
             return (Direction, PositionY);
         }
         
+        /// <summary>
+        /// Moves the Elevator based on it's own data.
+        /// </summary>
         public void Move()
         {
+            #region IDLE
+            //If the Direction is IDLE, and there is data inside the UP and DOWN List
+            //Then the Elevator needs to change it's Direction depending on what List is bigger (more requests = more important).
             if(Direction == ElevatorDirection.IDLE)
             {
                 if(Up.Count > Down.Count)
@@ -53,18 +63,22 @@ namespace HotelSimulatie
                     Direction = ElevatorDirection.DOWN;
                 }
             }
+            #endregion
 
             if (Up.Count != 0 || Down.Count != 0)
             {
+                #region UP
                 if (Direction == ElevatorDirection.UP)
                 {
+                    //Changes Direction if the UP List is empty, but the DOWN List isn't
                     if (Up.Count == 0 && Down.Count != 0)
                     {
-                        this.Direction = ElevatorDirection.DOWN;
+                        Direction = ElevatorDirection.DOWN;
                         Move();
                     }
                     else
                     {
+                        //Goes one Y position up
                         PositionY++;
                         for (int i = 0; i < Up.Count; i++)
                         {
@@ -76,15 +90,19 @@ namespace HotelSimulatie
                         }
                     }
                 }
+                #endregion
+                #region DOWN
                 else if (Direction == ElevatorDirection.DOWN)
                 {
+                    //Changes Direction if the DOWN List is empty, but the UP List isn't
                     if (Up.Count != 0 && Down.Count == 0)
                     {
-                        this.Direction = ElevatorDirection.UP;
+                        Direction = ElevatorDirection.UP;
                         Move();
                     }
                     else
                     {
+                        //Goes one Y position down
                         PositionY--;
                         for (int i = 0; i < Down.Count; i++)
                         {
@@ -96,6 +114,9 @@ namespace HotelSimulatie
                         }
                     }
                 }
+                #endregion
+
+                //Moves all the IHuman's that are in the Elevator and updates all their position to the Elevator's
                 foreach (IHuman human in InElevator)
                 {
                     human.PositionX = PositionX;
@@ -103,6 +124,7 @@ namespace HotelSimulatie
                 }
             }
 
+            //Sets itself to IDLE if the the UP- and DOWN.Count are 0 (meaning the Elevator has nothing to do)
             if (Up.Count == 0 && Down.Count == 0)
             {
                 Direction = ElevatorDirection.IDLE;
@@ -110,12 +132,12 @@ namespace HotelSimulatie
         }
 
         /// <summary>
-        /// Request the elevator to your position
+        /// Request the elevator to the given Floor (int).
         /// </summary>
         /// <param name="Floor">The Floor that the customer needs to move too</param>
         public void RequestElevator(int RequestFloor)
         {
-            //Extra Check
+            //Extra Check to see if the Request is within the boundaries of the Hotel
             if (RequestFloor <= Hotel.Floors.Length - 1 && RequestFloor >= 0)
             {
                 //Goes UP
@@ -128,22 +150,18 @@ namespace HotelSimulatie
                 {
                     Down.Add(RequestFloor);
                 }
+                //Updates the Lists
                 UpdateList();
             }
         }
 
+        /// <summary>
+        /// Updates the UP and DOWN List with LinQ
+        /// </summary>
         private void UpdateList()
         {
             Up = Up.Distinct().OrderBy(x => x).ToList();
             Down = Down.Distinct().OrderByDescending(x => x).ToList();
         }
-
     }
-        //All possible Elevator Directions
-        public enum ElevatorDirection
-        {
-            UP,
-            DOWN,
-            IDLE
-        }
 }
