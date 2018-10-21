@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    static class Graph
+    public static class Graph
     {
         //The starting Node of a Graph
         static Node StartNode { get; set; }
         //An array with all the Nodes in the Simulation
         private static Node[,] HotelNodes { get; set; }
 
+        //The documentation for this is given in the Documentation Document (in the References Folder titled "Project Hotel - Documentatie.docx")
+
+        /// <summary>
+        /// Creates a Graph with the information from the Hotel
+        /// </summary>
         public static void CreateGraph()
         {
             Node[,] hotelNodes = new Node[Hotel.Floors.Length, Hotel.Floors[0].Areas.Length];
@@ -93,6 +98,11 @@ namespace HotelSimulatie
             }
         }
 
+        /// <summary>
+        /// Searches the Node with the given Area
+        /// </summary>
+        /// <param name="Area">The Node Area that needs to be found</param>
+        /// <returns>The Node with the given Area (Node)</returns>
         public static Node SearchNode(IArea Area)
         {
             for (int i = 0; i < HotelNodes.GetLength(0); i++)
@@ -108,6 +118,14 @@ namespace HotelSimulatie
             return null;
         }
 
+        /// <summary>
+        /// Returns the quickest route from Node A to Node B
+        /// </summary>
+        /// <param name="StartingNode">A</param>
+        /// <param name="EndNode">B</param>
+        /// <param name="ElevatorEnabled">Returns a Route with the Elevator in mind</param>
+        /// <param name="StaircaseEnabled">Returns a Route with the Staircase in mind</param>
+        /// <returns>The quickest route (Route)</returns>
         public static Route QuickestRoute(Node StartingNode, Node EndNode, bool ElevatorEnabled, bool StaircaseEnabled)
         {
             Route Route = new Route();
@@ -235,6 +253,12 @@ namespace HotelSimulatie
             return null;
         }
 
+        /// <summary>
+        /// Searches the nearest facility with the given AreaType from the given Node
+        /// </summary>
+        /// <param name="StartingNode">The given Node</param>
+        /// <param name="AreaType">The AreaType of the Node</param>
+        /// <returns>The nearest facility (Node)</returns>
         public static Node NearestFacility(Node StartingNode, EAreaType AreaType)
         {
             Node CurrentNode = StartingNode;
@@ -277,7 +301,12 @@ namespace HotelSimulatie
             return ShortestNode;
         }
 
-
+        /// <summary>
+        /// Returns a Route with only the Elevator in mind from Node A to Node B
+        /// </summary>
+        /// <param name="StartingNode">Node A</param>
+        /// <param name="EndNode">Node B</param>
+        /// <returns>An Elevator Route (Route)</returns>
         public static Route GetElevatorRoute(Node StartingNode, Node EndNode)
         {
             Route returnPath = new Route();

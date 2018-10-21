@@ -67,7 +67,9 @@ namespace HotelSimulatie
 
         }
 
-
+        /// <summary>
+        /// Draws the Background for the Hotel (Rooms, Facilities, etc.)
+        /// </summary>
         private void DrawBackground()
         {
             using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
@@ -88,6 +90,10 @@ namespace HotelSimulatie
             DrawFacilities();
             BackgroundLayer.Image = _BackgroundBuffer;
         }
+
+        /// <summary>
+        /// Draws the Foreground of the Hotel (Customers, Cleaners, Elevators, etc.)
+        /// </summary>
         private void DrawForeground()
         {
             _ForegroundBuffer.Dispose();
@@ -129,7 +135,9 @@ namespace HotelSimulatie
             }
         }
 
-
+        /// <summary>
+        /// Draws the Background with the facilitie's correct Dimensions
+        /// </summary>
         private void DrawFacilities()
         {
             using (Graphics g = Graphics.FromImage(_BackgroundBuffer))
@@ -153,6 +161,11 @@ namespace HotelSimulatie
             }
         }
 
+        /// <summary>
+        /// Updates all the movements for Customers, Elevator, Cleaners, etc.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TimerHTE_Tick(object sender, EventArgs e)
         {
             Hotel.Elevator.Move();
@@ -174,6 +187,11 @@ namespace HotelSimulatie
             DrawForeground();
         }
 
+        /// <summary>
+        /// Checks to see if the ReceptionScreen should be shown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackgroundLayer_MouseClick(object sender, MouseEventArgs e)
         {
             if(/*X CHECK*/(e.X >= 1 * 60  * Hotel.Settings.ZoomLevel && e.X <= 2 * 60 * Hotel.Settings.ZoomLevel) && /*Y CHECK*/(e.Y >= (Hotel.Floors.Length - 1) * 55 * Hotel.Settings.ZoomLevel && e.Y <= Hotel.Floors.Length * 55 * Hotel.Settings.ZoomLevel))
@@ -182,6 +200,10 @@ namespace HotelSimulatie
             }
         }
 
+        /// <summary>
+        /// Pauses the Simulation and the HotelEventManager
+        /// </summary>
+        /// <param name="IsClosing"></param>
         public void PauseSimulation(bool IsClosing)
         {
             HotelEvents.HotelEventManager.Pauze();
@@ -202,6 +224,10 @@ namespace HotelSimulatie
             }
         }
 
+        /// <summary>
+        /// Applies the Settings to the Hotel Settings
+        /// </summary>
+        /// <param name="settings"></param>
         public void ApplySettings(Settings settings)
         {
             Hotel.Settings = settings;
@@ -215,6 +241,10 @@ namespace HotelSimulatie
             Application.Exit();
         }
 
+        /// <summary>
+        /// Zooms the BackgroundLayer Picturebox to the given size
+        /// </summary>
+        /// <param name="ZoomLevel"></param>
         private void Zoom(double ZoomLevel)
         {
             if(ZoomLevel == 1.0)
@@ -243,6 +273,10 @@ namespace HotelSimulatie
             }
         }
 
+        /// <summary>
+        /// Highlights all Facilities that are selected on the ReceptionScreen
+        /// </summary>
+        /// <param name="areas"></param>
         public void HighlightFacility(IArea[] areas)
         {
             DrawBackground();

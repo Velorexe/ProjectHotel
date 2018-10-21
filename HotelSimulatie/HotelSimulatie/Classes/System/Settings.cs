@@ -8,6 +8,9 @@ namespace HotelSimulatie
 {
     public class Settings
     {
+        //We wanted to create one general class that can be used to save all the Settings for the Simulation
+        //Since the static Hotel Class has a Settings variable, the Settings can be used everywhere in the Application
+
         //The Zoom-level of the Simulation
         public double ZoomLevel { get; set; } = 1;
         //Speed of the Simulation

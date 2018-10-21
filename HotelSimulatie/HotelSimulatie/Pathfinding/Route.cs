@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelSimulatie
 {
-    class Route
+    public class Route
     {
         //Route Type
         public ERouteType RouteType { get; set; } = ERouteType.Undefined;
@@ -24,15 +24,5 @@ namespace HotelSimulatie
         public Queue<Node> Path { get; set; } = new Queue<Node>();
         //The lenght of the path between the Human and the destination of the Human if the Stairs are being used
         public int PathLength { get; set; }
-    }
-
-    //All the possible RouteTypes
-    public enum ERouteType
-    {
-        Stairs,
-        Elevator,
-        ToElevator,
-        FromElevator,
-        Undefined
     }
 }

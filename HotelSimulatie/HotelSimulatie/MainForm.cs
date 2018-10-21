@@ -13,9 +13,11 @@ namespace HotelSimulatie
 {
     public partial class MainForm : Form
     {
+        
+
         public MainForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         private void ExitButton_Click(object sender, EventArgs e)

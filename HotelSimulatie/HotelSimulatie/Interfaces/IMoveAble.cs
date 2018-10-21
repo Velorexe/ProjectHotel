@@ -9,7 +9,7 @@ namespace HotelSimulatie
     interface IMoveAble
     {
         /// <summary>
-        /// 
+        /// Move's the instance that the IMoveAble Interface is given too
         /// </summary>
         void Move();
     }

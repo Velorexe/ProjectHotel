@@ -21,6 +21,9 @@ namespace HotelSimulatie
             this.Form = Form;
         }
 
+        /// <summary>
+        /// Updates the Statistics TextBoxes with the current information
+        /// </summary>
         public void UpdateStatistics()
         {
             Customers.Clear();
@@ -71,7 +74,7 @@ namespace HotelSimulatie
             }
             foreach(Fitness c in GlobalStatistics.FitnessCenters)
             {
-                Facilities.AppendText($"ID: {c.ID} \t {c.Capacity}\n");
+                Facilities.AppendText($"ID: {c.ID}\n");
             }
         }
 

@@ -27,7 +27,7 @@ namespace HotelSimulatie
         Node Node { get; set; }
 
         /// <summary>
-        /// Creation of an Area
+        /// Creates an instance of IArea with the given Parameters
         /// </summary>
         /// <param name="ID">ID of the Area</param>
         /// <param name="areaType">Type of Area</param>
@@ -38,19 +38,5 @@ namespace HotelSimulatie
         /// <param name="width">The width of the Area</param>
         /// <param name="height">The height of the Area</param>
         void Create(int ID, EAreaType areaType, int capacity , int classification, int positionX, int positionY, int width, int height);
-    }
-
-    //All possible AreaTypes
-    public enum EAreaType
-    {
-        Cinema,
-        Restaurant,
-        Fitness,
-        Reception,
-        Room,
-        Staircase,
-        ElevatorShaft,
-        Hallway,
-        Elevator
     }
 }

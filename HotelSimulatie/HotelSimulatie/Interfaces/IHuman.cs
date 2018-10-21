@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace HotelSimulatie
 {
-    interface IHuman
+    public interface IHuman
     {
         //All Humans are given a random generated name 
         string Name { get; set; }
@@ -30,16 +30,10 @@ namespace HotelSimulatie
         bool IsRegistered { get; set; }
 
         /// <summary>
-        /// Creation of a Human
+        /// Creates a instance of IHuman
         /// </summary>
-        /// <param name="Name">Name of the Customer</param>
-        /// <returns></returns>
+        /// <param name="Name">Name of the IHuman</param>
+        /// <returns>IHuman</returns>
         IHuman Create(string Name);
-    }
-    //All the possible HumanTypes
-    public enum EHumanType
-    {
-        Cleaner,
-        Customer
     }
 }
